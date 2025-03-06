@@ -11,14 +11,14 @@
             background-image: url('../resources/image.webp');
             background-size: auto;
             background-position: center;
+
         }
         .title{
             color: darkorange;
             background-color: white;
-            border-bottom-right-radius: 0.5em;
+            border-bottom-right-radius: 2em;
             border-top-left-radius: 2em;
         }
-
     </style>
 </head>
 <body class="text-white">
@@ -38,15 +38,37 @@
         <li><a href="schedule.html" class="hover:underline">Schedule</a></li>
     </ul>
 </nav>
-<div class="container mx-auto py-10">
-    <h1 class="text-4xl font-bold text-center mb-8">
-        <span class="title">Meet the Organizer</span>
+<div class="container mx-auto py-10 px-4">
+    <h1 class="text-4xl font-bold text-center mb-10">
+        <span class="title">Event Schedule</span>
     </h1>
-    <div class="flex flex-col items-center bg-gray-800 bg-opacity-80 p-6 rounded-lg max-w-2xl mx-auto">
-        <img src="../resources/organizer.png" alt="Organizer" class="w-48 h-48 rounded-full object-cover mb-4">
-        <h2 class="text-2xl font-semibold">포승이 ... ㅋㅋㅋ</h2>
-        <p class="text-sm text-gray-300 mt-2">Founder & Lead Organizer</p>
-        <p class="text-center mt-4">Alex is a passionate swing dancer with over a decade of experience. They have organized numerous dance events worldwide and are excited to bring the joy of swing to everyone.</p>
+    <div class="bg-gray-800 bg-opacity-80 p-6 rounded-lg max-w-2xl mx-auto">
+        <table class="w-full text-left border-collapse">
+            <thead>
+            <tr class="bg-gray-700">
+                <th class="p-3 border-b">날짜</th>
+                <th class="p-3 border-b">시간</th>
+                <th class="p-3 border-b">이벤트</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="p-3 border-b">몇월 몇일</td>
+                <td class="p-3 border-b">PM 6:00 - PM 7:00</td>
+                <td class="p-3 border-b">Welcome Dance</td>
+            </tr>
+            <tr>
+                <td class="p-3 border-b">몇월 몇일</td>
+                <td class="p-3 border-b">PM 7:00 - PM 8:00</td>
+                <td class="p-3 border-b">Swing Dance Workshop</td>
+            </tr>
+            <tr>
+                <td class="p-3 border-b">몇월 몇일</td>
+                <td class="p-3 border-b">PM 8:00 - PM 12:00</td>
+                <td class="p-3 border-b">Live Band Party</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

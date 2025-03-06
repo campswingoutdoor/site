@@ -11,7 +11,12 @@
             background-image: url('../resources/image.webp');
             background-size: auto;
             background-position: center;
-
+        }
+        .title{
+            color: darkorange;
+            background-color: white;
+            border-bottom-right-radius: 0.4em;
+            border-top-left-radius: 0.4em;
         }
     </style>
 </head>
@@ -21,7 +26,7 @@
         <li><a href="../index.html" class="hover:underline">Home</a></li>
         <li class="relative group">
             <a href="#" class="hover:underline">People</a>
-            <ul class="absolute hidden group-hover:block bg-gray-800 text-white mt-2 py-2 px-4">
+            <ul class="absolute hidden group-hover:block bg-gray-800 text-white  py-2 px-4">
                 <li><a href="organizer.html" class="block hover:underline">Organizer</a></li>
                 <li><a href="staff.html" class="block hover:underline">Staff</a></li>
                 <li><a href="band.html" class="hover:underline">Band</a></li>
@@ -33,7 +38,9 @@
     </ul>
 </nav>
 <div class="container mx-auto py-10">
-    <h1 class="text-4xl font-bold text-center mb-8">Meet Our Staff</h1>
+    <h1 class="text-4xl font-bold text-center mb-10">
+        <span class="title">Staff</span>
+    </h1>
     <div class="grid md:grid-cols-2 gap-8 px-4">
         <div class="flex items-center space-x-4 bg-gray-800 bg-opacity-80 p-4 rounded-lg">
             <img src="../resources/staff_1.webp" alt="Staff Member" class="w-32 h-32 rounded-full object-cover">
