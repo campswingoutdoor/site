@@ -8,45 +8,85 @@
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=r7ni3sh6wn"></script>
     <style>
         body {
-            /*background-image: url('https://source.unsplash.com/1600x900/?autumn,fall');*/
             background-image: url('../resources/image.webp');
             background-size: auto;
             background-position: center;
-
-        }
-        #map {
-            position: relative !important;
-            background: transparent !important;
-            height: 500px !important; /* 높이를 명확하게 설정 */
-
         }
 
-        #map > div {
-            position: relative !important;
+        @media (max-width: 639px) {
+            body {
+                /*background-color: darksalmon;
+                background-size: 100%;
+                background-repeat: no-repeat;*/
+                background-size: contain;
+            }
         }
+
         .title{
             color: darkorange;
             background-color: white;
-            border-bottom-right-radius: 0.5em;
-            border-top-left-radius: 0.5em;
+            border-bottom-right-radius: 0.4em;
+            border-top-left-radius: 0.4em;
         }
+        /* 기존 PC용 드롭다운 메뉴 */
+        @media (min-width: 640px) {
+            .dropdown-menu {
+                display: none;
+                position: absolute;
+                left: 0;
+                background-color: rgba(31, 41, 55, 0.9);
+                width: 150px;
+                z-index: 10;
+            }
+            .dropdown:hover .dropdown-menu, .dropdown:focus-within .dropdown-menu {
+                display: block;
+            }
+            #closeMenu {
+                display: none;
+            }
+        }
+
+        /* 모바일에서 슬라이드 메뉴 스타일 */
+        @media (max-width: 639px) {
+            .dropdown-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                height: 100vh;
+                background-color: rgba(31, 41, 55, 0.95);
+                transition: right 0.3s ease-in-out;
+                padding-top: 60px;
+            }
+            #closeMenu {
+                display: block;
+            }
+            .dropdown-menu.active {
+                right: 0;
+            }
+        }
+
     </style>
 </head>
 <body class="text-white">
 <nav class="bg-gray-900 bg-opacity-80 p-4">
-    <ul class="flex justify-center space-x-6">
-        <li><a href="../index.html" class="hover:underline">Home</a></li>
-        <li class="relative group">
-            <a href="#" class="hover:underline">People</a>
-            <ul class="absolute hidden group-hover:block bg-gray-800 text-white py-2 px-4">
-                <li><a href="organizer.html" class="block hover:underline">Organizer</a></li>
-                <li><a href="staff.html" class="block hover:underline">Staff</a></li>
-                <li><a href="band.html" class="hover:underline">Band</a></li>
+    <ul class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-6 text-center">
+        <li><a href="../index.html" class="hover:underline block">Home</a></li>
+
+        <!-- People 메뉴 (모바일에서는 클릭 시 슬라이드) -->
+        <li class="relative dropdown">
+            <button id="peopleMenu" class="hover:underline block w-full sm:w-auto">People</button>
+            <ul id="dropdownMenu" class="dropdown-menu sm:hidden sm:absolute sm:bg-gray-800 sm:text-white sm:py-2 sm:px-4">
+                <li><a href="../pages/organizer.html" class="block px-4 py-2 hover:bg-gray-700">Organizer</a></li>
+                <li><a href="../pages/staff.html" class="block px-4 py-2 hover:bg-gray-700">Staff</a></li>
+                <li><a href="../pages/band.html" class="block px-4 py-2 hover:bg-gray-700">Band & DJ</a></li>
+                <li><button id="closeMenu" class="block px-4 py-2 text-red-500 hover:bg-gray-700">Close</button></li>
             </ul>
         </li>
-        <li><a href="venues.html" class="hover:underline">Venues</a></li>
-        <li><a href="registration.html" class="hover:underline">Registration</a></li>
-        <li><a href="schedule.html" class="hover:underline">Schedule</a></li>
+
+        <li><a href="../pages/venues.html" class="hover:underline block">Venues</a></li>
+        <li><a href="../pages/registration.html" class="hover:underline block">Registration</a></li>
+        <li><a href="../pages/schedule.html" class="hover:underline block">Schedule</a></li>
     </ul>
 </nav>
 <div class="container mx-auto py-10">
@@ -64,7 +104,6 @@
 </div>
 
 <script>
-
     function initMap() {
         var location = new naver.maps.LatLng(37.5665, 126.9780); // 서울 시청 좌표 (예제)
         var map = new naver.maps.Map('map', {
@@ -84,5 +123,6 @@
     document.addEventListener("DOMContentLoaded", initMap);
 
 </script>
+<script src="../resources/app.js"></script>
 </body>
 </html>
