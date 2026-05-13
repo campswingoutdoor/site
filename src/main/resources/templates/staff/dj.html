@@ -9,18 +9,14 @@
 <body>
 <main layout:fragment="content">
 
-    <!-- Hero -->
-    <section class="relative h-64 md:h-96 bg-cover bg-center"
-             style="background-image: linear-gradient(rgba(11,20,38,0.55), rgba(11,20,38,0.85)), url('/img/dj-lineup.jpeg');">
-        <div class="absolute inset-0 flex flex-col items-center justify-center">
-            <p class="font-display tracking-[0.4em] text-gold text-xs md:text-sm mb-3">DJ LINE-UP</p>
-            <h1 class="font-display text-4xl md:text-6xl text-gold"
-                style="text-shadow: 0 0 18px rgba(201,163,91,0.4);">DJ 소개</h1>
-        </div>
-    </section>
-
     <section class="section-py">
         <div class="container-page">
+
+            <div class="text-center mb-12">
+                <p class="font-display tracking-[0.4em] text-gold text-xs md:text-sm mb-3">DJ LINE-UP</p>
+                <h1 class="font-display text-4xl md:text-6xl text-gold"
+                    style="text-shadow: 0 0 18px rgba(201,163,91,0.4);">DJ 소개</h1>
+            </div>
 
             <div th:if="${#lists.isEmpty(djs)}" class="card p-12 text-center max-w-2xl mx-auto">
                 <p class="font-display tracking-[0.4em] text-text-muted text-sm mb-3">COMING SOON</p>

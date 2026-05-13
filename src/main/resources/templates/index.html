@@ -10,9 +10,8 @@
 <main layout:fragment="content">
 
     <!-- Hero -->
-    <section class="relative min-h-[80vh] flex items-center"
-             style="background-image: linear-gradient(rgba(11,20,38,0.55), rgba(11,20,38,0.95)), url('/img/hero-main.jpeg'); background-size: cover; background-position: center;">
-        <div class="container-page text-center py-24">
+    <section class="relative">
+        <div class="container-page text-center pt-40 pb-24 bg-hero-main md:bg-hero-main bg-cover bg-center">
             <p class="font-display tracking-[0.4em] text-gold text-xs md:text-sm mb-4">CAMP SWING OUTDOOR</p>
             <h1 class="font-display text-5xl md:text-7xl text-gold mb-6"
                 style="text-shadow: 0 0 24px rgba(201,163,91,0.45);"
@@ -34,74 +33,6 @@
             <a th:href="@{/event/overview}" class="inline-block mt-10 text-gold hover:text-gold-light transition">
                 행사 자세히 보기 →
             </a>
-        </div>
-    </section>
-
-    <!-- 섹션 카드 그리드 -->
-    <section class="section-py">
-        <div class="container-page">
-            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3">EXPLORE</p>
-            <h2 class="text-center font-heading text-3xl md:text-4xl text-gold mb-12">행사 안내</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <a th:href="@{/event/overview}" class="card overflow-hidden group transition hover:border-gold/60 hover:shadow-glow">
-                    <div class="aspect-[4/3] bg-cover bg-center transition group-hover:scale-105"
-                         style="background-image: linear-gradient(rgba(11,20,38,0.0) 50%, rgba(11,20,38,0.85)), url('/img/hero-full.jpeg');"></div>
-                    <div class="p-6">
-                        <h3 class="font-heading text-xl text-gold mb-2">행사소개</h3>
-                        <p class="text-text-muted text-sm">행사 개요 · 행사장 소개 · 오시는 길</p>
-                    </div>
-                </a>
-
-                <a th:href="@{/party-pass}" class="card overflow-hidden group transition hover:border-gold/60 hover:shadow-glow">
-                    <div class="aspect-[4/3] bg-cover bg-center transition group-hover:scale-105"
-                         style="background-image: linear-gradient(rgba(11,20,38,0.0) 50%, rgba(11,20,38,0.85)), url('/img/venue-preparty.jpeg');"></div>
-                    <div class="p-6">
-                        <h3 class="font-heading text-xl text-gold mb-2">파티패스 안내·신청</h3>
-                        <p class="text-text-muted text-sm">전야제 + 메인 행사 통합 패스</p>
-                    </div>
-                </a>
-
-                <a th:href="@{/lodging}" class="card overflow-hidden group transition hover:border-gold/60 hover:shadow-glow">
-                    <div class="aspect-[4/3] bg-cover bg-center transition group-hover:scale-105"
-                         style="background-image: linear-gradient(rgba(11,20,38,0.0) 50%, rgba(11,20,38,0.85)), url('/img/venue-intro.jpeg');"></div>
-                    <div class="p-6">
-                        <h3 class="font-heading text-xl text-gold mb-2">숙박 신청</h3>
-                        <p class="text-text-muted text-sm">캠핑사이트 / 도미토리</p>
-                    </div>
-                </a>
-
-                <a th:href="@{/dj}" class="card overflow-hidden group transition hover:border-gold/60 hover:shadow-glow">
-                    <div class="aspect-[4/3] bg-cover bg-center transition group-hover:scale-105"
-                         style="background-image: linear-gradient(rgba(11,20,38,0.0) 50%, rgba(11,20,38,0.85)), url('/img/dj-lineup.jpeg');"></div>
-                    <div class="p-6">
-                        <h3 class="font-heading text-xl text-gold mb-2">DJ 소개</h3>
-                        <p class="text-text-muted text-sm">DJ CHORI · DJ ROYAL JELLY</p>
-                    </div>
-                </a>
-
-                <a th:href="@{/instructors}" class="card overflow-hidden group transition hover:border-gold/60 hover:shadow-glow">
-                    <div class="aspect-[4/3] bg-bg-card flex items-center justify-center">
-                        <span class="font-display tracking-[0.4em] text-text-muted text-sm">COMING SOON</span>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-heading text-xl text-gold mb-2">강사 소개</h3>
-                        <p class="text-text-muted text-sm">스윙 댄스 워크숍 강사 라인업</p>
-                    </div>
-                </a>
-
-                <a th:href="@{/staff}" class="card overflow-hidden group transition hover:border-gold/60 hover:shadow-glow">
-                    <div class="aspect-[4/3] bg-bg-card flex items-center justify-center">
-                        <span class="font-display tracking-[0.4em] text-text-muted text-sm">COMING SOON</span>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-heading text-xl text-gold mb-2">스태프 소개</h3>
-                        <p class="text-text-muted text-sm">행사를 만드는 사람들</p>
-                    </div>
-                </a>
-
-            </div>
         </div>
     </section>
 

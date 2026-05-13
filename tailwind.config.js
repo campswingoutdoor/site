@@ -37,8 +37,8 @@ module.exports = {
         card: '0 8px 32px rgba(0, 0, 0, 0.4)'
       },
       backgroundImage: {
-        'hero-main': "url('/img/hero-main.jpeg')",
-        'hero-full': "url('/img/hero-full.jpeg')"
+        'hero-main': "linear-gradient(rgba(11,20,38,0.55), rgba(11,20,38,0.95)), url('/img/hero-main.jpeg')",
+        'hero-full': "linear-gradient(rgba(11,20,38,0.55), rgba(11,20,38,0.95)), url('/img/hero-full.jpeg')"
       }
     }
   },
