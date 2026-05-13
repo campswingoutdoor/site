@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<footer th:fragment="footer" class="bg-bg-secondary border-t border-gold/20 py-12 mt-20">
+    <div class="container-page grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+            <p class="font-display text-gold tracking-[0.3em] text-lg">CAMP SWING OUTDOOR</p>
+            <p class="text-text-muted mt-2 text-sm font-display italic">Swing Out Under The Stars</p>
+            <p class="text-text-muted mt-4 text-xs">
+                2026.10.30 - 10.31<br />
+                상주우산오토캠핑장
+            </p>
+        </div>
+
+        <nav aria-label="footer-menu">
+            <h3 class="font-heading text-gold mb-3">메뉴</h3>
+            <ul class="text-sm text-text-muted space-y-1">
+                <li><a th:href="@{/event/overview}" class="hover:text-gold">행사 개요</a></li>
+                <li><a th:href="@{/event/venue}" class="hover:text-gold">행사장 소개</a></li>
+                <li><a th:href="@{/event/location}" class="hover:text-gold">오시는 길</a></li>
+                <li><a th:href="@{/party-pass}" class="hover:text-gold">파티패스 안내·신청</a></li>
+                <li><a th:href="@{/lodging}" class="hover:text-gold">숙박 신청</a></li>
+                <li><a th:href="@{/dj}" class="hover:text-gold">DJ 소개</a></li>
+            </ul>
+        </nav>
+
+        <div>
+            <h3 class="font-heading text-gold mb-3">문의</h3>
+            <p class="text-text-muted text-sm">이메일: contact@campswing.example</p>
+            <p class="text-text-muted text-sm">Instagram: @campswingoutdoor</p>
+        </div>
+    </div>
+    <p class="text-center text-xs text-text-muted mt-10">© 2026 Camp Swing Outdoor.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,11 @@
+spring:
+  thymeleaf:
+    cache: true
+
+server:
+  forward-headers-strategy: native
+
+logging:
+  level:
+    com.campswing: INFO
+    root: WARN

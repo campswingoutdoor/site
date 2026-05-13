@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>일시적인 오류가 발생했습니다 | Camp Swing Outdoor</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <link rel="icon" th:href="@{/favicon.ico}" />
+</head>
+<body class="bg-bg-primary text-text font-body min-h-screen flex items-center justify-center">
+    <div class="container-page text-center">
+        <p class="font-display text-gold tracking-[0.4em] mb-6">500 — SERVER ERROR</p>
+        <h1 class="font-heading text-4xl md:text-5xl text-gold mb-6">일시적인 오류가 발생했습니다</h1>
+        <p class="text-text-muted mb-10" th:text="${message} ?: '잠시 후 다시 시도해주세요.'">잠시 후 다시 시도해주세요.</p>
+        <a th:href="@{/}" class="btn-outline-gold">홈으로 돌아가기</a>
+    </div>
+</body>
+</html>

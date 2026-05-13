@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>신청 완료</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section-py">
+        <div class="container-page max-w-2xl text-center">
+            <p class="font-display text-gold tracking-[0.4em] text-xs mb-3">APPLICATION COMPLETE</p>
+            <h1 class="font-heading text-4xl md:text-5xl text-gold mb-6">신청이 접수되었습니다</h1>
+            <p class="text-text-muted mb-10">
+                <span th:text="${applicationTypeLabel}">신청</span> 신청을 정상적으로 접수했습니다.
+                아래 입금 안내에 따라 마감일까지 입금해주시면 신청이 확정됩니다.
+            </p>
+
+            <div class="card p-6 md:p-8 text-left mb-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <p class="text-xs text-text-muted mb-1">신청 종류</p>
+                        <p class="text-text" th:text="${applicationTypeLabel} + ' (' + ${applicationType} + ')'">파티패스 (PARTY_PASS)</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-text-muted mb-1">신청 ID</p>
+                        <p class="text-gold-light text-sm break-all" th:text="${applicationId}">uuid</p>
+                    </div>
+                </div>
+
+                <h2 class="font-heading text-lg text-gold mb-3">입금 안내</h2>
+                <ul class="text-sm text-text-muted space-y-1">
+                    <li>은행 / 계좌번호: 국민은행 000-000-000000</li>
+                    <li>예금주: 캠프스윙아웃도어</li>
+                    <li>입금자명: <span class="text-text">신청자 이름</span> 로 입금해주세요</li>
+                    <li>입금 마감: 행사 2주 전 (운영팀 공지에 따름)</li>
+                </ul>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a th:href="@{/}" class="btn-outline-gold">홈으로</a>
+                <a th:href="@{/apply}" class="btn-cta">다른 신청도 진행하기</a>
+            </div>
+
+            <p class="text-xs text-text-muted mt-10">
+                문의: contact@campswing.example
+            </p>
+        </div>
+    </section>
+</main>
+</body>
+</html>

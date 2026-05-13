@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>행사 개요</title>
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="section-py">
+        <div class="container-page max-w-4xl">
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3">VENUE INTRODUCTION</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12">행사 개요</h1>
+
+            <!-- 슬로건 + 컨셉 -->
+            <div class="card p-8 md:p-12 text-center mb-12">
+                <p class="font-display italic text-gold-light text-xl md:text-2xl mb-4">
+                    Swing Out Under The Stars
+                </p>
+                <p class="text-text-muted leading-relaxed">
+                    스윙댄스 · 캠핑 · 음악 · 커뮤니티가 만나는 1박 2일 야외 이벤트.<br />
+                    빛나는 조명, 따뜻한 모닥불, 그리고 별빛 아래의 스윙.
+                </p>
+            </div>
+
+            <!-- 일정·장소 박스 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <div class="card p-6">
+                    <p class="font-display text-gold tracking-widest text-sm mb-3">일정</p>
+                    <p class="text-2xl text-text mb-2">
+                        <span th:text="${#temporals.format(event.startDate, 'yyyy.MM.dd (E)')}">2026.10.30 (금)</span>
+                    </p>
+                    <p class="text-2xl text-text mb-4">
+                        <span th:text="${#temporals.format(event.endDate, 'yyyy.MM.dd (E)')}">2026.10.31 (토)</span>
+                    </p>
+                    <p class="text-text-muted text-sm">1박 2일 · 전야제 + 메인 행사</p>
+                </div>
+                <div class="card p-6">
+                    <p class="font-display text-gold tracking-widest text-sm mb-3">장소</p>
+                    <p class="text-2xl text-text mb-1" th:text="${event.mainVenue.name}">상주우산오토캠핑장</p>
+                    <p class="text-text-muted text-sm mb-4" th:text="${event.mainVenue.address}">경북 상주시 외서면 우산리 223-3</p>
+                    <p class="text-text-muted text-sm">전야제: <span class="text-text" th:text="${event.prePartyVenue.name}">느티나무 카페</span></p>
+                </div>
+            </div>
+
+            <!-- 프로그램 타임테이블 -->
+            <div class="mb-12">
+                <h2 class="font-heading text-2xl md:text-3xl text-gold mb-6 text-center">프로그램</h2>
+
+                <div class="card p-6 mb-6">
+                    <p class="font-display text-gold tracking-widest text-sm mb-4">FRIDAY · 10.30 · 전야제</p>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex gap-4">
+                            <span class="font-display text-gold-light w-20 shrink-0">19:00</span>
+                            <span class="text-text">전야제 입장 / Welcome Drink</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="font-display text-gold-light w-20 shrink-0">20:00</span>
+                            <span class="text-text">BLUES PARTY @ 느티나무 카페</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="font-display text-gold-light w-20 shrink-0">23:00</span>
+                            <span class="text-text">Late Night Session</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card p-6">
+                    <p class="font-display text-gold tracking-widest text-sm mb-4">SATURDAY · 10.31 · 메인 행사</p>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex gap-4">
+                            <span class="font-display text-gold-light w-20 shrink-0">14:00</span>
+                            <span class="text-text">캠핑사이트 체크인 / 도미토리 입실</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="font-display text-gold-light w-20 shrink-0">16:00</span>
+                            <span class="text-text">강습 워크숍 (스윙 댄스)</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="font-display text-gold-light w-20 shrink-0">18:30</span>
+                            <span class="text-text">저녁 / 캠프파이어</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="font-display text-gold-light w-20 shrink-0">20:00</span>
+                            <span class="text-text">메인 소셜 (DJ CHORI · DJ ROYAL JELLY)</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="font-display text-gold-light w-20 shrink-0">~02:00</span>
+                            <span class="text-text">Late Night Swing</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="text-text-muted text-xs text-center">* 타임테이블은 운영상 사정에 따라 일부 변경될 수 있습니다.</p>
+
+            <div class="text-center mt-12">
+                <a th:href="@{/apply}" class="btn-cta">바로 신청하기</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

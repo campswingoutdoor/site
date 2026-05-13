@@ -1,0 +1,9 @@
+spring:
+  thymeleaf:
+    cache: false
+
+logging:
+  level:
+    com.campswing: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: INFO

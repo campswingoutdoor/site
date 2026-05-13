@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>숙박 안내</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section-py">
+        <div class="container-page max-w-5xl">
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3">LODGING</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-6">숙박 안내</h1>
+            <p class="text-center text-text-muted mb-12">
+                토요일 메인 행사가 끝나면 캠핑장에서 별빛 아래 1박. 두 가지 숙박 옵션 중 선택해주세요.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <article class="card overflow-hidden flex flex-col">
+                    <div class="aspect-[4/3] bg-cover bg-center"
+                         style="background-image: linear-gradient(rgba(11,20,38,0.0) 50%, rgba(11,20,38,0.85)), url('/img/venue-intro.jpeg');"></div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h2 class="font-heading text-2xl text-gold mb-3">캠핑사이트</h2>
+                        <p class="text-text-muted text-sm leading-relaxed mb-4 flex-1">
+                            본인 캠핑 장비(텐트·침낭 등)를 지참하는 옵션. 자유롭게 사이트를 꾸미고
+                            모닥불·별빛과 함께 야영하는 정통 캠핑 경험.
+                        </p>
+                        <ul class="text-xs text-text-muted space-y-1 mb-4">
+                            <li>· 텐트 크기 · 차량 대수 사전 신청 필요</li>
+                            <li>· 도착 시간대 선택 (금 저녁 / 토 오전 / 토 오후)</li>
+                            <li>· 픽업버스 이용 가능</li>
+                        </ul>
+                        <a th:href="@{/lodging/campsite}" class="btn-cta w-full justify-center">캠핑사이트 신청 →</a>
+                    </div>
+                </article>
+
+                <article class="card overflow-hidden flex flex-col">
+                    <div class="aspect-[4/3] bg-cover bg-center"
+                         style="background-image: linear-gradient(rgba(11,20,38,0.0) 50%, rgba(11,20,38,0.85)), url('/img/hero-full.jpeg');"></div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h2 class="font-heading text-2xl text-gold mb-3">도미토리</h2>
+                        <p class="text-text-muted text-sm leading-relaxed mb-4 flex-1">
+                            장비가 없거나 편안한 공용 숙소를 원하는 분을 위한 옵션. 운영팀이 마련한
+                            도미토리에서 같은 행사를 즐긴 친구들과 1박.
+                        </p>
+                        <ul class="text-xs text-text-muted space-y-1 mb-4">
+                            <li>· 성별 구분 배정</li>
+                            <li>· 1박 또는 2박 선택</li>
+                            <li>· 같은 방 희망 친구 요청 가능</li>
+                        </ul>
+                        <a th:href="@{/lodging/dormitory}" class="btn-cta w-full justify-center">도미토리 신청 →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

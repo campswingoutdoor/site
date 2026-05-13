@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>행사장 소개</title>
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="section-py">
+        <div class="container-page">
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3">VENUE INTRODUCTION</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12">행사장 소개</h1>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+
+                <!-- 금요일 전야제 -->
+                <article class="card overflow-hidden">
+                    <div class="aspect-[4/5] bg-cover bg-center"
+                         style="background-image: url('/img/venue-preparty.jpeg');"></div>
+                    <div class="p-6 md:p-8">
+                        <p class="font-display text-gold tracking-[0.3em] text-xs mb-2">FRIDAY PRE-PARTY</p>
+                        <h2 class="font-heading text-2xl text-gold mb-3">금요일 전야제 행사장</h2>
+                        <p class="text-text mb-4" th:text="${event.prePartyVenue.name}">느티나무 카페</p>
+                        <p class="text-text-muted text-sm leading-relaxed mb-4">
+                            Cozy Blues Night at the Cafe.<br />
+                            은은한 조명과 빈티지한 분위기의 카페에서 열리는 BLUES PARTY.
+                        </p>
+                        <p class="text-text-muted text-xs">10.30 · 19:00 ~</p>
+                    </div>
+                </article>
+
+                <!-- 토요일 메인 -->
+                <article class="card overflow-hidden">
+                    <div class="aspect-[4/5] bg-cover bg-center"
+                         style="background-image: url('/img/hero-full.jpeg');"></div>
+                    <div class="p-6 md:p-8">
+                        <p class="font-display text-gold tracking-[0.3em] text-xs mb-2">SATURDAY MAIN VENUE</p>
+                        <h2 class="font-heading text-2xl text-gold mb-3">토요일 메인 행사장</h2>
+                        <p class="text-text mb-4" th:text="${event.mainVenue.name}">상주우산오토캠핑장</p>
+                        <p class="text-text-muted text-sm leading-relaxed mb-4">
+                            낙동강을 끼고 펼쳐지는 아웃도어 오토캠핑장.<br />
+                            텐트·모닥불·DJ 부스를 갖춘 별빛 야외 스윙장으로 변신합니다.
+                        </p>
+                        <p class="text-text-muted text-xs" th:text="${event.mainVenue.address}">경북 상주시 외서면 우산리 223-3</p>
+                    </div>
+                </article>
+
+            </div>
+
+            <div class="text-center mt-12">
+                <a th:href="@{/event/location}" class="btn-outline-gold">오시는 길 보기 →</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>
