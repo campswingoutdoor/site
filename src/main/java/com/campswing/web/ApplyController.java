@@ -1,6 +1,5 @@
 package com.campswing.web;
 
-import com.campswing.config.EventProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,15 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/apply")
 public class ApplyController {
 
-    private final EventProperties event;
-
-    public ApplyController(EventProperties event) {
-        this.event = event;
-    }
-
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("event", event);
         model.addAttribute("pageTitle", "바로 신청하기");
         return "apply/index";
     }

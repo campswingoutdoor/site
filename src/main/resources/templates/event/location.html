@@ -27,8 +27,9 @@
                     <p class="text-text mb-2" th:text="${event.mainVenue.name}">상주우산오토캠핑장</p>
                     <p class="text-text-muted text-sm mb-1" th:text="${event.mainVenue.address}">경북 상주시 외서면 우산리 223-3</p>
                     <p class="text-text-muted text-sm mb-4">도로명: 채룡산로 752</p>
-                    <a target="_blank" rel="noopener"
-                       href="https://map.kakao.com/?q=%EC%83%81%EC%A3%BC%EC%9A%B0%EC%82%B0%EC%98%A4%ED%86%A0%EC%BA%A0%ED%95%91%EC%9E%A5"
+                    <a th:if="${event.kakaoMapUrl != null and !event.kakaoMapUrl.isEmpty()}"
+                       target="_blank" rel="noopener"
+                       th:href="${event.kakaoMapUrl}"
                        class="btn-outline-gold text-sm">카카오맵에서 보기 ↗</a>
                 </div>
 
@@ -36,11 +37,17 @@
                 <div class="card p-6">
                     <h2 class="font-heading text-xl text-gold mb-4">대중교통 안내</h2>
                     <p class="text-text-muted text-sm mb-3">동서울터미널 → 성주봉한방사우나 직통버스</p>
-                    <ul class="text-sm space-y-1 text-text">
-                        <li>출발: <span class="text-gold-light">07:50 / 13:10 / 17:50</span></li>
+                    <ul th:if="${!#lists.isEmpty(pickupTrips)}" class="text-sm space-y-1 text-text">
+                        <li>출발:
+                            <span class="text-gold-light"
+                                  th:text="${#strings.listJoin(pickupTrips.![#temporals.format(departureTime,'HH:mm')], ' / ')}">07:50 / 13:10 / 17:50</span>
+                        </li>
                         <li>소요: 약 3시간</li>
-                        <li>요금: 18,200원</li>
-                        <li>경유: 충주 건국대 → 문경 → 가은 → 농암 → 은척 → 성주봉한방사우나</li>
+                        <li>요금:
+                            <span th:text="${#numbers.formatInteger(pickupTrips[0].pricePerSeat, 0, 'COMMA')} + '원'">18,200원</span>
+                        </li>
+                        <li th:if="${pickupTrips[0].route != null and !pickupTrips[0].route.isEmpty()}"
+                            th:text="'경유: ' + ${pickupTrips[0].route}">경유: 서울→상주</li>
                     </ul>
                     <p class="text-text-muted text-xs mt-4">
                         ※ 은척 하차 시 캠핑장까지 픽업 가능 (사전 신청 시).<br />

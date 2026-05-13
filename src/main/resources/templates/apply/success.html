@@ -31,8 +31,10 @@
 
                 <h2 class="font-heading text-lg text-gold mb-3">입금 안내</h2>
                 <ul class="text-sm text-text-muted space-y-1">
-                    <li>은행 / 계좌번호: 국민은행 000-000-000000</li>
-                    <li>예금주: 캠프스윙아웃도어</li>
+                    <li>은행 / 계좌번호:
+                        <span th:text="${event.bankName} + ' ' + ${event.bankAccount}">국민은행 000-000-000000</span>
+                    </li>
+                    <li>예금주: <span th:text="${event.accountHolder}">캠프스윙아웃도어</span></li>
                     <li>입금자명: <span class="text-text">신청자 이름</span> 로 입금해주세요</li>
                     <li>입금 마감: 행사 2주 전 (운영팀 공지에 따름)</li>
                 </ul>
@@ -44,7 +46,7 @@
             </div>
 
             <p class="text-xs text-text-muted mt-10">
-                문의: contact@campswing.example
+                문의: <span th:text="${event.contactEmail}">contact@campswing.example</span>
             </p>
         </div>
     </section>

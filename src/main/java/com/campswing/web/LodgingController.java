@@ -3,7 +3,6 @@ package com.campswing.web;
 import com.campswing.api.dto.ApplicationCreatedResponse;
 import com.campswing.api.dto.CampsiteApplicationRequest;
 import com.campswing.api.dto.DormitoryApplicationRequest;
-import com.campswing.config.EventProperties;
 import com.campswing.domain.application.ArrivalTime;
 import com.campswing.domain.application.Gender;
 import com.campswing.domain.application.Nights;
@@ -24,16 +23,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LodgingController {
 
     private final ApplicationService service;
-    private final EventProperties event;
 
-    public LodgingController(ApplicationService service, EventProperties event) {
+    public LodgingController(ApplicationService service) {
         this.service = service;
-        this.event = event;
     }
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("event", event);
         model.addAttribute("pageTitle", "숙박 안내");
         return "lodging/index";
     }
@@ -65,7 +61,6 @@ public class LodgingController {
     }
 
     private void addCampsiteOptions(Model model) {
-        model.addAttribute("event", event);
         model.addAttribute("tentSizes", TentSize.values());
         model.addAttribute("arrivalTimes", ArrivalTime.values());
         model.addAttribute("pageTitle", "캠핑사이트 신청");
@@ -98,7 +93,6 @@ public class LodgingController {
     }
 
     private void addDormitoryOptions(Model model) {
-        model.addAttribute("event", event);
         model.addAttribute("genders", Gender.values());
         model.addAttribute("nightsOptions", Nights.values());
         model.addAttribute("pageTitle", "도미토리 신청");

@@ -4,6 +4,8 @@ import com.campswing.api.dto.ApplicationCreatedResponse;
 import com.campswing.api.dto.PartyPassApplicationRequest;
 import com.campswing.config.SecurityConfig;
 import com.campswing.service.ApplicationService;
+import com.campswing.service.SettingsService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -24,16 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@WebMvcTest(controllers = PartyPassController.class,
-        properties = {
-                "event.name=Camp Swing Outdoor 2026",
-                "event.start-date=2026-10-30",
-                "event.end-date=2026-10-31",
-                "event.main-venue.name=상주우산오토캠핑장",
-                "event.main-venue.address=경북 상주시 외서면 우산리 223-3",
-                "event.pre-party-venue.name=느티나무 카페",
-                "event.pre-party-venue.address=서울"
-        })
+@WebMvcTest(controllers = PartyPassController.class)
 @Import(SecurityConfig.class)
 class PartyPassControllerTest {
 
@@ -43,6 +37,15 @@ class PartyPassControllerTest {
     @MockBean
     private ApplicationService applicationService;
 
+    @MockBean
+    private SettingsService settingsService;
+
+    @BeforeEach
+    void setUp() {
+        given(settingsService.event()).willReturn(HomeControllerTest.testEvent());
+        given(settingsService.partyPassBenefits()).willReturn(List.of());
+    }
+
     @Test
     void getForm_returns200AndAttributes() throws Exception {
         mockMvc.perform(get("/party-pass"))
@@ -51,6 +54,7 @@ class PartyPassControllerTest {
                 .andExpect(model().attributeExists("form"))
                 .andExpect(model().attributeExists("passTypes"))
                 .andExpect(model().attributeExists("tshirtSizes"))
+                .andExpect(model().attributeExists("benefits"))
                 .andExpect(model().attributeExists("event"));
     }
 
@@ -107,5 +111,4 @@ class PartyPassControllerTest {
                 .andExpect(view().name("party-pass/index"))
                 .andExpect(model().attributeHasFieldErrors("form", "agreedToTerms"));
     }
-
 }

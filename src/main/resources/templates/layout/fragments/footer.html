@@ -5,17 +5,23 @@
     <div class="container-page grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
             <p class="font-display text-gold tracking-[0.3em] text-lg">CAMP SWING OUTDOOR</p>
-            <p class="text-text-muted mt-2 text-sm font-display italic">Swing Out Under The Stars</p>
-            <p class="text-text-muted mt-4 text-xs">
-                2026.10.30 - 10.31<br />
-                상주우산오토캠핑장
+            <p class="text-text-muted mt-2 text-sm font-display italic" th:text="${event?.slogan}">Swing Out Under The Stars</p>
+            <p class="text-text-muted mt-4 text-xs" th:if="${event?.startDate != null}">
+                <span th:text="${#temporals.format(event.startDate, 'yyyy.MM.dd')}">2026.10.30</span>
+                -
+                <span th:text="${#temporals.format(event.endDate, 'MM.dd')}">10.31</span><br />
+                <span th:text="${event.mainVenue?.name}">상주우산오토캠핑장</span>
             </p>
         </div>
 
         <div>
             <h3 class="font-heading text-gold mb-3">문의</h3>
-            <p class="text-text-muted text-sm">이메일: contact@campswing.example</p>
-            <p class="text-text-muted text-sm">Instagram: @campswingoutdoor</p>
+            <p class="text-text-muted text-sm" th:if="${event?.contactEmail != null and !event.contactEmail.isEmpty()}">
+                이메일: <span th:text="${event.contactEmail}">contact@campswing.example</span>
+            </p>
+            <p class="text-text-muted text-sm" th:if="${event?.instagram != null and !event.instagram.isEmpty()}">
+                Instagram: <span th:text="${event.instagram}">@campswingoutdoor</span>
+            </p>
         </div>
     </div>
     <p class="text-center text-xs text-text-muted mt-10">© 2026 Camp Swing Outdoor.</p>

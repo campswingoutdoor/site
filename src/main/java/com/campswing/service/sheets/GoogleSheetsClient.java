@@ -29,14 +29,19 @@ public class GoogleSheetsClient {
 
     private final Sheets sheets;
     private final String spreadsheetId;
+    private final String settingsSpreadsheetId;
     private final boolean enabled;
 
     public GoogleSheetsClient(
             @Value("${google.sheets.spreadsheet-id:}") String spreadsheetId,
+            @Value("${google.sheets.settings-spreadsheet-id:}") String settingsSpreadsheetId,
             @Value("${google.sheets.credentials-location:}") String credentialsLocation,
             @Value("${google.sheets.credentials-json:}") String credentialsJsonBase64
     ) {
         this.spreadsheetId = spreadsheetId;
+        // 미설정 시 신청 시트 ID로 폴백 — 단일 스프레드시트 운영도 가능
+        this.settingsSpreadsheetId = (settingsSpreadsheetId != null && !settingsSpreadsheetId.isBlank())
+                ? settingsSpreadsheetId : spreadsheetId;
         Sheets initialized = null;
         boolean ready = false;
 
@@ -80,6 +85,10 @@ public class GoogleSheetsClient {
         return enabled;
     }
 
+    public String settingsSpreadsheetId() {
+        return settingsSpreadsheetId;
+    }
+
     public AppendValuesResponse appendRow(String sheetName, List<Object> rowValues) {
         ensureEnabled();
         try {
@@ -94,11 +103,17 @@ public class GoogleSheetsClient {
         }
     }
 
+    /** 신청 시트(spreadsheet-id) 기준 읽기. 기존 호출 호환. */
     public List<List<Object>> readRange(String sheetName, String range) {
+        return readRange(spreadsheetId, sheetName, range);
+    }
+
+    /** 임의 스프레드시트 ID로 읽기 (Settings 시트 등). */
+    public List<List<Object>> readRange(String targetSpreadsheetId, String sheetName, String range) {
         ensureEnabled();
         try {
             ValueRange resp = sheets.spreadsheets().values()
-                    .get(spreadsheetId, sheetName + "!" + range)
+                    .get(targetSpreadsheetId, sheetName + "!" + range)
                     .execute();
             return resp.getValues() == null ? List.of() : resp.getValues();
         } catch (IOException e) {

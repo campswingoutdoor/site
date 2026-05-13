@@ -16,9 +16,8 @@
 
             <!-- 슬로건 + 컨셉 -->
             <div class="card p-8 md:p-12 text-center mb-12">
-                <p class="font-display italic text-gold-light text-xl md:text-2xl mb-4">
-                    Swing Out Under The Stars
-                </p>
+                <p class="font-display italic text-gold-light text-xl md:text-2xl mb-4"
+                   th:text="${event.slogan}">Swing Out Under The Stars</p>
                 <p class="text-text-muted leading-relaxed">
                     스윙댄스 · 캠핑 · 음악 · 커뮤니티가 만나는 1박 2일 야외 이벤트.<br />
                     빛나는 조명, 따뜻한 모닥불, 그리고 별빛 아래의 스윙.
@@ -46,49 +45,22 @@
             </div>
 
             <!-- 프로그램 타임테이블 -->
-            <div class="mb-12">
+            <div class="mb-12" th:if="${!#maps.isEmpty(scheduleByDay)}">
                 <h2 class="font-heading text-2xl md:text-3xl text-gold mb-6 text-center">프로그램</h2>
 
-                <div class="card p-6 mb-6">
-                    <p class="font-display text-gold tracking-widest text-sm mb-4">FRIDAY · 10.30 · 전야제</p>
+                <div th:each="entry : ${scheduleByDay}" class="card p-6 mb-6">
+                    <p class="font-display text-gold tracking-widest text-sm mb-4"
+                       th:text="${entry.key.label()} + ' 타임테이블'">FRIDAY 타임테이블</p>
                     <ul class="space-y-3 text-sm">
-                        <li class="flex gap-4">
-                            <span class="font-display text-gold-light w-20 shrink-0">19:00</span>
-                            <span class="text-text">전야제 입장 / Welcome Drink</span>
-                        </li>
-                        <li class="flex gap-4">
-                            <span class="font-display text-gold-light w-20 shrink-0">20:00</span>
-                            <span class="text-text">BLUES PARTY @ 느티나무 카페</span>
-                        </li>
-                        <li class="flex gap-4">
-                            <span class="font-display text-gold-light w-20 shrink-0">23:00</span>
-                            <span class="text-text">Late Night Session</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="card p-6">
-                    <p class="font-display text-gold tracking-widest text-sm mb-4">SATURDAY · 10.31 · 메인 행사</p>
-                    <ul class="space-y-3 text-sm">
-                        <li class="flex gap-4">
-                            <span class="font-display text-gold-light w-20 shrink-0">14:00</span>
-                            <span class="text-text">캠핑사이트 체크인 / 도미토리 입실</span>
-                        </li>
-                        <li class="flex gap-4">
-                            <span class="font-display text-gold-light w-20 shrink-0">16:00</span>
-                            <span class="text-text">강습 워크숍 (스윙 댄스)</span>
-                        </li>
-                        <li class="flex gap-4">
-                            <span class="font-display text-gold-light w-20 shrink-0">18:30</span>
-                            <span class="text-text">저녁 / 캠프파이어</span>
-                        </li>
-                        <li class="flex gap-4">
-                            <span class="font-display text-gold-light w-20 shrink-0">20:00</span>
-                            <span class="text-text">메인 소셜 (DJ CHORI · DJ ROYAL JELLY)</span>
-                        </li>
-                        <li class="flex gap-4">
-                            <span class="font-display text-gold-light w-20 shrink-0">~02:00</span>
-                            <span class="text-text">Late Night Swing</span>
+                        <li th:each="s : ${entry.value}" class="flex gap-4">
+                            <span class="font-display text-gold-light w-20 shrink-0"
+                                  th:text="${#temporals.format(s.startTime, 'HH:mm')}">19:00</span>
+                            <span class="text-text">
+                                <span th:text="${s.title}">제목</span>
+                                <span th:if="${s.description != null and !s.description.isEmpty()}"
+                                      class="text-text-muted"
+                                      th:text="' · ' + ${s.description}"></span>
+                            </span>
                         </li>
                     </ul>
                 </div>

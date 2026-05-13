@@ -5,6 +5,7 @@ import com.campswing.api.dto.ApplicationCreatedResponse;
 import com.campswing.api.dto.PartyPassApplicationRequest;
 import com.campswing.common.exception.SheetsApiException;
 import com.campswing.service.ApplicationService;
+import com.campswing.service.SettingsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ class ApplicationApiControllerTest {
 
     @MockBean
     private ApplicationService applicationService;
+
+    @MockBean
+    private SettingsService settingsService;
 
     @Test
     void partyPass_validPayload_returns201() throws Exception {

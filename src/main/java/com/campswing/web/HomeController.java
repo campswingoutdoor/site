@@ -1,6 +1,6 @@
 package com.campswing.web;
 
-import com.campswing.config.EventProperties;
+import com.campswing.service.SettingsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,16 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    private final EventProperties event;
+    private final SettingsService settings;
 
-    public HomeController(EventProperties event) {
-        this.event = event;
+    public HomeController(SettingsService settings) {
+        this.settings = settings;
     }
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("event", event);
-        model.addAttribute("pageTitle", event.getName() + " — Swing Out Under The Stars");
+        model.addAttribute("pageTitle", settings.event().name() + " — Swing Out Under The Stars");
         return "index";
     }
 }

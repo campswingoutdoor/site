@@ -22,8 +22,8 @@
                 <span th:text="${#temporals.format(event.endDate, 'MM.dd')}">10.31</span>
             </p>
             <p class="text-lg text-text-muted mb-2" th:text="${event.mainVenue.name}">상주우산오토캠핑장</p>
-            <p class="font-display italic text-gold-light text-lg md:text-xl mb-10">Swing Out Under The Stars</p>
-            <p class="text-text-muted text-sm mb-10">Swing Dance · Camping · Music · Community</p>
+            <p class="font-display italic text-gold-light text-lg md:text-xl mb-10" th:text="${event.slogan}">Swing Out Under The Stars</p>
+            <p class="text-text-muted text-sm mb-10" th:text="${event.heroSubtitle}">Swing Dance · Camping · Music · Community</p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a th:href="@{/party-pass}" class="btn-cta">파티패스 신청</a>

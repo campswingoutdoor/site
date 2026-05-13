@@ -2,6 +2,12 @@ spring:
   thymeleaf:
     cache: true
 
+settings:
+  cache:
+    # 운영: 10분 주기 — Sheets API quota 보호 + 안정적 응답 성능.
+    # SETTINGS_CACHE_REFRESH_INTERVAL_MS 환경변수로 런타임에 오버라이드 가능.
+    refresh-interval-ms: ${SETTINGS_CACHE_REFRESH_INTERVAL_MS:600000}
+
 server:
   forward-headers-strategy: native
 

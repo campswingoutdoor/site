@@ -17,13 +17,10 @@
             </p>
 
             <!-- 안내 -->
-            <div class="card p-6 mb-10">
+            <div class="card p-6 mb-10" th:if="${!#lists.isEmpty(benefits)}">
                 <h2 class="font-heading text-lg text-gold mb-3">포함 사항</h2>
                 <ul class="text-sm text-text-muted space-y-1 list-disc list-inside">
-                    <li>전야제 BLUES PARTY 입장 (10.30 · 느티나무 카페)</li>
-                    <li>메인 행사 입장 (10.31 · 상주우산오토캠핑장)</li>
-                    <li>스윙 댄스 워크숍 강습</li>
-                    <li>웰컴 드링크 / 캠프파이어</li>
+                    <li th:each="b : ${benefits}" th:text="${b.text}">혜택 항목</li>
                 </ul>
             </div>
 

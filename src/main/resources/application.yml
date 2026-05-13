@@ -28,9 +28,16 @@ event:
 google:
   sheets:
     spreadsheet-id: ${GOOGLE_SHEET_ID:}
+    # 정적 콘텐츠(Settings) 전용 별도 스프레드시트. 미설정 시 spreadsheet-id로 폴백.
+    settings-spreadsheet-id: ${GOOGLE_SETTINGS_SHEET_ID:}
     credentials-location: ${GOOGLE_APPLICATION_CREDENTIALS:}
     credentials-json: ${GOOGLE_CREDENTIALS_JSON:}
     timeout-seconds: 10
+
+settings:
+  cache:
+    # Settings 시트 백그라운드 갱신 주기(밀리초). local/prod yml에서 오버라이드.
+    refresh-interval-ms: ${SETTINGS_CACHE_REFRESH_INTERVAL_MS:600000}
 
 management:
   endpoints:

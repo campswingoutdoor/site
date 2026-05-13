@@ -2,10 +2,10 @@ package com.campswing.web;
 
 import com.campswing.api.dto.ApplicationCreatedResponse;
 import com.campswing.api.dto.PartyPassApplicationRequest;
-import com.campswing.config.EventProperties;
 import com.campswing.domain.application.PassType;
 import com.campswing.domain.application.TshirtSize;
 import com.campswing.service.ApplicationService;
+import com.campswing.service.SettingsService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +19,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class PartyPassController {
 
     private final ApplicationService service;
-    private final EventProperties event;
+    private final SettingsService settings;
 
-    public PartyPassController(ApplicationService service, EventProperties event) {
+    public PartyPassController(ApplicationService service, SettingsService settings) {
         this.service = service;
-        this.event = event;
+        this.settings = settings;
     }
 
     @GetMapping("/party-pass")
@@ -53,9 +53,9 @@ public class PartyPassController {
     }
 
     private void addFormOptions(Model model) {
-        model.addAttribute("event", event);
         model.addAttribute("passTypes", PassType.values());
         model.addAttribute("tshirtSizes", TshirtSize.values());
+        model.addAttribute("benefits", settings.partyPassBenefits());
     }
 
     private static PartyPassApplicationRequest emptyForm() {
