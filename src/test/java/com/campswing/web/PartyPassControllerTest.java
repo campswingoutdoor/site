@@ -3,6 +3,7 @@ package com.campswing.web;
 import com.campswing.api.dto.ApplicationCreatedResponse;
 import com.campswing.api.dto.PartyPassApplicationRequest;
 import com.campswing.config.SecurityConfig;
+import com.campswing.domain.settings.ComingSoonItem;
 import com.campswing.service.ApplicationService;
 import com.campswing.service.SettingsService;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,7 @@ import java.time.ZoneOffset;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest(controllers = PartyPassController.class)
-@Import(SecurityConfig.class)
+@Import({SecurityConfig.class, GlobalModelAttributes.PageMetaHelper.class})
 class PartyPassControllerTest {
 
     @Autowired
@@ -44,6 +46,10 @@ class PartyPassControllerTest {
     void setUp() {
         given(settingsService.event()).willReturn(HomeControllerTest.testEvent());
         given(settingsService.partyPassBenefits()).willReturn(List.of());
+        given(settingsService.locationGuide()).willReturn(HomeControllerTest.testLocationGuide());
+        given(settingsService.conceptCopy()).willReturn(HomeControllerTest.testConceptCopy());
+        given(settingsService.pageMeta(anyString())).willReturn(HomeControllerTest.testPageMeta());
+        given(settingsService.comingSoonFor(anyString())).willReturn(new ComingSoonItem("test", "COMING SOON", "test"));
     }
 
     @Test

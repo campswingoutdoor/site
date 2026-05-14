@@ -20,10 +20,13 @@ public class PartyPassController {
 
     private final ApplicationService service;
     private final SettingsService settings;
+    private final GlobalModelAttributes.PageMetaHelper pageMeta;
 
-    public PartyPassController(ApplicationService service, SettingsService settings) {
+    public PartyPassController(ApplicationService service, SettingsService settings,
+                               GlobalModelAttributes.PageMetaHelper pageMeta) {
         this.service = service;
         this.settings = settings;
+        this.pageMeta = pageMeta;
     }
 
     @GetMapping("/party-pass")
@@ -32,8 +35,14 @@ public class PartyPassController {
             model.addAttribute("form", emptyForm());
         }
         addFormOptions(model);
-        model.addAttribute("pageTitle", "파티패스 안내·신청");
         return "party-pass/index";
+    }
+
+    @GetMapping("/party-pass/list")
+    public String list(Model model) {
+        pageMeta.apply(model, "party-pass.list");
+        model.addAttribute("items", service.listPartyPass());
+        return "party-pass/list";
     }
 
     @PostMapping("/party-pass")
@@ -43,7 +52,6 @@ public class PartyPassController {
                          RedirectAttributes ra) {
         if (result.hasErrors()) {
             addFormOptions(model);
-            model.addAttribute("pageTitle", "파티패스 안내·신청");
             return "party-pass/index";
         }
         ApplicationCreatedResponse response = service.submitPartyPass(form);
@@ -53,6 +61,7 @@ public class PartyPassController {
     }
 
     private void addFormOptions(Model model) {
+        pageMeta.apply(model, "party-pass");
         model.addAttribute("passTypes", PassType.values());
         model.addAttribute("tshirtSizes", TshirtSize.values());
         model.addAttribute("benefits", settings.partyPassBenefits());

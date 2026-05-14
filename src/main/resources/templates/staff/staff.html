@@ -4,21 +4,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>스태프 소개</title>
+    <title th:text="${pageMeta?.title}">스태프 소개</title>
 </head>
 <body>
 <main layout:fragment="content">
 
     <section class="section-py">
         <div class="container-page max-w-5xl">
-            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3">STAFF</p>
-            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12">스태프 소개</h1>
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3"
+               th:text="${pageMeta?.badge}">STAFF</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12"
+                th:text="${pageMeta?.h1}">스태프 소개</h1>
 
             <!-- Coming Soon placeholder -->
             <div th:if="${#lists.isEmpty(staff)}" class="card p-12 text-center max-w-2xl mx-auto">
-                <p class="font-display tracking-[0.4em] text-text-muted text-sm mb-3">COMING SOON</p>
-                <p class="text-text-muted">행사를 만드는 운영팀 소개가 곧 공개될 예정입니다.</p>
-                <p class="text-text-muted text-xs mt-4">문의: contact@campswing.example</p>
+                <p class="font-display tracking-[0.4em] text-text-muted text-sm mb-3" th:text="${comingSoon?.label}">COMING SOON</p>
+                <p class="text-text-muted" th:text="${comingSoon?.message}">행사를 만드는 운영팀 소개가 곧 공개될 예정입니다.</p>
+                <p class="text-text-muted text-xs mt-4">문의: <span th:text="${event.contactEmail}">contact@campswing.example</span></p>
             </div>
 
             <!-- 데이터가 있을 때 -->

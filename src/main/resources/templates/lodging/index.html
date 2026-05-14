@@ -4,14 +4,16 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>숙박 안내</title>
+    <title th:text="${pageMeta?.title}">숙박 안내</title>
 </head>
 <body>
 <main layout:fragment="content">
     <section class="section-py">
         <div class="container-page max-w-5xl">
-            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3">LODGING</p>
-            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-6">숙박 안내</h1>
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3"
+               th:text="${pageMeta?.badge}">LODGING</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-6"
+                th:text="${pageMeta?.h1}">숙박 안내</h1>
             <p class="text-center text-text-muted mb-12">
                 토요일 메인 행사가 끝나면 캠핑장에서 별빛 아래 1박. 두 가지 숙박 옵션 중 선택해주세요.
             </p>
@@ -34,7 +36,10 @@
                             <li>· 도착 시간대 선택 (금 저녁 / 토 오전 / 토 오후)</li>
                             <li>· 픽업버스 이용 가능</li>
                         </ul>
-                        <a th:href="@{/lodging/campsite}" class="btn-cta w-full justify-center">캠핑사이트 신청 →</a>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <a th:href="@{/lodging/campsite}" class="btn-cta flex-1 justify-center">캠핑사이트 신청 →</a>
+                            <a th:href="@{/lodging/campsite/list}" class="btn-outline-gold flex-1 justify-center">신청확인</a>
+                        </div>
                     </div>
                 </article>
 
@@ -54,7 +59,10 @@
                             <li>· 1박 또는 2박 선택</li>
                             <li>· 같은 방 희망 친구 요청 가능</li>
                         </ul>
-                        <a th:href="@{/lodging/dormitory}" class="btn-cta w-full justify-center">도미토리 신청 →</a>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <a th:href="@{/lodging/dormitory}" class="btn-cta flex-1 justify-center">도미토리 신청 →</a>
+                            <a th:href="@{/lodging/dormitory/list}" class="btn-outline-gold flex-1 justify-center">신청확인</a>
+                        </div>
                     </div>
                 </article>
             </div>

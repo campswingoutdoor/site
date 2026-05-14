@@ -6,6 +6,7 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.AppendValuesResponse;
+import com.google.api.services.sheets.v4.model.BatchGetValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -20,7 +21,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class GoogleSheetsClient {
@@ -108,6 +111,42 @@ public class GoogleSheetsClient {
         return readRange(spreadsheetId, sheetName, range);
     }
 
+    /**
+     * 여러 range를 한 API 호출로 batch 읽기 (spreadsheets.values.batchGet).
+     * 결과는 입력 ranges와 동일한 순서로 매핑되며, key는 원본 range 문자열.
+     * Sheets API quota 절약 — N개 시트를 1번 호출로 조회.
+     * 단일 range 오류 시 전체 batch가 실패하므로, 모든 탭이 존재해야 안전하게 동작.
+     */
+    public Map<String, List<List<Object>>> batchReadRanges(String targetSpreadsheetId, List<String> ranges) {
+        ensureEnabled();
+        if (ranges == null || ranges.isEmpty()) {
+            return Map.of();
+        }
+        try {
+            BatchGetValuesResponse resp = sheets.spreadsheets().values()
+                    .batchGet(targetSpreadsheetId)
+                    .setRanges(ranges)
+                    .execute();
+            Map<String, List<List<Object>>> result = new LinkedHashMap<>();
+            List<ValueRange> valueRanges = resp.getValueRanges();
+            for (int i = 0; i < ranges.size(); i++) {
+                ValueRange vr = (valueRanges != null && i < valueRanges.size()) ? valueRanges.get(i) : null;
+                List<List<Object>> values = (vr == null || vr.getValues() == null) ? List.of() : vr.getValues();
+                result.put(ranges.get(i), values);
+            }
+            return result;
+        } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
+            throw new SheetsApiException(
+                    String.format("Batch sheet read failed [spreadsheet=%s ranges=%s status=%d message=%s]",
+                            targetSpreadsheetId, ranges, e.getStatusCode(),
+                            e.getDetails() != null ? e.getDetails().getMessage() : e.getMessage()),
+                    e);
+        } catch (IOException e) {
+            throw new SheetsApiException(
+                    "Batch sheet read failed [spreadsheet=" + targetSpreadsheetId + " ranges=" + ranges + "]", e);
+        }
+    }
+
     /** 임의 스프레드시트 ID로 읽기 (Settings 시트 등). */
     public List<List<Object>> readRange(String targetSpreadsheetId, String sheetName, String range) {
         ensureEnabled();
@@ -116,6 +155,11 @@ public class GoogleSheetsClient {
                     .get(targetSpreadsheetId, sheetName + "!" + range)
                     .execute();
             return resp.getValues() == null ? List.of() : resp.getValues();
+        } catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e) {
+            throw new SheetsApiException(
+                    String.format("Sheet read failed [spreadsheet=%s sheet=%s range=%s status=%d message=%s]",
+                            targetSpreadsheetId, sheetName, range, e.getStatusCode(), e.getDetails() != null ? e.getDetails().getMessage() : e.getMessage()),
+                    e);
         } catch (IOException e) {
             throw new SheetsApiException("Failed to read range '" + range + "' from sheet '" + sheetName + "'", e);
         }

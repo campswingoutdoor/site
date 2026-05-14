@@ -4,15 +4,16 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>홈</title>
+    <title th:text="${pageMeta?.title}">홈</title>
 </head>
 <body>
 <main layout:fragment="content">
 
     <!-- Hero -->
     <section class="relative">
-        <div class="container-page text-center pt-40 pb-24 bg-hero-main md:bg-hero-main bg-cover bg-center">
-            <p class="font-display tracking-[0.4em] text-gold text-xs md:text-sm mb-4">CAMP SWING OUTDOOR</p>
+        <div class="container-page text-center pt-96  pb-24 bg-hero-main md:bg-hero-main bg-cover bg-center">
+            <p class="font-display tracking-[0.4em] text-gold text-xs md:text-sm mb-4"
+               th:text="${pageMeta?.badge}">CAMP SWING OUTDOOR</p>
             <h1 class="font-display text-5xl md:text-7xl text-gold mb-6"
                 style="text-shadow: 0 0 24px rgba(201,163,91,0.45);"
                 th:text="${event.name}">행사명</h1>
@@ -37,27 +38,36 @@
     </section>
 
     <!-- 행사 핵심 정보 -->
-    <section class="section-py bg-bg-secondary border-y border-gold/10">
+    <section class="section-py bg-bg-secondary border-y border-gold/10" th:if="${!#lists.isEmpty(indexHighlights)}">
         <div class="container-page">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div>
-                    <p class="font-display text-gold tracking-widest text-sm mb-3">WHEN</p>
-                    <p class="text-2xl text-text">
-                        <span th:text="${#temporals.format(event.startDate, 'yyyy.MM.dd')}">2026.10.30</span>
-                        ~
-                        <span th:text="${#temporals.format(event.endDate, 'MM.dd')}">10.31</span>
-                    </p>
-                    <p class="text-text-muted text-sm mt-1">금요일 전야제 · 토요일 메인</p>
-                </div>
-                <div>
-                    <p class="font-display text-gold tracking-widest text-sm mb-3">WHERE</p>
-                    <p class="text-2xl text-text" th:text="${event.mainVenue.name}">상주우산오토캠핑장</p>
-                    <p class="text-text-muted text-sm mt-1" th:text="${event.mainVenue.address}">경북 상주시 외서면 우산리 223-3</p>
-                </div>
-                <div>
-                    <p class="font-display text-gold tracking-widest text-sm mb-3">PRE-PARTY</p>
-                    <p class="text-2xl text-text" th:text="${event.prePartyVenue.name}">느티나무 카페</p>
-                    <p class="text-text-muted text-sm mt-1">10.30 BLUES PARTY</p>
+                <div th:each="h : ${indexHighlights}">
+                    <p class="font-display text-gold tracking-widest text-sm mb-3" th:text="${h.label}">WHEN</p>
+
+                    <!-- WHEN: 날짜 자동, mainText 비면 이벤트 날짜 사용 -->
+                    <th:block th:if="${h.key == 'when'}">
+                        <p class="text-2xl text-text">
+                            <span th:text="${#temporals.format(event.startDate, 'yyyy.MM.dd')}">2026.10.30</span>
+                            ~
+                            <span th:text="${#temporals.format(event.endDate, 'MM.dd')}">10.31</span>
+                        </p>
+                        <p class="text-text-muted text-sm mt-1" th:text="${h.subtext}">금요일 전야제 · 토요일 메인</p>
+                    </th:block>
+
+                    <!-- WHERE: mainText 비면 메인 장소 이름 사용 -->
+                    <th:block th:if="${h.key == 'where'}">
+                        <p class="text-2xl text-text"
+                           th:text="${h.mainText != null and !h.mainText.isEmpty()} ? ${h.mainText} : ${event.mainVenue.name}">상주우산오토캠핑장</p>
+                        <p class="text-text-muted text-sm mt-1"
+                           th:text="${h.subtext != null and !h.subtext.isEmpty()} ? ${h.subtext} : ${event.mainVenue.address}">경북 상주시 외서면 우산리 223-3</p>
+                    </th:block>
+
+                    <!-- PRE-PARTY: mainText 비면 전야제 장소 이름 사용 -->
+                    <th:block th:if="${h.key == 'preParty'}">
+                        <p class="text-2xl text-text"
+                           th:text="${h.mainText != null and !h.mainText.isEmpty()} ? ${h.mainText} : ${event.prePartyVenue.name}">느티나무 카페</p>
+                        <p class="text-text-muted text-sm mt-1" th:text="${h.subtext}">10.30 BLUES PARTY</p>
+                    </th:block>
                 </div>
             </div>
         </div>

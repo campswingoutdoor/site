@@ -4,14 +4,16 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>파티패스 안내·신청</title>
+    <title th:text="${pageMeta?.title}">파티패스 안내·신청</title>
 </head>
 <body>
 <main layout:fragment="content">
     <section class="section-py">
         <div class="container-page max-w-3xl">
-            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3">PARTY PASS</p>
-            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-6">파티패스 안내·신청</h1>
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3"
+               th:text="${pageMeta?.badge}">PARTY PASS</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-6"
+                th:text="${pageMeta?.h1}">파티패스 안내·신청</h1>
             <p class="text-center text-text-muted mb-12">
                 전야제 BLUES PARTY와 토요일 메인 행사를 함께 즐길 수 있는 통합 패스입니다.
             </p>
@@ -100,8 +102,9 @@
                 </label>
                 <p class="field-error" th:if="${#fields.hasErrors('agreedToTerms')}" th:errors="*{agreedToTerms}"></p>
 
-                <div class="pt-4">
+                <div class="pt-4 flex flex-col md:flex-row md:justify-between gap-3">
                     <button type="submit" class="btn-cta w-full md:w-auto md:px-16">신청 제출</button>
+                    <a th:href="@{/party-pass/list}" class="btn-outline-gold w-full md:w-auto md:px-16 text-center">신청확인</a>
                 </div>
             </form>
         </div>

@@ -6,12 +6,16 @@ import com.campswing.api.dto.DormitoryApplicationRequest;
 import com.campswing.api.dto.PartyPassApplicationRequest;
 import com.campswing.common.util.KstClock;
 import com.campswing.domain.application.CampsiteApplication;
+import com.campswing.domain.application.CampsiteListItem;
 import com.campswing.domain.application.DormitoryApplication;
+import com.campswing.domain.application.DormitoryListItem;
 import com.campswing.domain.application.PartyPassApplication;
+import com.campswing.domain.application.PartyPassListItem;
 import com.campswing.service.sheets.SheetsApplicationRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -81,5 +85,17 @@ public class ApplicationService {
         );
         repository.saveDormitory(app);
         return new ApplicationCreatedResponse(app.id(), app.submittedAt().atOffset(KstClock.KST_OFFSET));
+    }
+
+    public List<PartyPassListItem> listPartyPass() {
+        return repository.findAllPartyPass();
+    }
+
+    public List<CampsiteListItem> listCampsite() {
+        return repository.findAllCampsite();
+    }
+
+    public List<DormitoryListItem> listDormitory() {
+        return repository.findAllDormitory();
     }
 }

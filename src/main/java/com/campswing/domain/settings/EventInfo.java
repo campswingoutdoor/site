@@ -15,7 +15,9 @@ public record EventInfo(
         String bankAccount,
         String accountHolder,
         String kakaoMapUrl,
-        String heroSubtitle
+        String heroSubtitle,
+        String successDepositNotice,
+        String successDeadlineNotice
 ) {
     public record Venue(String name, String address) {
     }

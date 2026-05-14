@@ -18,17 +18,32 @@ import java.util.stream.Collectors;
 public class EventController {
 
     private final SettingsService settings;
+    private final GlobalModelAttributes.PageMetaHelper pageMeta;
 
-    public EventController(SettingsService settings) {
+    public EventController(SettingsService settings, GlobalModelAttributes.PageMetaHelper pageMeta) {
         this.settings = settings;
+        this.pageMeta = pageMeta;
     }
 
     @GetMapping("/overview")
     public String overview(Model model) {
+        pageMeta.apply(model, "event.overview");
         model.addAttribute("scheduleByDay", groupByDay(settings.schedule()));
-        model.addAttribute("pageTitle", "행사 개요");
-        model.addAttribute("pageDescription", "Camp Swing Outdoor 2026 행사 개요 — 스윙댄스와 캠핑이 만나는 1박 2일 야외 이벤트.");
         return "event/overview";
+    }
+
+    @GetMapping("/venue")
+    public String venue(Model model) {
+        pageMeta.apply(model, "event.venue");
+        model.addAttribute("venueDetails", settings.venueDetails());
+        return "event/venue";
+    }
+
+    @GetMapping("/location")
+    public String location(Model model) {
+        pageMeta.apply(model, "event.location");
+        model.addAttribute("pickupTrips", settings.pickupBus());
+        return "event/location";
     }
 
     private static Map<Weekday, List<ScheduleItem>> groupByDay(List<ScheduleItem> items) {
@@ -36,20 +51,5 @@ public class EventController {
                 ScheduleItem::day,
                 LinkedHashMap::new,
                 Collectors.toList()));
-    }
-
-    @GetMapping("/venue")
-    public String venue(Model model) {
-        model.addAttribute("pageTitle", "행사장 소개");
-        model.addAttribute("pageDescription", "금요일 전야제(느티나무 카페)와 토요일 메인 행사장(상주우산오토캠핑장) 소개.");
-        return "event/venue";
-    }
-
-    @GetMapping("/location")
-    public String location(Model model) {
-        model.addAttribute("pickupTrips", settings.pickupBus());
-        model.addAttribute("pageTitle", "오시는 길");
-        model.addAttribute("pageDescription", "상주우산오토캠핑장 위치, 픽업버스 시간표, 대중교통 안내.");
-        return "event/location";
     }
 }

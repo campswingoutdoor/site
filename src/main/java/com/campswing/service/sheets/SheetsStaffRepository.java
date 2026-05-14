@@ -37,7 +37,8 @@ public class SheetsStaffRepository {
             return STATIC_DJS;
         }
         try {
-            List<List<Object>> rows = client.readRange(SHEET_DJ, "A2:G");
+            // 라인업 정보는 정적 콘텐츠 — Settings 스프레드시트에서 읽음
+            List<List<Object>> rows = client.readRange(client.settingsSpreadsheetId(), SHEET_DJ, "A2:G");
             if (rows.isEmpty()) {
                 return STATIC_DJS;
             }
@@ -65,7 +66,8 @@ public class SheetsStaffRepository {
             return Collections.emptyList();
         }
         try {
-            List<List<Object>> rows = client.readRange(sheetName, "A2:F");
+            // 강사/스태프 정보는 정적 콘텐츠 — Settings 스프레드시트에서 읽음
+            List<List<Object>> rows = client.readRange(client.settingsSpreadsheetId(), sheetName, "A2:F");
             if (rows.isEmpty()) {
                 return Collections.emptyList();
             }

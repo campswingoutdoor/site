@@ -4,21 +4,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>강사 소개</title>
+    <title th:text="${pageMeta?.title}">강사 소개</title>
 </head>
 <body>
 <main layout:fragment="content">
 
     <section class="section-py">
         <div class="container-page max-w-5xl">
-            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3">INSTRUCTORS</p>
-            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12">강사 소개</h1>
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3"
+               th:text="${pageMeta?.badge}">INSTRUCTORS</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12"
+                th:text="${pageMeta?.h1}">강사 소개</h1>
 
             <!-- Coming Soon placeholder -->
             <div th:if="${#lists.isEmpty(instructors)}" class="card p-12 text-center max-w-2xl mx-auto">
-                <p class="font-display tracking-[0.4em] text-text-muted text-sm mb-3">COMING SOON</p>
-                <p class="text-text-muted">스윙 댄스 워크숍 강사 라인업이 곧 공개될 예정입니다.</p>
-                <p class="text-text-muted text-xs mt-4">SNS @campswingoutdoor 에서 가장 먼저 안내합니다.</p>
+                <p class="font-display tracking-[0.4em] text-text-muted text-sm mb-3" th:text="${comingSoon?.label}">COMING SOON</p>
+                <p class="text-text-muted" th:text="${comingSoon?.message}">스윙 댄스 워크숍 강사 라인업이 곧 공개될 예정입니다.</p>
+                <p class="text-text-muted text-xs mt-4">SNS <span th:text="${event.instagram}">@campswingoutdoor</span> 에서 가장 먼저 안내합니다.</p>
             </div>
 
             <!-- 데이터가 있을 때 -->

@@ -1,5 +1,6 @@
 package com.campswing.web;
 
+import com.campswing.service.SettingsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +11,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/apply")
 public class ApplyController {
 
+    private final SettingsService settings;
+    private final GlobalModelAttributes.PageMetaHelper pageMeta;
+
+    public ApplyController(SettingsService settings, GlobalModelAttributes.PageMetaHelper pageMeta) {
+        this.settings = settings;
+        this.pageMeta = pageMeta;
+    }
+
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("pageTitle", "바로 신청하기");
+        pageMeta.apply(model, "apply");
+        model.addAttribute("applyCards", settings.applyCards());
         return "apply/index";
     }
 
@@ -20,10 +30,10 @@ public class ApplyController {
     public String success(@RequestParam(value = "type", required = false) String type,
                           @RequestParam(value = "id", required = false) String id,
                           Model model) {
+        pageMeta.apply(model, "apply.success");
         model.addAttribute("applicationType", type);
         model.addAttribute("applicationId", id);
         model.addAttribute("applicationTypeLabel", labelOf(type));
-        model.addAttribute("pageTitle", "신청 완료");
         return "apply/success";
     }
 

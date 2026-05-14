@@ -23,14 +23,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LodgingController {
 
     private final ApplicationService service;
+    private final GlobalModelAttributes.PageMetaHelper pageMeta;
 
-    public LodgingController(ApplicationService service) {
+    public LodgingController(ApplicationService service, GlobalModelAttributes.PageMetaHelper pageMeta) {
         this.service = service;
+        this.pageMeta = pageMeta;
     }
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("pageTitle", "숙박 안내");
+        pageMeta.apply(model, "lodging");
         return "lodging/index";
     }
 
@@ -60,7 +62,15 @@ public class LodgingController {
         return "redirect:/apply/success";
     }
 
+    @GetMapping("/campsite/list")
+    public String campsiteList(Model model) {
+        pageMeta.apply(model, "lodging.campsite.list");
+        model.addAttribute("items", service.listCampsite());
+        return "lodging/campsite-list";
+    }
+
     private void addCampsiteOptions(Model model) {
+        pageMeta.apply(model, "lodging");
         model.addAttribute("tentSizes", TentSize.values());
         model.addAttribute("arrivalTimes", ArrivalTime.values());
         model.addAttribute("pageTitle", "캠핑사이트 신청");
@@ -92,7 +102,15 @@ public class LodgingController {
         return "redirect:/apply/success";
     }
 
+    @GetMapping("/dormitory/list")
+    public String dormitoryList(Model model) {
+        pageMeta.apply(model, "lodging.dormitory.list");
+        model.addAttribute("items", service.listDormitory());
+        return "lodging/dormitory-list";
+    }
+
     private void addDormitoryOptions(Model model) {
+        pageMeta.apply(model, "lodging");
         model.addAttribute("genders", Gender.values());
         model.addAttribute("nightsOptions", Nights.values());
         model.addAttribute("pageTitle", "도미토리 신청");

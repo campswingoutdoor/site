@@ -4,15 +4,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/base}">
 <head>
-    <title>오시는 길</title>
+    <title th:text="${pageMeta?.title}">오시는 길</title>
 </head>
 <body>
 <main layout:fragment="content">
 
     <section class="section-py">
         <div class="container-page max-w-5xl">
-            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3">LOCATION GUIDE</p>
-            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12">오시는 길</h1>
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3"
+               th:text="${pageMeta?.badge}">LOCATION GUIDE</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12"
+                th:text="${pageMeta?.h1}">오시는 길</h1>
 
             <!-- 지도 이미지 -->
             <img th:src="@{/img/location-map.jpeg}"
@@ -26,7 +28,7 @@
                     <h2 class="font-heading text-xl text-gold mb-4">주소</h2>
                     <p class="text-text mb-2" th:text="${event.mainVenue.name}">상주우산오토캠핑장</p>
                     <p class="text-text-muted text-sm mb-1" th:text="${event.mainVenue.address}">경북 상주시 외서면 우산리 223-3</p>
-                    <p class="text-text-muted text-sm mb-4">도로명: 채룡산로 752</p>
+                    <p class="text-text-muted text-sm mb-4" th:text="${locationGuide?.roadAddress}">도로명: 채룡산로 752</p>
                     <a th:if="${event.kakaoMapUrl != null and !event.kakaoMapUrl.isEmpty()}"
                        target="_blank" rel="noopener"
                        th:href="${event.kakaoMapUrl}"
@@ -35,14 +37,14 @@
 
                 <!-- 대중교통 / 픽업버스 -->
                 <div class="card p-6">
-                    <h2 class="font-heading text-xl text-gold mb-4">대중교통 안내</h2>
-                    <p class="text-text-muted text-sm mb-3">동서울터미널 → 성주봉한방사우나 직통버스</p>
+                    <h2 class="font-heading text-xl text-gold mb-4" th:text="${locationGuide?.transportTitle}">대중교통 안내</h2>
+                    <p class="text-text-muted text-sm mb-3" th:text="${locationGuide?.transportRoute}">동서울터미널 → 성주봉한방사우나 직통버스</p>
                     <ul th:if="${!#lists.isEmpty(pickupTrips)}" class="text-sm space-y-1 text-text">
                         <li>출발:
                             <span class="text-gold-light"
                                   th:text="${#strings.listJoin(pickupTrips.![#temporals.format(departureTime,'HH:mm')], ' / ')}">07:50 / 13:10 / 17:50</span>
                         </li>
-                        <li>소요: 약 3시간</li>
+                        <li>소요: <span th:text="${locationGuide?.duration}">약 3시간</span></li>
                         <li>요금:
                             <span th:text="${#numbers.formatInteger(pickupTrips[0].pricePerSeat, 0, 'COMMA')} + '원'">18,200원</span>
                         </li>
@@ -50,16 +52,16 @@
                             th:text="'경유: ' + ${pickupTrips[0].route}">경유: 서울→상주</li>
                     </ul>
                     <p class="text-text-muted text-xs mt-4">
-                        ※ 은척 하차 시 캠핑장까지 픽업 가능 (사전 신청 시).<br />
-                        ※ '건대'는 서울 건대가 아닌 충주 건국대 경유입니다.
+                        <span th:text="${locationGuide?.pickupNote1}">※ 은척 하차 시 캠핑장까지 픽업 가능 (사전 신청 시).</span><br />
+                        <span th:text="${locationGuide?.pickupNote2}">※ '건대'는 서울 건대가 아닌 충주 건국대 경유입니다.</span>
                     </p>
                 </div>
             </div>
 
             <!-- 픽업 가능 안내 -->
             <div class="card p-6 text-center mb-12">
-                <p class="font-display text-gold tracking-widest text-sm mb-2">PICKUP AVAILABLE</p>
-                <p class="text-text">은척 정류장 하차 → 행사장까지 차량 약 9분 · 사전 신청 시 픽업 가능</p>
+                <p class="font-display text-gold tracking-widest text-sm mb-2" th:text="${locationGuide?.pickupHeadline}">PICKUP AVAILABLE</p>
+                <p class="text-text" th:text="${locationGuide?.pickupDescription}">은척 정류장 하차 → 행사장까지 차량 약 9분 · 사전 신청 시 픽업 가능</p>
             </div>
 
             <div class="text-center">
