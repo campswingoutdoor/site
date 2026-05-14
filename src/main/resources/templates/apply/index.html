@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title th:text="${pageMeta?.title}">바로 신청하기</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section-py">
+        <div class="container-page max-w-5xl">
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3"
+               th:text="${pageMeta?.badge}">APPLY</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-6"
+                th:text="${pageMeta?.h1}">바로 신청하기</h1>
+            <p class="text-center text-text-muted mb-12">
+                참가 형태에 맞는 신청 폼을 선택해주세요. 모든 참가자는 파티패스를 신청해야 하며,
+                숙박이 필요한 경우 캠핑사이트 또는 도미토리를 추가로 신청합니다.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a th:each="c : ${applyCards}" th:href="@{${c.linkPath}}"
+                   class="card overflow-hidden group transition hover:border-gold/60 hover:shadow-glow">
+                    <div class="aspect-[4/3] bg-cover bg-center transition group-hover:scale-105"></div>
+                    <div class="p-6">
+                        <p class="font-display text-gold tracking-[0.3em] text-xs mb-2" th:text="${c.stepLabel}">STEP 1</p>
+                        <h3 class="font-heading text-xl text-gold mb-2" th:text="${c.title}">파티패스</h3>
+                        <p class="text-text-muted text-sm" th:text="${c.description}">전야제 + 메인 행사 입장 패스</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title th:text="${pageMeta?.title}">행사 개요</title>
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="section-py">
+        <div class="container-page max-w-4xl">
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3"
+               th:text="${pageMeta?.badge}">VENUE INTRODUCTION</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12"
+                th:text="${pageMeta?.h1}">행사 개요</h1>
+
+            <!-- 슬로건 + 컨셉 -->
+            <div class="card p-8 md:p-12 text-center mb-12">
+                <p class="font-display italic text-gold-light text-xl md:text-2xl mb-4"
+                   th:text="${event.slogan}">Swing Out Under The Stars</p>
+                <p class="text-text-muted leading-relaxed">
+                    <span th:text="${conceptCopy?.concept}">스윙댄스 · 캠핑 · 음악 · 커뮤니티가 만나는 1박 2일 야외 이벤트.</span><br />
+                    <span th:text="${conceptCopy?.tagline}">빛나는 조명, 따뜻한 모닥불, 그리고 별빛 아래의 스윙.</span>
+                </p>
+            </div>
+
+            <!-- 일정·장소 박스 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <div class="card p-6">
+                    <p class="font-display text-gold tracking-widest text-sm mb-3">일정</p>
+                    <p class="text-2xl text-text mb-2">
+                        <span th:text="${#temporals.format(event.startDate, 'yyyy.MM.dd (E)')}">2026.10.30 (금)</span>
+                    </p>
+                    <p class="text-2xl text-text mb-4">
+                        <span th:text="${#temporals.format(event.endDate, 'yyyy.MM.dd (E)')}">2026.10.31 (토)</span>
+                    </p>
+                    <p class="text-text-muted text-sm" th:text="${conceptCopy?.subjectLine}">1박 2일 · 전야제 + 메인 행사</p>
+                </div>
+                <div class="card p-6">
+                    <p class="font-display text-gold tracking-widest text-sm mb-3">장소</p>
+                    <p class="text-2xl text-text mb-1" th:text="${event.mainVenue.name}">상주우산오토캠핑장</p>
+                    <p class="text-text-muted text-sm mb-4" th:text="${event.mainVenue.address}">경북 상주시 외서면 우산리 223-3</p>
+                    <p class="text-text-muted text-sm">전야제: <span class="text-text" th:text="${event.prePartyVenue.name}">느티나무 카페</span></p>
+                </div>
+            </div>
+
+            <!-- 프로그램 타임테이블 -->
+            <div class="mb-12" th:if="${!#maps.isEmpty(scheduleByDay)}">
+                <h2 class="font-heading text-2xl md:text-3xl text-gold mb-6 text-center">프로그램</h2>
+
+                <div th:each="entry : ${scheduleByDay}" class="card p-6 mb-6">
+                    <p class="font-display text-gold tracking-widest text-sm mb-4"
+                       th:text="${entry.key.label()} + ' 타임테이블'">FRIDAY 타임테이블</p>
+                    <ul class="space-y-3 text-sm">
+                        <li th:each="s : ${entry.value}" class="flex gap-4">
+                            <span class="font-display text-gold-light w-20 shrink-0"
+                                  th:text="${#temporals.format(s.startTime, 'HH:mm')}">19:00</span>
+                            <span class="text-text">
+                                <span th:text="${s.title}">제목</span>
+                                <span th:if="${s.description != null and !s.description.isEmpty()}"
+                                      class="text-text-muted"
+                                      th:text="' · ' + ${s.description}"></span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="text-text-muted text-xs text-center" th:text="${conceptCopy?.scheduleNote}">* 타임테이블은 운영상 사정에 따라 일부 변경될 수 있습니다.</p>
+
+            <div class="text-center mt-12">
+                <a th:href="@{/apply}" class="btn-cta">바로 신청하기</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

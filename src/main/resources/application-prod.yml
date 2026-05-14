@@ -1,0 +1,19 @@
+spring:
+  thymeleaf:
+    cache: true
+
+settings:
+  cache:
+    # 운영: 5초 주기 (batchGet 1회 호출 = 12 req/min, quota 60/min 대비 20%).
+    # 단일 서버 가정 — 인스턴스 N대로 확장 시 (12*N) req/min이 quota를 넘지 않는지 재검토 필요.
+    # 운영자 시트 수정 후 5초 내 사용자에게 반영 (거의 실시간).
+    # SETTINGS_CACHE_REFRESH_INTERVAL_MS 환경변수로 런타임에 오버라이드 가능.
+    refresh-interval-ms: ${SETTINGS_CACHE_REFRESH_INTERVAL_MS:5000}
+
+server:
+  forward-headers-strategy: native
+
+logging:
+  level:
+    com.campswing: INFO
+    root: WARN

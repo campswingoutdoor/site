@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title th:text="${pageMeta?.title}">행사장 소개</title>
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="section-py">
+        <div class="container-page">
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3"
+               th:text="${pageMeta?.badge}">VENUE INTRODUCTION</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12"
+                th:text="${pageMeta?.h1}">행사장 소개</h1>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+
+                <article th:each="v,iter : ${venueDetails}" class="card overflow-hidden">
+                    <div class="aspect-[4/5] bg-cover bg-center"
+                         th:style="${v.key == 'preParty'} ? 'background-image: url(/img/venue-preparty.jpeg);' : 'background-image: url(/img/hero-full.jpeg);'"></div>
+                    <div class="p-6 md:p-8">
+                        <p class="font-display text-gold tracking-[0.3em] text-xs mb-2" th:text="${v.badge}">FRIDAY PRE-PARTY</p>
+                        <h2 class="font-heading text-2xl text-gold mb-3" th:text="${v.title}">금요일 전야제 행사장</h2>
+                        <p class="text-text mb-4"
+                           th:text="${v.venueName != null and !v.venueName.isEmpty()} ? ${v.venueName} : (${v.key == 'preParty'} ? ${event.prePartyVenue.name} : ${event.mainVenue.name})">느티나무 카페</p>
+                        <p class="text-text-muted text-sm leading-relaxed mb-4" th:text="${v.description}">설명</p>
+                        <p class="text-text-muted text-xs"
+                           th:text="${v.period != null and !v.period.isEmpty()} ? ${v.period} : (${v.key == 'main'} ? ${event.mainVenue.address} : '')">10.30 · 19:00 ~</p>
+                    </div>
+                </article>
+
+            </div>
+
+            <div class="text-center mt-12">
+                <a th:href="@{/event/location}" class="btn-outline-gold">오시는 길 보기 →</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

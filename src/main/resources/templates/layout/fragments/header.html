@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header"
+        class="sticky top-0 z-50 bg-bg-primary/90 backdrop-blur-md border-b border-gold/20">
+    <nav class="container-page flex items-center justify-between h-20">
+        <a th:href="@{/}" class="flex items-center gap-3 shrink-0">
+            <img th:src="@{/img/logo.jpeg}" alt="Camp Swing Outdoor" class="h-12 w-auto rounded" />
+        </a>
+
+        <!-- Desktop nav -->
+        <ul class="hidden lg:flex items-center gap-8 font-heading text-text">
+            <li class="relative" x-data="{open:false}" @click.outside="open=false">
+                <button type="button"
+                        @click="open=!open"
+                        :aria-expanded="open"
+                        class="hover:text-gold transition inline-flex items-center gap-1">
+                    행사소개
+                    <span class="text-xs">▾</span>
+                </button>
+                <ul x-show="open" x-cloak x-transition
+                    class="absolute left-0 top-full pt-2 min-w-[200px]">
+                    <li class="bg-bg-card border border-gold/40 rounded-md p-2 shadow-card">
+                        <a th:href="@{/event/overview}" class="block px-3 py-2 hover:text-gold">행사 개요</a>
+                        <a th:href="@{/event/venue}" class="block px-3 py-2 hover:text-gold">행사장 소개</a>
+                        <a th:href="@{/event/location}" class="block px-3 py-2 hover:text-gold">오시는 길</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a th:href="@{/party-pass}" class="hover:text-gold transition">파티패스 안내·신청</a>
+            </li>
+            <li class="relative" x-data="{open:false}" @click.outside="open=false">
+                <button type="button"
+                        @click="open=!open"
+                        :aria-expanded="open"
+                        class="hover:text-gold transition inline-flex items-center gap-1">
+                    숙박 신청
+                    <span class="text-xs">▾</span>
+                </button>
+                <ul x-show="open" x-cloak x-transition
+                    class="absolute left-0 top-full pt-2 min-w-[200px]">
+                    <li class="bg-bg-card border border-gold/40 rounded-md p-2 shadow-card">
+                        <a th:href="@{/lodging}" class="block px-3 py-2 hover:text-gold">숙박 안내</a>
+                        <a th:href="@{/lodging/campsite}" class="block px-3 py-2 hover:text-gold">캠핑사이트 신청</a>
+                        <a th:href="@{/lodging/dormitory}" class="block px-3 py-2 hover:text-gold">도미토리 신청</a>
+                    </li>
+                </ul>
+            </li>
+            <li><a th:href="@{/dj}" class="hover:text-gold transition">DJ 소개</a></li>
+            <li><a th:href="@{/instructors}" class="hover:text-gold transition">강사 소개</a></li>
+            <li><a th:href="@{/staff}" class="hover:text-gold transition">스태프 소개</a></li>
+        </ul>
+
+        <a th:href="@{/apply}" class="hidden lg:inline-flex btn-cta">바로 신청하기</a>
+
+        <!-- Mobile menu (isolated scope) -->
+        <div class="lg:hidden" x-data="{ mobileOpen: false }">
+            <button type="button"
+                    class="text-text p-2 -mr-2"
+                    @click="mobileOpen = !mobileOpen"
+                    :aria-expanded="mobileOpen"
+                    aria-label="메뉴 열기">
+                <svg class="w-7 h-7 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <!-- Mobile drawer -->
+            <div x-show="mobileOpen"
+                 x-cloak
+                 x-transition.opacity
+                 class="fixed top-20 right-0 bottom-0 left-0 bg-bg-primary/95 backdrop-blur-md z-40 overflow-y-auto"
+                 @click.self="mobileOpen = false">
+                <ul class="container-page py-8 space-y-1 font-heading text-lg">
+                    <li class="border-b border-gold/10 pb-2">
+                        <p class="text-gold-light text-xs tracking-widest mb-2">행사소개</p>
+                        <a th:href="@{/event/overview}" class="block py-2 hover:text-gold">행사 개요</a>
+                        <a th:href="@{/event/venue}" class="block py-2 hover:text-gold">행사장 소개</a>
+                        <a th:href="@{/event/location}" class="block py-2 hover:text-gold">오시는 길</a>
+                    </li>
+                    <li class="border-b border-gold/10 py-2">
+                        <a th:href="@{/party-pass}" class="block py-2 hover:text-gold">파티패스 안내·신청</a>
+                    </li>
+                    <li class="border-b border-gold/10 py-2">
+                        <p class="text-gold-light text-xs tracking-widest mb-2">숙박 신청</p>
+                        <a th:href="@{/lodging}" class="block py-2 hover:text-gold">숙박 안내</a>
+                        <a th:href="@{/lodging/campsite}" class="block py-2 hover:text-gold">캠핑사이트 신청</a>
+                        <a th:href="@{/lodging/dormitory}" class="block py-2 hover:text-gold">도미토리 신청</a>
+                    </li>
+                    <li class="border-b border-gold/10 py-2">
+                        <a th:href="@{/dj}" class="block py-2 hover:text-gold">DJ 소개</a>
+                    </li>
+                    <li class="border-b border-gold/10 py-2">
+                        <a th:href="@{/instructors}" class="block py-2 hover:text-gold">강사 소개</a>
+                    </li>
+                    <li class="border-b border-gold/10 py-2">
+                        <a th:href="@{/staff}" class="block py-2 hover:text-gold">스태프 소개</a>
+                    </li>
+                    <li class="pt-4">
+                        <a th:href="@{/apply}" class="btn-cta w-full justify-center">바로 신청하기</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+</body>
+</html>

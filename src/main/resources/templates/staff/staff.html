@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title th:text="${pageMeta?.title}">스태프 소개</title>
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="section-py">
+        <div class="container-page max-w-5xl">
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3"
+               th:text="${pageMeta?.badge}">STAFF</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12"
+                th:text="${pageMeta?.h1}">스태프 소개</h1>
+
+            <!-- Coming Soon placeholder -->
+            <div th:if="${#lists.isEmpty(staff)}" class="card p-12 text-center max-w-2xl mx-auto">
+                <p class="font-display tracking-[0.4em] text-text-muted text-sm mb-3" th:text="${comingSoon?.label}">COMING SOON</p>
+                <p class="text-text-muted" th:text="${comingSoon?.message}">행사를 만드는 운영팀 소개가 곧 공개될 예정입니다.</p>
+                <p class="text-text-muted text-xs mt-4">문의: <span th:text="${event.contactEmail}">contact@campswing.example</span></p>
+            </div>
+
+            <!-- 데이터가 있을 때 -->
+            <div th:unless="${#lists.isEmpty(staff)}"
+                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <article th:each="s : ${staff}" class="card overflow-hidden">
+                    <img th:src="@{${s.profileImagePath}}"
+                         th:alt="${s.name}"
+                         class="w-full aspect-[3/4] object-cover" />
+                    <div class="p-6 text-center">
+                        <p class="font-heading text-xl text-gold mb-1" th:text="${s.name}">스태프명</p>
+                        <p class="text-text-muted text-sm" th:text="${s.role}">역할</p>
+                        <p th:if="${s.bio != null and !s.bio.isBlank()}"
+                           class="text-text-muted text-sm mt-3 leading-relaxed"
+                           th:text="${s.bio}"></p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

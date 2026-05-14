@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title th:text="${pageMeta?.title}">DJ 소개</title>
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="section-py">
+        <div class="container-page">
+
+            <div class="text-center mb-12">
+                <p class="font-display tracking-[0.4em] text-gold text-xs md:text-sm mb-3"
+                   th:text="${pageMeta?.badge}">DJ LINE-UP</p>
+                <h1 class="font-display text-4xl md:text-6xl text-gold"
+                    style="text-shadow: 0 0 18px rgba(201,163,91,0.4);"
+                    th:text="${pageMeta?.h1}">DJ 소개</h1>
+            </div>
+
+            <div th:if="${#lists.isEmpty(djs)}" class="card p-12 text-center max-w-2xl mx-auto">
+                <p class="font-display tracking-[0.4em] text-text-muted text-sm mb-3" th:text="${comingSoon?.label}">COMING SOON</p>
+                <p class="text-text-muted" th:text="${comingSoon?.message}">DJ 라인업이 곧 공개될 예정입니다.</p>
+            </div>
+
+            <div th:unless="${#lists.isEmpty(djs)}"
+                 class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <article th:each="dj : ${djs}" class="card overflow-hidden">
+                    <img th:src="@{${dj.profileImagePath}}"
+                         th:alt="${dj.stageName}"
+                         class="w-full aspect-[3/4] object-cover" />
+                    <div class="p-6 md:p-8 text-center">
+                        <p class="font-display text-2xl md:text-3xl text-gold mb-2"
+                           style="text-shadow: 0 0 14px rgba(201,163,91,0.35);"
+                           th:text="${dj.stageName}">DJ CHORI</p>
+                        <p class="font-display tracking-[0.3em] text-gold-light text-xs mb-2"
+                           th:text="${dj.nickname}">ASIAN PRINCE</p>
+                        <p class="text-text-muted text-sm uppercase tracking-widest" th:text="${dj.role}">SWING DANCE DJ</p>
+                        <p th:if="${dj.bio != null and !dj.bio.isBlank()}"
+                           class="text-text-muted text-sm mt-4 leading-relaxed"
+                           th:text="${dj.bio}"></p>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

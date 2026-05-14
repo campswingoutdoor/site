@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title th:text="${pageMeta?.title}">도미토리 신청 확인</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <section class="section-py">
+        <div class="container-page">
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3"
+               th:text="${pageMeta?.badge}">APPLICATION LIST</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-4"
+                th:text="${pageMeta?.h1}">도미토리 신청 확인</h1>
+            <p class="text-center text-text-muted mb-8">
+                현재까지 등록된 도미토리 신청 내역입니다.
+                <span class="text-gold-light"> 총 <span th:text="${#lists.size(items)}">0</span>건</span>
+            </p>
+
+            <div class="flex justify-end mb-4">
+                <a th:href="@{/lodging/dormitory}" class="btn-outline-gold">← 신청 폼으로 돌아가기</a>
+            </div>
+
+            <div th:if="${#lists.isEmpty(items)}"
+                 class="card p-10 text-center text-text-muted">
+                아직 등록된 신청이 없습니다.
+            </div>
+
+            <div th:unless="${#lists.isEmpty(items)}"
+                 class="card overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead class="border-b border-gold/40 bg-gold/5">
+                    <tr class="text-gold font-heading text-left">
+                        <th class="px-4 py-3 whitespace-nowrap">순번</th>
+                        <th class="px-4 py-3 whitespace-nowrap">신청일시</th>
+                        <th class="px-4 py-3 whitespace-nowrap">이름</th>
+                        <th class="px-4 py-3 whitespace-nowrap">성별</th>
+                        <th class="px-4 py-3 whitespace-nowrap">박수</th>
+                        <th class="px-4 py-3 whitespace-nowrap">픽업버스</th>
+                        <th class="px-4 py-3">룸메이트 희망</th>
+                        <th class="px-4 py-3">메모</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-text">
+                    <tr th:each="row : ${items}"
+                        class="border-b border-gold/10 hover:bg-gold/5 transition">
+                        <td class="px-4 py-3 text-text-muted whitespace-nowrap" th:text="${row.seq}">1</td>
+                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.submittedAt}">2026-05-14 12:34:56</td>
+                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.applicantName}">홍길동</td>
+                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.gender}">FEMALE</td>
+                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.nights}">ONE_NIGHT</td>
+                        <td class="px-4 py-3 whitespace-nowrap"
+                            th:text="${#strings.equalsIgnoreCase(row.usePickupBus, 'TRUE') ? '이용'
+                                       : (#strings.equalsIgnoreCase(row.usePickupBus, 'FALSE') ? '미이용' : row.usePickupBus)}">미이용</td>
+                        <td class="px-4 py-3 text-text-muted" th:text="${row.roommatePreference}"></td>
+                        <td class="px-4 py-3 text-text-muted" th:text="${row.memo}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>
