@@ -1,0 +1,44 @@
+# VCS / IDE
+.git
+.gitignore
+.gitattributes
+.idea
+.vscode
+*.iml
+
+# Gradle / Java 빌드 산출물
+.gradle
+build
+out
+*.class
+
+# Node 빌드 산출물
+node_modules
+npm-debug.log*
+yarn-error.log*
+
+# 운영 매뉴얼·문서 (이미지에 포함될 필요 없음)
+docs
+*.md
+!README.md
+
+# 로컬 환경 / 비밀
+.env
+.env.*
+*.local
+secrets
+service-account*.json
+*credentials*.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test 산출물
+coverage
+**/test-results
+**/jacoco
+
+# 기타
+*.log
+tmp
