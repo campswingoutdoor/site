@@ -4,8 +4,6 @@ import com.campswing.domain.application.PassType;
 import com.campswing.domain.application.TshirtSize;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -27,11 +25,6 @@ public record PartyPassApplicationRequest(
 
         @NotNull
         PassType passType,
-
-        @NotNull
-        @Min(1)
-        @Max(6)
-        Integer partySize,
 
         @NotNull
         TshirtSize tshirtSize,

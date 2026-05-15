@@ -68,6 +68,6 @@ public class PartyPassController {
     }
 
     private static PartyPassApplicationRequest emptyForm() {
-        return new PartyPassApplicationRequest(null, null, null, null, null, null, null, null, null);
+        return new PartyPassApplicationRequest(null, null, null, null, null, null, null, null);
     }
 }

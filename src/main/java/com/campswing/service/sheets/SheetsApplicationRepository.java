@@ -43,11 +43,11 @@ public class SheetsApplicationRepository {
 
     /**
      * PartyPass 시트의 모든 신청 행을 읽어 리스트 뷰모델로 반환.
-     * 1행은 헤더(영문 컬럼명)로 가정하여 A2:K부터 읽음. 추가 한글 라벨 행(1행 한글, 2행 영문)이
-     * 있어도 헤더 행이면 id 값이 비어있어 스킵된다.
+     * 컬럼 순서: id, submittedAt, applicantName, phone, email, passType, tshirtSize,
+     *           dietaryNote, memo, agreedToTerms (A2:J)
      */
     public List<PartyPassListItem> findAllPartyPass() {
-        List<List<Object>> rows = client.readRange(SHEET_PARTY_PASS, "A2:K");
+        List<List<Object>> rows = client.readRange(SHEET_PARTY_PASS, "A2:J");
         List<PartyPassListItem> result = new ArrayList<>(rows.size());
         int seq = 0;
         for (List<Object> r : rows) {
@@ -60,9 +60,9 @@ public class SheetsApplicationRepository {
                     cell(r, 1),  // submittedAt
                     cell(r, 2),  // applicantName
                     cell(r, 5),  // passType
-                    cell(r, 7),  // tshirtSize
-                    cell(r, 8),  // dietaryNote
-                    cell(r, 9)   // memo
+                    cell(r, 6),  // tshirtSize
+                    cell(r, 7),  // dietaryNote
+                    cell(r, 8)   // memo
             ));
         }
         return result;

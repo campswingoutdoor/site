@@ -38,7 +38,6 @@ public class ApplicationService {
                 req.phone(),
                 req.email(),
                 req.passType(),
-                req.partySize(),
                 req.tshirtSize(),
                 req.dietaryNote(),
                 req.memo(),

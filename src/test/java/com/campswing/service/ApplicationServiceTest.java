@@ -56,7 +56,7 @@ class ApplicationServiceTest {
     void submitPartyPass_assignsUuidAndKstTimestamp() {
         PartyPassApplicationRequest req = new PartyPassApplicationRequest(
                 "홍길동", "010-1234-5678", "hong@example.com",
-                PassType.FULL, 2, TshirtSize.M,
+                PassType.FULL, TshirtSize.M,
                 null, null, true);
 
         ApplicationCreatedResponse response = service.submitPartyPass(req);
