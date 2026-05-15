@@ -63,12 +63,26 @@ public class GoogleSheetsClient {
                 ready = true;
                 log.info("Google Sheets client initialized for spreadsheetId={}", spreadsheetId);
             } catch (Exception e) {
-                log.warn("Google Sheets disabled: failed to initialize client ({}). " +
-                        "Form submissions will fail with SHEETS_API_ERROR until configured.", e.getMessage());
+                // 자격증명 base64 문자열이 예외 메시지에 그대로 박혀 로그로 새는 사고 재발 방지.
+                // 예: FileNotFoundException 메시지는 "<filename>: <reason>" 형태라 filename에
+                // GOOGLE_APPLICATION_CREDENTIALS에 잘못 넣은 base64가 전부 노출됨.
+                log.warn("Google Sheets disabled: failed to initialize client ({}: {}). " +
+                                "Form submissions will fail with SHEETS_API_ERROR until configured.",
+                        e.getClass().getSimpleName(), sanitizeForLog(e.getMessage()));
             }
         }
         this.sheets = initialized;
         this.enabled = ready;
+    }
+
+    /**
+     * 로그로 새도 안전하도록 메시지를 정제. 긴 base64/토큰 시퀀스(40자+ 영숫자+/=)는 &lt;redacted&gt;로,
+     * 최대 길이는 200자로 자른다. null/blank는 "(no message)".
+     */
+    static String sanitizeForLog(String message) {
+        if (message == null || message.isBlank()) return "(no message)";
+        String redacted = message.replaceAll("[A-Za-z0-9+/=]{40,}", "<redacted>");
+        return redacted.length() > 200 ? redacted.substring(0, 200) + "..." : redacted;
     }
 
     private GoogleCredentials loadCredentials(String location, String base64Json) throws IOException {
