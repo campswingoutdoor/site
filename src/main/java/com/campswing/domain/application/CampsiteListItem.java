@@ -10,7 +10,6 @@ public record CampsiteListItem(
         String applicantName,
         String partySize,
         String tentSize,
-        String vehicleCount,
         String arrivalTime,
         String usePickupBus,
         String memo

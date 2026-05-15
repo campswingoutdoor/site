@@ -15,12 +15,12 @@ public final class SheetRowMapper {
 
     public static final List<String> PARTY_PASS_HEADERS = List.of(
             "id", "submittedAt", "applicantName", "phone", "email",
-            "passType", "partySize", "tshirtSize", "dietaryNote", "memo", "agreedToTerms"
+            "passType", "tshirtSize", "dietaryNote", "memo", "agreedToTerms"
     );
 
     public static final List<String> CAMPSITE_HEADERS = List.of(
             "id", "submittedAt", "applicantName", "phone", "email",
-            "partySize", "tentSize", "vehicleCount", "arrivalTime", "usePickupBus",
+            "partySize", "tentSize", "arrivalTime", "usePickupBus",
             "memo", "agreedToTerms"
     );
 
@@ -40,7 +40,6 @@ public final class SheetRowMapper {
                 a.phone(),
                 a.email(),
                 a.passType().name(),
-                a.partySize(),
                 a.tshirtSize().name(),
                 nullToEmpty(a.dietaryNote()),
                 nullToEmpty(a.memo()),
@@ -57,7 +56,6 @@ public final class SheetRowMapper {
                 a.email(),
                 a.partySize(),
                 a.tentSize().name(),
-                a.vehicleCount(),
                 a.arrivalTime().name(),
                 a.usePickupBus(),
                 nullToEmpty(a.memo()),

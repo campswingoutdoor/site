@@ -10,7 +10,6 @@ public record CampsiteApplication(
         String email,
         int partySize,
         TentSize tentSize,
-        int vehicleCount,
         ArrivalTime arrivalTime,
         boolean usePickupBus,
         String memo,

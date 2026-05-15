@@ -9,7 +9,6 @@ public record PartyPassApplication(
         String phone,
         String email,
         PassType passType,
-        int partySize,
         TshirtSize tshirtSize,
         String dietaryNote,
         String memo,

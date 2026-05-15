@@ -56,7 +56,7 @@ class ApplicationServiceTest {
     void submitPartyPass_assignsUuidAndKstTimestamp() {
         PartyPassApplicationRequest req = new PartyPassApplicationRequest(
                 "홍길동", "010-1234-5678", "hong@example.com",
-                PassType.FULL, 2, TshirtSize.M,
+                PassType.FULL, TshirtSize.M,
                 null, null, true);
 
         ApplicationCreatedResponse response = service.submitPartyPass(req);
@@ -80,7 +80,7 @@ class ApplicationServiceTest {
     void submitCampsite_persistsViaRepository() {
         CampsiteApplicationRequest req = new CampsiteApplicationRequest(
                 "김캠퍼", "010-2222-3333", "kim@example.com",
-                3, TentSize.MEDIUM, 1, ArrivalTime.SAT_MORNING,
+                3, TentSize.MEDIUM, ArrivalTime.SAT_MORNING,
                 true, null, true);
 
         ApplicationCreatedResponse response = service.submitCampsite(req);

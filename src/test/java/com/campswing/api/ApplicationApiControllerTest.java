@@ -54,7 +54,6 @@ class ApplicationApiControllerTest {
                 "phone", "010-1234-5678",
                 "email", "hong@example.com",
                 "passType", "FULL",
-                "partySize", 2,
                 "tshirtSize", "M",
                 "agreedToTerms", true
         );
@@ -74,7 +73,6 @@ class ApplicationApiControllerTest {
                 "phone", "010-1234-5678",
                 "email", "not-an-email",
                 "passType", "FULL",
-                "partySize", 2,
                 "tshirtSize", "M",
                 "agreedToTerms", true
         );
@@ -95,7 +93,6 @@ class ApplicationApiControllerTest {
                 "phone", "010-1234-5678",
                 "email", "hong@example.com",
                 "passType", "FULL",
-                "partySize", 2,
                 "tshirtSize", "M",
                 "agreedToTerms", false
         );
@@ -118,7 +115,6 @@ class ApplicationApiControllerTest {
                 "phone", "010-1234-5678",
                 "email", "hong@example.com",
                 "passType", "FULL",
-                "partySize", 2,
                 "tshirtSize", "M",
                 "agreedToTerms", true
         );
