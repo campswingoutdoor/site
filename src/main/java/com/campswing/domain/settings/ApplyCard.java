@@ -6,6 +6,7 @@ public record ApplyCard(
         String stepLabel,
         String title,
         String description,
-        String linkPath
+        String linkPath,
+        String imagePath
 ) {
 }

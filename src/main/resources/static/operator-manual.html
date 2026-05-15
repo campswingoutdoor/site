@@ -225,7 +225,7 @@
   </tbody>
 </table>
 
-<h2>PartyPass 탭 — 열 구성 (11개)</h2>
+<h2>PartyPass 탭 — 열 구성 (10개)</h2>
 
 <table>
   <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
@@ -234,17 +234,16 @@
     <tr><td>B</td><td>신청 일시</td></tr>
     <tr><td>C</td><td>이름(닉네임)</td></tr>
     <tr><td>D</td><td>연락처</td></tr>
-    <tr><td>E</td><td>이메일</td></tr>
+    <tr><td>E</td><td>이메일 <em>(신청자가 비울 수 있음)</em></td></tr>
     <tr><td>F</td><td>패스 종류 — <code>FULL</code> / <code>PRE_PARTY_ONLY</code> / <code>MAIN_ONLY</code></td></tr>
-    <tr><td>G</td><td>인원 (1~6)</td></tr>
-    <tr><td>H</td><td>티셔츠 사이즈</td></tr>
-    <tr><td>I</td><td>식이 제한 · 알레르기</td></tr>
-    <tr><td>J</td><td>메모</td></tr>
-    <tr><td>K</td><td>개인정보 동의 (TRUE/FALSE)</td></tr>
+    <tr><td>G</td><td>티셔츠 사이즈</td></tr>
+    <tr><td>H</td><td>식이 제한 · 알레르기</td></tr>
+    <tr><td>I</td><td>메모</td></tr>
+    <tr><td>J</td><td>개인정보 동의 (TRUE/FALSE)</td></tr>
   </tbody>
 </table>
 
-<h2>Campsite 탭 — 열 구성 (12개)</h2>
+<h2>Campsite 탭 — 열 구성 (11개)</h2>
 
 <table>
   <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
@@ -253,14 +252,13 @@
     <tr><td>B</td><td>신청 일시</td></tr>
     <tr><td>C</td><td>이름(닉네임)</td></tr>
     <tr><td>D</td><td>연락처</td></tr>
-    <tr><td>E</td><td>이메일</td></tr>
-    <tr><td>F</td><td>인원</td></tr>
+    <tr><td>E</td><td>이메일 <em>(신청자가 비울 수 있음)</em></td></tr>
+    <tr><td>F</td><td>텐트 사용 인원</td></tr>
     <tr><td>G</td><td>텐트 크기 — <code>SMALL</code> / <code>MEDIUM</code> / <code>LARGE</code></td></tr>
-    <tr><td>H</td><td>차량 대수</td></tr>
-    <tr><td>I</td><td>도착 시간대 — <code>FRI_EVENING</code> / <code>SAT_MORNING</code> / <code>SAT_AFTERNOON</code></td></tr>
-    <tr><td>J</td><td>픽업버스 이용 (TRUE/FALSE)</td></tr>
-    <tr><td>K</td><td>메모</td></tr>
-    <tr><td>L</td><td>개인정보 동의</td></tr>
+    <tr><td>H</td><td>도착 시간대 — <code>FRI_EVENING</code> / <code>SAT_MORNING</code> / <code>SAT_AFTERNOON</code></td></tr>
+    <tr><td>I</td><td>픽업버스 이용 (TRUE/FALSE)</td></tr>
+    <tr><td>J</td><td>메모</td></tr>
+    <tr><td>K</td><td>개인정보 동의</td></tr>
   </tbody>
 </table>
 
@@ -273,7 +271,7 @@
     <tr><td>B</td><td>신청 일시</td></tr>
     <tr><td>C</td><td>이름(닉네임)</td></tr>
     <tr><td>D</td><td>연락처</td></tr>
-    <tr><td>E</td><td>이메일</td></tr>
+    <tr><td>E</td><td>이메일 <em>(신청자가 비울 수 있음)</em></td></tr>
     <tr><td>F</td><td>성별 — <code>MALE</code> / <code>FEMALE</code> / <code>PREFER_NOT_TO_SAY</code></td></tr>
     <tr><td>G</td><td>박수 — <code>ONE_NIGHT</code> / <code>TWO_NIGHTS</code></td></tr>
     <tr><td>H</td><td>픽업버스 이용 (TRUE/FALSE)</td></tr>
@@ -282,6 +280,11 @@
     <tr><td>K</td><td>개인정보 동의</td></tr>
   </tbody>
 </table>
+
+<div class="warn">
+  <div class="title">⚠️ 시트 컬럼은 절대 임의로 추가·삭제·재배열하지 마세요</div>
+  사이트는 위 열 순서를 그대로 가정하고 데이터를 씁니다. 운영자가 시트에 새 컬럼을 끼워 넣거나 순서를 바꾸면 모든 신청 데이터가 한 칸씩 밀려 들어가 데이터 유실이 발생합니다.
+</div>
 
 <h2>신청자 명단 확인 (시트를 안 열어도 됨)</h2>
 
@@ -502,8 +505,11 @@
     <tr><td>D</td><td>제목</td></tr>
     <tr><td>E</td><td>설명문</td></tr>
     <tr><td>F</td><td>링크 경로 (예: <code>/party-pass</code>)</td></tr>
+    <tr><td>G</td><td>카드 이미지 경로 (예: <code>/img/hero-main.jpeg</code>) — 비우면 기본 회색 배경</td></tr>
   </tbody>
 </table>
+
+<p>이미지는 사이트 내부 경로(<code>/img/...</code>)만 사용 가능합니다. 새 이미지를 쓰려면 사이트 관리자에게 요청해 <code>src/main/resources/static/img/</code> 경로에 파일을 추가하고 동일 경로를 시트에 입력하세요.</p>
 
 <h2>4-9. LocationGuide 탭 — 오시는 길 안내</h2>
 

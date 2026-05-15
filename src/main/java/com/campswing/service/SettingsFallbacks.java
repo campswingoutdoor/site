@@ -84,9 +84,9 @@ final class SettingsFallbacks {
 
     static List<ApplyCard> applyCards() {
         return List.of(
-                new ApplyCard(1, "partyPass", "STEP 1",      "파티패스",   "전야제 + 메인 행사 입장 패스", "/party-pass"),
-                new ApplyCard(2, "campsite",  "STEP 2 · A",  "캠핑사이트", "본인 텐트로 야영하는 분",      "/lodging/campsite"),
-                new ApplyCard(3, "dormitory", "STEP 2 · B",  "도미토리",   "공용 숙소로 편하게 묵는 분",   "/lodging/dormitory")
+                new ApplyCard(1, "partyPass", "STEP 1",      "파티패스",   "전야제 + 메인 행사 입장 패스", "/party-pass",         "/img/hero-main.jpeg"),
+                new ApplyCard(2, "campsite",  "STEP 2 · A",  "캠핑사이트", "본인 텐트로 야영하는 분",      "/lodging/campsite",   "/img/venue-intro.jpeg"),
+                new ApplyCard(3, "dormitory", "STEP 2 · B",  "도미토리",   "공용 숙소로 편하게 묵는 분",   "/lodging/dormitory",  "/img/venue-preparty.jpeg")
         );
     }
 
