@@ -44,7 +44,7 @@
                         <p class="field-error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
                     </div>
                     <div>
-                        <label class="field-label" for="email">이메일 *</label>
+                        <label class="field-label" for="email">이메일 <span class="text-text-muted text-xs">(선택)</span></label>
                         <input id="email" type="email" class="input-field" th:field="*{email}" autocomplete="email" />
                         <p class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                     </div>

@@ -21,7 +21,6 @@ public record CampsiteApplicationRequest(
         @Pattern(regexp = "^010-?\\d{4}-?\\d{4}$", message = "연락처 형식이 올바르지 않습니다.")
         String phone,
 
-        @NotBlank
         @Email
         String email,
 
@@ -32,11 +31,6 @@ public record CampsiteApplicationRequest(
 
         @NotNull
         TentSize tentSize,
-
-        @NotNull
-        @Min(0)
-        @Max(2)
-        Integer vehicleCount,
 
         @NotNull
         ArrivalTime arrivalTime,

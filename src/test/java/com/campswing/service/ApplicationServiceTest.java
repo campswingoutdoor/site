@@ -80,7 +80,7 @@ class ApplicationServiceTest {
     void submitCampsite_persistsViaRepository() {
         CampsiteApplicationRequest req = new CampsiteApplicationRequest(
                 "김캠퍼", "010-2222-3333", "kim@example.com",
-                3, TentSize.MEDIUM, 1, ArrivalTime.SAT_MORNING,
+                3, TentSize.MEDIUM, ArrivalTime.SAT_MORNING,
                 true, null, true);
 
         ApplicationCreatedResponse response = service.submitCampsite(req);

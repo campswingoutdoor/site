@@ -20,7 +20,7 @@ public final class SheetRowMapper {
 
     public static final List<String> CAMPSITE_HEADERS = List.of(
             "id", "submittedAt", "applicantName", "phone", "email",
-            "partySize", "tentSize", "vehicleCount", "arrivalTime", "usePickupBus",
+            "partySize", "tentSize", "arrivalTime", "usePickupBus",
             "memo", "agreedToTerms"
     );
 
@@ -56,7 +56,6 @@ public final class SheetRowMapper {
                 a.email(),
                 a.partySize(),
                 a.tentSize().name(),
-                a.vehicleCount(),
                 a.arrivalTime().name(),
                 a.usePickupBus(),
                 nullToEmpty(a.memo()),

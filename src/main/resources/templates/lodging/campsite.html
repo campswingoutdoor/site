@@ -33,7 +33,7 @@
                         <p class="field-error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
                     </div>
                     <div>
-                        <label class="field-label" for="email">이메일 *</label>
+                        <label class="field-label" for="email">이메일 <span class="text-text-muted text-xs">(선택)</span></label>
                         <input id="email" type="email" class="input-field" th:field="*{email}" autocomplete="email" />
                         <p class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                     </div>
@@ -56,21 +56,14 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="field-label" for="vehicleCount">차량 대수 *</label>
-                        <input id="vehicleCount" type="number" min="0" max="2" class="input-field" th:field="*{vehicleCount}" />
-                        <p class="field-error" th:if="${#fields.hasErrors('vehicleCount')}" th:errors="*{vehicleCount}"></p>
-                    </div>
-                    <div>
-                        <label class="field-label" for="arrivalTime">도착 예정 시간대 *</label>
-                        <select id="arrivalTime" class="input-field" th:field="*{arrivalTime}">
-                            <option value="" disabled th:selected="${form.arrivalTime == null}">선택해주세요</option>
-                            <option th:each="a : ${arrivalTimes}" th:value="${a}"
-                                    th:text="${a.name() == 'FRI_EVENING' ? '금요일 저녁' : (a.name() == 'SAT_MORNING' ? '토요일 오전' : '토요일 오후')}"></option>
-                        </select>
-                        <p class="field-error" th:if="${#fields.hasErrors('arrivalTime')}" th:errors="*{arrivalTime}"></p>
-                    </div>
+                <div>
+                    <label class="field-label" for="arrivalTime">도착 예정 시간대 *</label>
+                    <select id="arrivalTime" class="input-field" th:field="*{arrivalTime}">
+                        <option value="" disabled th:selected="${form.arrivalTime == null}">선택해주세요</option>
+                        <option th:each="a : ${arrivalTimes}" th:value="${a}"
+                                th:text="${a.name() == 'FRI_EVENING' ? '금요일 저녁' : (a.name() == 'SAT_MORNING' ? '토요일 오전' : '토요일 오후')}"></option>
+                    </select>
+                    <p class="field-error" th:if="${#fields.hasErrors('arrivalTime')}" th:errors="*{arrivalTime}"></p>
                 </div>
 
                 <div>

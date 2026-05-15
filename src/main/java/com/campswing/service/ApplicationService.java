@@ -57,7 +57,6 @@ public class ApplicationService {
                 req.email(),
                 req.partySize(),
                 req.tentSize(),
-                req.vehicleCount(),
                 req.arrivalTime(),
                 Boolean.TRUE.equals(req.usePickupBus()),
                 req.memo(),

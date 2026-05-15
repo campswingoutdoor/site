@@ -38,7 +38,6 @@
                         <th class="px-4 py-3 whitespace-nowrap">닉네임</th>
                         <th class="px-4 py-3 whitespace-nowrap">인원</th>
                         <th class="px-4 py-3 whitespace-nowrap">텐트 크기</th>
-                        <th class="px-4 py-3 whitespace-nowrap">차량</th>
                         <th class="px-4 py-3 whitespace-nowrap">도착 시간</th>
                         <th class="px-4 py-3 whitespace-nowrap">픽업버스</th>
                         <th class="px-4 py-3">메모</th>
@@ -52,7 +51,6 @@
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.applicantName}">홍길동</td>
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.partySize}">2</td>
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.tentSize}">MEDIUM</td>
-                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.vehicleCount}">1</td>
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.arrivalTime}">FRI_EVENING</td>
                         <td class="px-4 py-3 whitespace-nowrap"
                             th:text="${#strings.equalsIgnoreCase(row.usePickupBus, 'TRUE') ? '이용'

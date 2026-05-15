@@ -71,10 +71,10 @@ public class SheetsApplicationRepository {
     /**
      * Campsite 시트의 모든 신청 행을 읽어 리스트 뷰모델로 반환.
      * 컬럼 순서: id, submittedAt, applicantName, phone, email, partySize, tentSize,
-     *           vehicleCount, arrivalTime, usePickupBus, memo, agreedToTerms (A2:L)
+     *           arrivalTime, usePickupBus, memo, agreedToTerms (A2:K)
      */
     public List<CampsiteListItem> findAllCampsite() {
-        List<List<Object>> rows = client.readRange(SHEET_CAMPSITE, "A2:L");
+        List<List<Object>> rows = client.readRange(SHEET_CAMPSITE, "A2:K");
         List<CampsiteListItem> result = new ArrayList<>(rows.size());
         int seq = 0;
         for (List<Object> r : rows) {
@@ -88,10 +88,9 @@ public class SheetsApplicationRepository {
                     cell(r, 2),  // applicantName
                     cell(r, 5),  // partySize
                     cell(r, 6),  // tentSize
-                    cell(r, 7),  // vehicleCount
-                    cell(r, 8),  // arrivalTime
-                    cell(r, 9),  // usePickupBus
-                    cell(r, 10)  // memo
+                    cell(r, 7),  // arrivalTime
+                    cell(r, 8),  // usePickupBus
+                    cell(r, 9)   // memo
             ));
         }
         return result;

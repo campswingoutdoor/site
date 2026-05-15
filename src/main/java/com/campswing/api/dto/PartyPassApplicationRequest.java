@@ -19,7 +19,6 @@ public record PartyPassApplicationRequest(
         @Pattern(regexp = "^010-?\\d{4}-?\\d{4}$", message = "연락처 형식이 올바르지 않습니다.")
         String phone,
 
-        @NotBlank
         @Email
         String email,
 

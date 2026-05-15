@@ -119,7 +119,7 @@ public class LodgingController {
     // ===== Empty form factories =====
 
     private static CampsiteApplicationRequest emptyCampsiteForm() {
-        return new CampsiteApplicationRequest(null, null, null, null, null, null, null, null, null, null);
+        return new CampsiteApplicationRequest(null, null, null, null, null, null, null, null, null);
     }
 
     private static DormitoryApplicationRequest emptyDormitoryForm() {
