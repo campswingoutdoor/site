@@ -49,7 +49,7 @@ public class SheetsSettingsRepository {
     private static final String RANGE_PAGE_META = SHEET_PAGE_META + "!A2:E";
     private static final String RANGE_INDEX_HIGHLIGHT = SHEET_INDEX_HIGHLIGHT + "!A2:E";
     private static final String RANGE_VENUE_DETAIL = SHEET_VENUE_DETAIL + "!A2:G";
-    private static final String RANGE_APPLY_CARD = SHEET_APPLY_CARD + "!A2:F";
+    private static final String RANGE_APPLY_CARD = SHEET_APPLY_CARD + "!A2:G";
     private static final String RANGE_LOCATION_GUIDE = SHEET_LOCATION_GUIDE + "!A2:B";
     private static final String RANGE_CONCEPT_COPY = SHEET_CONCEPT_COPY + "!A2:B";
     private static final String RANGE_COMING_SOON = SHEET_COMING_SOON + "!A2:C";
@@ -119,7 +119,7 @@ public class SheetsSettingsRepository {
     }
 
     public List<ApplyCard> readApplyCards() {
-        return parseApplyCards(client.readRange(client.settingsSpreadsheetId(), SHEET_APPLY_CARD, "A2:F"));
+        return parseApplyCards(client.readRange(client.settingsSpreadsheetId(), SHEET_APPLY_CARD, "A2:G"));
     }
 
     public LocationGuide readLocationGuide() {
@@ -283,7 +283,8 @@ public class SheetsSettingsRepository {
                     asString(r, 2),
                     asString(r, 3),
                     r.size() >= 5 ? asString(r, 4) : "",
-                    r.size() >= 6 ? asString(r, 5) : ""
+                    r.size() >= 6 ? asString(r, 5) : "",
+                    r.size() >= 7 ? asString(r, 6) : ""
             ));
         }
         result.sort(Comparator.comparingInt(ApplyCard::displayOrder));

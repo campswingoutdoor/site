@@ -19,13 +19,6 @@ public class SheetsStaffRepository {
     private static final String SHEET_INSTRUCTORS = "Instructors";
     private static final String SHEET_STAFF = "Staff";
 
-    private static final List<Dj> STATIC_DJS = List.of(
-            new Dj("chori", "DJ CHORI", "ASIAN PRINCE",
-                    "SWING DANCE DJ", "/img/dj/chori.jpeg", null, 1),
-            new Dj("royal-jelly", "DJ ROYAL JELLY", "PINK JELLY BEAR",
-                    "SWING DANCE DJ", "/img/dj/royal-jelly.jpeg", null, 2)
-    );
-
     private final GoogleSheetsClient client;
 
     public SheetsStaffRepository(GoogleSheetsClient client) {
@@ -34,22 +27,22 @@ public class SheetsStaffRepository {
 
     public List<Dj> findAllDjs() {
         if (!client.isEnabled()) {
-            return STATIC_DJS;
+            return Collections.emptyList();
         }
         try {
             // 라인업 정보는 정적 콘텐츠 — Settings 스프레드시트에서 읽음
             List<List<Object>> rows = client.readRange(client.settingsSpreadsheetId(), SHEET_DJ, "A2:G");
             if (rows.isEmpty()) {
-                return STATIC_DJS;
+                return Collections.emptyList();
             }
             return rows.stream()
-                    .filter(r -> !r.isEmpty() && r.get(0) != null && !r.get(0).toString().isBlank())
+                    .filter(SheetsStaffRepository::isDataRow)
                     .map(SheetsStaffRepository::mapDj)
                     .sorted(Comparator.comparingInt(Dj::displayOrder))
                     .toList();
         } catch (Exception e) {
-            log.warn("Falling back to static DJ list (sheet read failed): {}", e.getMessage());
-            return STATIC_DJS;
+            log.warn("Falling back to empty DJ list (sheet read failed): {}", e.getMessage());
+            return Collections.emptyList();
         }
     }
 
@@ -72,7 +65,7 @@ public class SheetsStaffRepository {
                 return Collections.emptyList();
             }
             return rows.stream()
-                    .filter(r -> !r.isEmpty() && r.get(0) != null && !r.get(0).toString().isBlank())
+                    .filter(SheetsStaffRepository::isDataRow)
                     .map(SheetsStaffRepository::mapPerson)
                     .sorted(Comparator.comparingInt(Person::displayOrder))
                     .toList();
@@ -80,6 +73,17 @@ public class SheetsStaffRepository {
             log.warn("Falling back to empty list for sheet '{}' (read failed): {}", sheetName, e.getMessage());
             return Collections.emptyList();
         }
+    }
+
+    /**
+     * 빈 행과 헤더 잔재 행을 걸러낸다. 운영자가 1행에 한글 라벨 + 2행에 영문 헤더(id/name/...)를
+     * 두는 패턴을 쓰는데, 코드가 A2부터 읽으므로 영문 헤더 행이 데이터로 들어오는 것을 막아야 한다.
+     */
+    private static boolean isDataRow(List<Object> r) {
+        if (r.isEmpty() || r.get(0) == null) return false;
+        String first = r.get(0).toString().trim();
+        if (first.isBlank()) return false;
+        return !"id".equalsIgnoreCase(first);
     }
 
     private static Dj mapDj(List<Object> row) {

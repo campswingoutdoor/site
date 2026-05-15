@@ -22,7 +22,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <a th:each="c : ${applyCards}" th:href="@{${c.linkPath}}"
                    class="card overflow-hidden group transition hover:border-gold/60 hover:shadow-glow">
-                    <div class="aspect-[4/3] bg-cover bg-center transition group-hover:scale-105"></div>
+                    <div class="aspect-[4/3] bg-cover bg-center bg-bg-card transition group-hover:scale-105"
+                         th:style="${c.imagePath != null and !c.imagePath.isBlank()} ? |background-image: url(${c.imagePath})|"></div>
                     <div class="p-6">
                         <p class="font-display text-gold tracking-[0.3em] text-xs mb-2" th:text="${c.stepLabel}">STEP 1</p>
                         <h3 class="font-heading text-xl text-gold mb-2" th:text="${c.title}">파티패스</h3>
