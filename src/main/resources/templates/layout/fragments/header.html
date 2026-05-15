@@ -67,12 +67,20 @@
                 </svg>
             </button>
 
-            <!-- Mobile drawer -->
+            <!-- Mobile drawer.
+                 height를 h-[calc(100vh-5rem)]로 명시한 이유:
+                 부모 <header>에 backdrop-blur-md가 적용되어 있어 CSS spec상 자식 fixed 요소의
+                 containing block이 viewport가 아닌 header가 된다. 그 결과 top:80 + bottom:0이
+                 모두 header(높이 80px) 기준으로 해석되어 height가 0으로 계산되던 버그.
+                 vh는 containing block 영향을 받지 않으므로 명시적 viewport-relative 높이로 해결.
+
+                 @click.self도 제거함 — 모바일 touchend ghost click이 드로어 영역에서 firing되어
+                 self 매치되면서 mobileOpen이 즉시 false로 돌아가던 버그.
+                 닫기는 (1) 메뉴 항목 클릭으로 페이지 이동 (2) 햄버거 재클릭으로 처리. -->
             <div x-show="mobileOpen"
                  x-cloak
                  x-transition.opacity
-                 class="fixed top-20 right-0 bottom-0 left-0 bg-bg-primary/95 backdrop-blur-md z-40 overflow-y-auto"
-                 @click.self="mobileOpen = false">
+                 class="fixed top-20 left-0 right-0 h-[calc(100vh-5rem)] bg-bg-primary/95 backdrop-blur-md z-40 overflow-y-auto">
                 <ul class="container-page py-8 space-y-1 font-heading text-lg">
                     <li class="border-b border-gold/10 pb-2">
                         <p class="text-gold-light text-xs tracking-widest mb-2">행사소개</p>
