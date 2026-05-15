@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Camp Swing Outdoor 운영 매뉴얼</title>
+<style>
+  @page {
+    size: A4;
+    margin: 20mm 18mm;
+  }
+  :root {
+    --gold: #c8a04a;
+    --navy: #0b1426;
+    --muted: #4b5563;
+    --light: #f8fafc;
+    --border: #e5e7eb;
+    --accent: #f0e7d0;
+    --warn: #fff7ed;
+    --warn-border: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+    color: #1f2937;
+    font-size: 11pt;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  .cover {
+    text-align: center;
+    padding: 80mm 0 0;
+    page-break-after: always;
+  }
+  .cover .badge {
+    font-size: 10pt;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    margin-bottom: 14mm;
+  }
+  .cover h1 {
+    font-size: 28pt;
+    color: var(--navy);
+    margin: 0 0 8mm;
+    font-weight: 700;
+  }
+  .cover .sub {
+    font-size: 14pt;
+    color: var(--muted);
+    margin-bottom: 30mm;
+  }
+  .cover .meta {
+    font-size: 10pt;
+    color: var(--muted);
+  }
+  h1 {
+    color: var(--navy);
+    font-size: 20pt;
+    border-bottom: 3px solid var(--gold);
+    padding-bottom: 6px;
+    margin-top: 18mm;
+    margin-bottom: 6mm;
+    page-break-before: always;
+  }
+  h1.first { page-break-before: avoid; }
+  h2 {
+    color: var(--navy);
+    font-size: 14pt;
+    margin-top: 12mm;
+    margin-bottom: 4mm;
+    border-left: 4px solid var(--gold);
+    padding-left: 10px;
+  }
+  h3 {
+    color: var(--navy);
+    font-size: 12pt;
+    margin-top: 8mm;
+    margin-bottom: 3mm;
+  }
+  p { margin: 0 0 4mm; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4mm 0 6mm;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 6px 9px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--navy);
+    color: var(--gold);
+    font-weight: 600;
+  }
+  tr:nth-child(even) td { background: #fafafa; }
+  code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    background: #f3f4f6;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 9.5pt;
+    color: #b45309;
+  }
+  .callout {
+    background: var(--accent);
+    border-left: 4px solid var(--gold);
+    padding: 4mm 5mm;
+    margin: 4mm 0 6mm;
+    border-radius: 2px;
+    font-size: 10.5pt;
+  }
+  .callout strong { color: var(--navy); }
+  .warn {
+    background: var(--warn);
+    border-left: 4px solid var(--warn-border);
+    padding: 4mm 5mm;
+    margin: 4mm 0 6mm;
+    border-radius: 2px;
+    font-size: 10.5pt;
+  }
+  .warn .title {
+    color: #b45309;
+    font-weight: 700;
+    margin-bottom: 2mm;
+  }
+  ul, ol { padding-left: 5mm; margin: 0 0 4mm; }
+  li { margin-bottom: 1.5mm; }
+  .small { font-size: 9.5pt; color: var(--muted); }
+  .key { color: #b45309; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  .faq dt {
+    font-weight: 700;
+    color: var(--navy);
+    margin-top: 4mm;
+  }
+  .faq dd {
+    margin-left: 0;
+    padding-left: 6mm;
+    border-left: 2px solid var(--gold);
+    color: var(--muted);
+  }
+  .badge-tab {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--gold);
+    padding: 1px 8px;
+    border-radius: 3px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 9.5pt;
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="badge">OPERATOR MANUAL</div>
+  <h1>Camp Swing Outdoor</h1>
+  <div class="sub">운영자용 Google 스프레드시트 가이드</div>
+  <div class="meta">버전 1.0 · 2026</div>
+</div>
+
+<!-- 1. 이 매뉴얼을 읽기 전에 -->
+<h1 class="first">1. 시작하기 전에</h1>
+
+<p>Camp Swing Outdoor 사이트는 <strong>코드를 수정하지 않아도</strong> Google 스프레드시트만 편집하면 화면이 바뀌도록 설계되었습니다.<br/>
+이 매뉴얼은 처음 운영을 맡으신 분도 시트만 잘 관리하면 사이트 콘텐츠를 자유롭게 운영하실 수 있도록 안내합니다.</p>
+
+<div class="callout">
+  <strong>운영자가 직접 하는 일</strong><br/>
+  ① 시트 안의 텍스트(이벤트 이름·날짜·계좌·일정·라인업 등) 수정<br/>
+  ② 사용자가 제출한 신청 명단 확인<br/>
+  ③ 새 행사 시작 시 시트 내용 갱신
+</div>
+
+<h2>전체 구조 한눈에 보기</h2>
+
+<p>사이트는 <strong>2개의 Google 스프레드시트</strong>를 사용합니다.</p>
+
+<table>
+  <thead>
+    <tr><th style="width:22%">스프레드시트</th><th style="width:38%">역할</th><th>운영자의 작업</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>신청 시트</strong></td>
+      <td>사용자가 신청 폼에서 보낸 내용이 자동으로 쌓이는 곳</td>
+      <td>직접 입력하지 않고 <strong>명단을 확인</strong>하는 용도</td>
+    </tr>
+    <tr>
+      <td><strong>Settings 시트</strong></td>
+      <td>사이트에 보이는 텍스트·일정·라인업 등을 보관</td>
+      <td>운영자가 <strong>직접 편집</strong> (이 매뉴얼의 핵심 영역)</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  💡 두 시트의 ID(주소)는 시스템 담당자가 서버에 설정합니다. 운영자는 <strong>이미 설정된 시트의 내용</strong>만 관리합니다.
+</div>
+
+<!-- 2. 신청 시트 -->
+<h1>2. 신청 시트</h1>
+
+<p>사용자가 사이트에서 [신청 제출]을 누르면 이 시트의 마지막 줄에 새 행이 자동으로 추가됩니다.</p>
+
+<div class="warn">
+  <div class="title">⚠️ 절대 하지 마세요</div>
+  운영자가 신청 시트에 <strong>직접 행을 추가하거나 기존 행을 수정하지 마세요</strong>.<br/>
+  사용자 입력만 자동으로 쌓이도록 되어 있어, 수동 편집은 데이터 정합성을 깨뜨릴 수 있습니다.
+</div>
+
+<h2>탭 3개 (모두 영문, 대소문자 정확히)</h2>
+
+<table>
+  <thead>
+    <tr><th style="width:30%">탭 이름</th><th>저장되는 신청 종류</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="badge-tab">PartyPass</span></td><td>파티패스 신청</td></tr>
+    <tr><td><span class="badge-tab">Campsite</span></td><td>캠핑사이트 신청</td></tr>
+    <tr><td><span class="badge-tab">Dormitory</span></td><td>도미토리 신청</td></tr>
+  </tbody>
+</table>
+
+<h2>PartyPass 탭 — 열 구성 (11개)</h2>
+
+<table>
+  <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>신청번호 (자동 생성)</td></tr>
+    <tr><td>B</td><td>신청 일시</td></tr>
+    <tr><td>C</td><td>이름(닉네임)</td></tr>
+    <tr><td>D</td><td>연락처</td></tr>
+    <tr><td>E</td><td>이메일</td></tr>
+    <tr><td>F</td><td>패스 종류 — <code>FULL</code> / <code>PRE_PARTY_ONLY</code> / <code>MAIN_ONLY</code></td></tr>
+    <tr><td>G</td><td>인원 (1~6)</td></tr>
+    <tr><td>H</td><td>티셔츠 사이즈</td></tr>
+    <tr><td>I</td><td>식이 제한 · 알레르기</td></tr>
+    <tr><td>J</td><td>메모</td></tr>
+    <tr><td>K</td><td>개인정보 동의 (TRUE/FALSE)</td></tr>
+  </tbody>
+</table>
+
+<h2>Campsite 탭 — 열 구성 (12개)</h2>
+
+<table>
+  <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>신청번호</td></tr>
+    <tr><td>B</td><td>신청 일시</td></tr>
+    <tr><td>C</td><td>이름(닉네임)</td></tr>
+    <tr><td>D</td><td>연락처</td></tr>
+    <tr><td>E</td><td>이메일</td></tr>
+    <tr><td>F</td><td>인원</td></tr>
+    <tr><td>G</td><td>텐트 크기 — <code>SMALL</code> / <code>MEDIUM</code> / <code>LARGE</code></td></tr>
+    <tr><td>H</td><td>차량 대수</td></tr>
+    <tr><td>I</td><td>도착 시간대 — <code>FRI_EVENING</code> / <code>SAT_MORNING</code> / <code>SAT_AFTERNOON</code></td></tr>
+    <tr><td>J</td><td>픽업버스 이용 (TRUE/FALSE)</td></tr>
+    <tr><td>K</td><td>메모</td></tr>
+    <tr><td>L</td><td>개인정보 동의</td></tr>
+  </tbody>
+</table>
+
+<h2>Dormitory 탭 — 열 구성 (11개)</h2>
+
+<table>
+  <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>신청번호</td></tr>
+    <tr><td>B</td><td>신청 일시</td></tr>
+    <tr><td>C</td><td>이름(닉네임)</td></tr>
+    <tr><td>D</td><td>연락처</td></tr>
+    <tr><td>E</td><td>이메일</td></tr>
+    <tr><td>F</td><td>성별 — <code>MALE</code> / <code>FEMALE</code> / <code>PREFER_NOT_TO_SAY</code></td></tr>
+    <tr><td>G</td><td>박수 — <code>ONE_NIGHT</code> / <code>TWO_NIGHTS</code></td></tr>
+    <tr><td>H</td><td>픽업버스 이용 (TRUE/FALSE)</td></tr>
+    <tr><td>I</td><td>같은 방 희망 친구</td></tr>
+    <tr><td>J</td><td>메모</td></tr>
+    <tr><td>K</td><td>개인정보 동의</td></tr>
+  </tbody>
+</table>
+
+<h2>신청자 명단 확인 (시트를 안 열어도 됨)</h2>
+
+<p>사이트 내에서 명단 페이지로 바로 진입할 수 있습니다. 개인정보(연락처·이메일·동의 여부)는 화면에 노출되지 않습니다.</p>
+
+<table>
+  <thead><tr><th style="width:25%">신청 종류</th><th>명단 보러 가는 길</th></tr></thead>
+  <tbody>
+    <tr><td>파티패스</td><td>파티패스 페이지 하단 [<strong>신청확인</strong>] 버튼</td></tr>
+    <tr><td>캠핑사이트</td><td>신청하기 페이지 → 캠핑사이트 카드 [<strong>신청확인</strong>] 버튼</td></tr>
+    <tr><td>도미토리</td><td>신청하기 페이지 → 도미토리 카드 [<strong>신청확인</strong>] 버튼</td></tr>
+  </tbody>
+</table>
+
+<!-- 3. Settings 시트 -->
+<h1>3. Settings 시트</h1>
+
+<p>사이트의 모든 정적 텍스트·일정·라인업이 이 시트에 들어 있습니다. <strong>운영자가 가장 자주 만지는 시트</strong>입니다.</p>
+
+<h2>꼭 만들어야 하는 탭 (11개)</h2>
+
+<div class="warn">
+  <div class="title">⚠️ 11개 탭은 한 번에 모두 만드세요</div>
+  이 11개 중 <strong>하나라도 빠지면 11개 전체가 무시</strong>되어 코드 안의 기본값이 표시됩니다.<br/>
+  처음 시트를 세팅할 때 11개 탭을 한꺼번에 만들어 주세요. (안에 데이터를 다 채우지 않아도 됩니다.)
+</div>
+
+<table>
+  <thead><tr><th style="width:28%">탭 이름</th><th>관리하는 내용</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge-tab">Event</span></td><td>이벤트 이름·날짜·장소·계좌·연락처 등 핵심 정보</td></tr>
+    <tr><td><span class="badge-tab">Schedule</span></td><td>행사 타임테이블 (요일별 프로그램)</td></tr>
+    <tr><td><span class="badge-tab">PartyPassBenefit</span></td><td>파티패스에 포함된 혜택 목록</td></tr>
+    <tr><td><span class="badge-tab">PickupBus</span></td><td>픽업버스 시간표·가격</td></tr>
+    <tr><td><span class="badge-tab">PageMeta</span></td><td>각 페이지의 제목·뱃지·소제목</td></tr>
+    <tr><td><span class="badge-tab">IndexHighlight</span></td><td>홈 페이지의 WHEN/WHERE/PRE-PARTY 박스</td></tr>
+    <tr><td><span class="badge-tab">VenueDetail</span></td><td>행사장 소개 페이지의 카드 텍스트</td></tr>
+    <tr><td><span class="badge-tab">ApplyCard</span></td><td>신청하기 페이지의 3개 안내 카드</td></tr>
+    <tr><td><span class="badge-tab">LocationGuide</span></td><td>오시는 길 페이지 안내문</td></tr>
+    <tr><td><span class="badge-tab">ConceptCopy</span></td><td>행사 개요 페이지의 컨셉·슬로건 문구</td></tr>
+    <tr><td><span class="badge-tab">ComingSoon</span></td><td>DJ/강사/스태프 미공개 시 표시 문구</td></tr>
+  </tbody>
+</table>
+
+<h2>선택 탭 (3개)</h2>
+
+<p>없어도 사이트는 정상 동작합니다. 필요할 때 만들어 채우세요.</p>
+
+<table>
+  <thead><tr><th style="width:28%">탭 이름</th><th>관리하는 내용</th><th>없을 때</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge-tab">Dj</span></td><td>DJ 라인업</td><td>기본 DJ 명단 표시</td></tr>
+    <tr><td><span class="badge-tab">Instructors</span></td><td>강사 명단</td><td>"COMING SOON" 안내</td></tr>
+    <tr><td><span class="badge-tab">Staff</span></td><td>스태프 명단</td><td>"COMING SOON" 안내</td></tr>
+  </tbody>
+</table>
+
+<h2>시트 입력의 공통 규칙</h2>
+
+<ul>
+  <li><strong>1행은 자유</strong> — 한글 라벨을 자유롭게 사용하셔도 됩니다 (예: A1="키", B1="값"). 시스템은 1행을 무시합니다.</li>
+  <li><strong>실제 데이터는 2행부터</strong> 입력하세요.</li>
+  <li><strong>탭 이름과 키(영문)는 정확히 일치</strong>해야 합니다 — 대소문자, 공백까지.</li>
+</ul>
+
+<!-- 4. 탭별 상세 -->
+<h1>4. Settings 탭별 입력 가이드</h1>
+
+<h2>4-1. Event 탭 — 이벤트 기본 정보</h2>
+
+<p>A열에 <strong>키(영문)</strong>, B열에 <strong>값</strong>을 입력합니다.</p>
+
+<table>
+  <thead><tr><th style="width:32%">A열 (키)</th><th style="width:32%">B열 (값)</th><th>사이트의 어디에 표시?</th></tr></thead>
+  <tbody>
+    <tr><td><span class="key">name</span></td><td>이벤트 이름</td><td>헤더, 홈, 푸터</td></tr>
+    <tr><td><span class="key">slogan</span></td><td>슬로건</td><td>홈, 행사 개요</td></tr>
+    <tr><td><span class="key">startDate</span></td><td>시작일 (yyyy-MM-dd)</td><td>홈, 개요</td></tr>
+    <tr><td><span class="key">endDate</span></td><td>종료일 (yyyy-MM-dd)</td><td>홈, 개요</td></tr>
+    <tr><td><span class="key">mainVenueName</span></td><td>메인 행사장 이름</td><td>홈, 개요, 행사장</td></tr>
+    <tr><td><span class="key">mainVenueAddress</span></td><td>메인 행사장 주소</td><td>홈, 오시는 길</td></tr>
+    <tr><td><span class="key">prePartyVenueName</span></td><td>전야제 장소 이름</td><td>홈, 개요, 행사장</td></tr>
+    <tr><td><span class="key">prePartyVenueAddress</span></td><td>전야제 주소</td><td>(향후 사용)</td></tr>
+    <tr><td><span class="key">contactEmail</span></td><td>문의 이메일</td><td>푸터, 신청 완료 페이지</td></tr>
+    <tr><td><span class="key">instagram</span></td><td>인스타그램 핸들</td><td>푸터, 강사 안내</td></tr>
+    <tr><td><span class="key">bankName</span></td><td>입금 은행</td><td>신청 완료 페이지</td></tr>
+    <tr><td><span class="key">bankAccount</span></td><td>계좌번호</td><td>신청 완료 페이지</td></tr>
+    <tr><td><span class="key">accountHolder</span></td><td>예금주</td><td>신청 완료 페이지</td></tr>
+    <tr><td><span class="key">kakaoMapUrl</span></td><td>카카오맵 링크</td><td>오시는 길 [지도 보기]</td></tr>
+    <tr><td><span class="key">heroSubtitle</span></td><td>홈 메인 부제목</td><td>홈 메인 영역</td></tr>
+    <tr><td><span class="key">successDepositNotice</span></td><td>입금자명 안내문</td><td>신청 완료 페이지</td></tr>
+    <tr><td><span class="key">successDeadlineNotice</span></td><td>입금 마감 안내문</td><td>신청 완료 페이지</td></tr>
+  </tbody>
+</table>
+
+<h2>4-2. Schedule 탭 — 행사 일정</h2>
+
+<table>
+  <thead><tr><th style="width:8%">열</th><th style="width:24%">내용</th><th>예시 / 비고</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>순서</td><td>1, 2, 3... (작은 숫자가 먼저)</td></tr>
+    <tr><td>B</td><td>요일</td><td><code>FRI</code> / <code>SAT</code> / <code>SUN</code> (대문자)</td></tr>
+    <tr><td>C</td><td>시작 시각</td><td>HH:mm (예: 14:00)</td></tr>
+    <tr><td>D</td><td>종료 시각</td><td>HH:mm</td></tr>
+    <tr><td>E</td><td>프로그램 제목</td><td>오프닝 파티, 스윙 워크샵 등</td></tr>
+    <tr><td>F</td><td>부가 설명</td><td>비워도 됨</td></tr>
+  </tbody>
+</table>
+<p class="small">표시 위치: <strong>행사 개요 페이지의 "프로그램" 섹션</strong></p>
+
+<h2>4-3. PartyPassBenefit 탭 — 파티패스 혜택</h2>
+
+<table>
+  <thead><tr><th style="width:12%">A열</th><th>B열 (혜택 문구)</th></tr></thead>
+  <tbody>
+    <tr><td>순서</td><td>예: 메인 파티 입장</td></tr>
+    <tr><td>순서</td><td>예: 전야제 BLUES PARTY 입장</td></tr>
+    <tr><td>순서</td><td>예: 행사 기념 티셔츠 1장</td></tr>
+  </tbody>
+</table>
+<p class="small">표시 위치: <strong>파티패스 페이지의 "포함 사항" 박스</strong></p>
+
+<h2>4-4. PickupBus 탭 — 픽업버스 시간표</h2>
+
+<table>
+  <thead><tr><th style="width:8%">열</th><th style="width:24%">내용</th><th>예시</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>순서</td><td>1, 2, 3...</td></tr>
+    <tr><td>B</td><td>출발 시각</td><td>HH:mm (예: 07:50)</td></tr>
+    <tr><td>C</td><td>노선</td><td>예: 서울 → 상주</td></tr>
+    <tr><td>D</td><td>좌석 가격(원)</td><td>숫자만 (콤마 X) — 예: 25000</td></tr>
+    <tr><td>E</td><td>비고</td><td>비워도 됨</td></tr>
+  </tbody>
+</table>
+<p class="small">표시 위치: <strong>오시는 길 페이지의 "대중교통 안내" 카드</strong><br/>
+* 모든 행의 출발 시각이 화면에서 <code> / </code>로 이어 표시됩니다 (예: 07:50 / 13:10 / 17:50).</p>
+
+<h2>4-5. PageMeta 탭 — 페이지 제목·뱃지</h2>
+
+<p>각 페이지의 상단에 표시되는 큰 제목, 영문 뱃지, 브라우저 탭에 보이는 title을 관리합니다.</p>
+
+<table>
+  <thead><tr><th style="width:10%">열</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>페이지 식별자 (아래 목록 참고)</td></tr>
+    <tr><td>B</td><td>큰 제목 (h1)</td></tr>
+    <tr><td>C</td><td>영문 뱃지 (예: PARTY PASS)</td></tr>
+    <tr><td>D</td><td>브라우저 탭 제목</td></tr>
+    <tr><td>E</td><td>검색엔진용 설명</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <thead><tr><th style="width:38%">A열 (페이지 식별자)</th><th>대상 페이지</th></tr></thead>
+  <tbody>
+    <tr><td><span class="key">home</span></td><td>홈</td></tr>
+    <tr><td><span class="key">event.overview</span></td><td>행사 개요</td></tr>
+    <tr><td><span class="key">event.venue</span></td><td>행사장</td></tr>
+    <tr><td><span class="key">event.location</span></td><td>오시는 길</td></tr>
+    <tr><td><span class="key">party-pass</span></td><td>파티패스</td></tr>
+    <tr><td><span class="key">party-pass.list</span></td><td>파티패스 신청자 명단</td></tr>
+    <tr><td><span class="key">lodging</span></td><td>숙소(공통)</td></tr>
+    <tr><td><span class="key">lodging.campsite.list</span></td><td>캠핑사이트 신청자 명단</td></tr>
+    <tr><td><span class="key">lodging.dormitory.list</span></td><td>도미토리 신청자 명단</td></tr>
+    <tr><td><span class="key">apply</span></td><td>신청하기</td></tr>
+    <tr><td><span class="key">apply.success</span></td><td>신청 완료</td></tr>
+    <tr><td><span class="key">staff.dj</span></td><td>DJ</td></tr>
+    <tr><td><span class="key">staff.instructors</span></td><td>강사</td></tr>
+    <tr><td><span class="key">staff.staff</span></td><td>스태프</td></tr>
+  </tbody>
+</table>
+
+<h2>4-6. IndexHighlight 탭 — 홈 페이지 3박스</h2>
+
+<p>홈 화면 메인 아래에 보이는 WHEN / WHERE / PRE-PARTY 3박스입니다.</p>
+
+<table>
+  <thead><tr><th style="width:8%">열</th><th style="width:26%">내용</th><th>예시</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>순서</td><td>1, 2, 3</td></tr>
+    <tr><td>B</td><td>키</td><td><code>when</code> / <code>where</code> / <code>preParty</code></td></tr>
+    <tr><td>C</td><td>영문 라벨</td><td>WHEN / WHERE / PRE-PARTY</td></tr>
+    <tr><td>D</td><td>큰 글씨</td><td>비우면 Event 탭 값으로 자동 채워짐</td></tr>
+    <tr><td>E</td><td>작은 글씨</td><td>부가 설명</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  💡 <strong>D열을 비워두는 것이 안전</strong>합니다. 시스템이 Event 탭의 날짜·장소로 자동 채웁니다.<br/>
+  운영자는 라벨(C열)과 부가 설명(E열)만 신경 쓰면 됩니다.
+</div>
+
+<h2>4-7. VenueDetail 탭 — 행사장 카드</h2>
+
+<p>행사장 페이지의 전야제·메인 행사장 2개 카드 내용입니다.</p>
+
+<table>
+  <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>순서</td></tr>
+    <tr><td>B</td><td>키 — <code>preParty</code> / <code>main</code></td></tr>
+    <tr><td>C</td><td>영문 뱃지 (예: PRE-PARTY VENUE)</td></tr>
+    <tr><td>D</td><td>한글 제목</td></tr>
+    <tr><td>E</td><td>장소명 (비우면 Event 탭 값 자동 사용)</td></tr>
+    <tr><td>F</td><td>설명문 (긴 문장)</td></tr>
+    <tr><td>G</td><td>기간·주소 등 부가 정보</td></tr>
+  </tbody>
+</table>
+
+<h2>4-8. ApplyCard 탭 — 신청하기 페이지 카드</h2>
+
+<table>
+  <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>순서</td></tr>
+    <tr><td>B</td><td>키 — <code>partyPass</code> / <code>campsite</code> / <code>dormitory</code></td></tr>
+    <tr><td>C</td><td>단계 라벨 (예: STEP 1)</td></tr>
+    <tr><td>D</td><td>제목</td></tr>
+    <tr><td>E</td><td>설명문</td></tr>
+    <tr><td>F</td><td>링크 경로 (예: <code>/party-pass</code>)</td></tr>
+  </tbody>
+</table>
+
+<h2>4-9. LocationGuide 탭 — 오시는 길 안내</h2>
+
+<p>A열에 키, B열에 값을 입력하는 형식입니다.</p>
+
+<table>
+  <thead><tr><th style="width:32%">A열 (키)</th><th>B열 (내용)</th></tr></thead>
+  <tbody>
+    <tr><td><span class="key">transportTitle</span></td><td>"대중교통 안내" 카드의 제목</td></tr>
+    <tr><td><span class="key">transportRoute</span></td><td>노선 안내문</td></tr>
+    <tr><td><span class="key">duration</span></td><td>소요 시간 (예: 약 3시간)</td></tr>
+    <tr><td><span class="key">roadAddress</span></td><td>도로명 주소</td></tr>
+    <tr><td><span class="key">pickupHeadline</span></td><td>픽업 안내 박스 헤딩</td></tr>
+    <tr><td><span class="key">pickupDescription</span></td><td>픽업 안내 박스 본문</td></tr>
+    <tr><td><span class="key">pickupNote1</span></td><td>픽업 ※주의 1줄</td></tr>
+    <tr><td><span class="key">pickupNote2</span></td><td>픽업 ※주의 2줄</td></tr>
+  </tbody>
+</table>
+
+<h2>4-10. ConceptCopy 탭 — 행사 개요 카피</h2>
+
+<table>
+  <thead><tr><th style="width:32%">A열 (키)</th><th>B열 (내용)</th></tr></thead>
+  <tbody>
+    <tr><td><span class="key">concept</span></td><td>슬로건 카드 1줄</td></tr>
+    <tr><td><span class="key">tagline</span></td><td>슬로건 카드 2줄</td></tr>
+    <tr><td><span class="key">subjectLine</span></td><td>일정 카드 하단 부제</td></tr>
+    <tr><td><span class="key">scheduleNote</span></td><td>타임테이블 아래 ※주의 문구</td></tr>
+  </tbody>
+</table>
+
+<h2>4-11. ComingSoon 탭 — 미공개 안내</h2>
+
+<p>DJ/강사/스태프 정보가 아직 비어 있을 때 사이트에 표시할 안내 문구입니다.</p>
+
+<table>
+  <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>키 — <code>dj</code> / <code>instructors</code> / <code>staff</code></td></tr>
+    <tr><td>B</td><td>영문 라벨 (예: COMING SOON)</td></tr>
+    <tr><td>C</td><td>안내 문구 (예: DJ 라인업이 곧 공개될 예정입니다.)</td></tr>
+  </tbody>
+</table>
+
+<h2>4-12. Dj 탭 — DJ 라인업</h2>
+
+<table>
+  <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>고유 ID</td></tr>
+    <tr><td>B</td><td>스테이지 이름</td></tr>
+    <tr><td>C</td><td>닉네임</td></tr>
+    <tr><td>D</td><td>역할</td></tr>
+    <tr><td>E</td><td>프로필 이미지 경로 (예: <code>/img/dj/chori.jpg</code>)</td></tr>
+    <tr><td>F</td><td>소개글 (자기소개)</td></tr>
+    <tr><td>G</td><td>표시 순서 (작은 숫자가 먼저)</td></tr>
+  </tbody>
+</table>
+
+<h2>4-13. Instructors / Staff 탭</h2>
+
+<p>강사와 스태프 모두 동일한 열 구성을 갖습니다.</p>
+
+<table>
+  <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>고유 ID</td></tr>
+    <tr><td>B</td><td>이름</td></tr>
+    <tr><td>C</td><td>역할</td></tr>
+    <tr><td>D</td><td>프로필 이미지 경로</td></tr>
+    <tr><td>E</td><td>소개글</td></tr>
+    <tr><td>F</td><td>표시 순서</td></tr>
+  </tbody>
+</table>
+
+<!-- 5. 절대 하면 안 되는 일 -->
+<h1>5. 꼭 지켜야 할 5가지 원칙</h1>
+
+<div class="warn">
+  <div class="title">1. 탭 이름을 한글로 바꾸지 마세요</div>
+  탭 이름은 시스템이 영문 이름으로만 인식합니다. <code>Event</code>를 <code>이벤트</code>로 바꾸면 사이트가 그 탭을 찾지 못합니다.
+</div>
+
+<div class="warn">
+  <div class="title">2. 열(컬럼) 순서를 바꾸지 마세요</div>
+  시스템은 "1열 = 신청번호, 2열 = 일시..." 식으로 위치 기반으로 읽습니다. 한 칸이라도 밀리면 내용이 잘못 표시됩니다.
+</div>
+
+<div class="warn">
+  <div class="title">3. 신청 시트에 손으로 행을 추가하지 마세요</div>
+  신청 시트는 사용자 폼 입력 전용입니다. 직접 입력하면 데이터 정합성이 깨질 수 있어요.
+</div>
+
+<div class="warn">
+  <div class="title">4. 영문 키(A열)는 정확히 입력하세요</div>
+  <code>name</code>을 <code>Name</code> 또는 <code>name </code>(공백 포함)으로 입력하면 인식되지 않습니다. <strong>대소문자·공백</strong>을 정확히 맞춰야 합니다.
+</div>
+
+<div class="warn">
+  <div class="title">5. 서비스 계정 권한을 빼지 마세요</div>
+  사이트는 "서비스 계정"이라는 이메일로 시트를 읽고 씁니다. 시트 공유 설정에서 이 이메일의 권한을 제거하면 사이트가 시트와 통신하지 못합니다.<br/>
+  · 신청 시트: <strong>편집자</strong> 권한 필수<br/>
+  · Settings 시트: <strong>뷰어</strong> 권한 권장
+</div>
+
+<!-- 6. 자주 하는 작업 -->
+<h1>6. 자주 하는 작업 빠르게 찾기</h1>
+
+<dl class="faq">
+  <dt>Q. 행사 날짜를 바꾸고 싶어요</dt>
+  <dd>Settings 시트 → <code>Event</code> 탭 → <code>startDate</code>, <code>endDate</code> 값 수정</dd>
+
+  <dt>Q. 입금 계좌를 바꾸고 싶어요</dt>
+  <dd>Settings 시트 → <code>Event</code> 탭 → <code>bankName</code>, <code>bankAccount</code>, <code>accountHolder</code> 값 수정</dd>
+
+  <dt>Q. 문의 이메일을 바꾸고 싶어요</dt>
+  <dd>Settings 시트 → <code>Event</code> 탭 → <code>contactEmail</code> 값 수정</dd>
+
+  <dt>Q. 행사 일정을 수정하고 싶어요</dt>
+  <dd>Settings 시트 → <code>Schedule</code> 탭에서 행 추가/삭제/수정</dd>
+
+  <dt>Q. 픽업버스 시간을 변경하고 싶어요</dt>
+  <dd>Settings 시트 → <code>PickupBus</code> 탭에서 행 수정</dd>
+
+  <dt>Q. DJ를 새로 추가하고 싶어요</dt>
+  <dd>Settings 시트 → <code>Dj</code> 탭에서 새 행 추가 (id·스테이지명·이미지경로·소개·순서 입력)</dd>
+
+  <dt>Q. 신청자 명단을 보고 싶어요</dt>
+  <dd>① 사이트의 [신청확인] 버튼을 통해 보거나, ② 신청 시트의 해당 탭(PartyPass/Campsite/Dormitory)을 직접 열어 확인</dd>
+
+  <dt>Q. 사이트에 바뀐 내용이 안 보여요</dt>
+  <dd>설정에 따라 변경 반영에 <strong>최대 10분</strong>이 걸릴 수 있습니다. 잠시 후 다시 확인하세요. 그래도 안 되면 시스템 담당자에게 문의하세요.</dd>
+
+  <dt>Q. 시트의 1행에 한글로 라벨을 적어도 되나요?</dt>
+  <dd>네, 1행은 시스템이 무시하므로 자유롭게 한글 라벨을 작성하셔도 됩니다. 데이터는 2행부터 입력하세요.</dd>
+</dl>
+
+<!-- 마지막 -->
+<h1>7. 도움이 필요할 때</h1>
+
+<p>매뉴얼에 없는 작업이거나 시트가 정상 동작하지 않을 때는 시스템 담당자에게 다음 정보를 함께 전달해 주세요.</p>
+
+<ul>
+  <li>어느 페이지에서 발생한 문제인지</li>
+  <li>어느 탭의 어느 행을 수정했는지</li>
+  <li>화면 캡처</li>
+</ul>
+
+<div class="callout" style="margin-top:10mm; text-align:center;">
+  <strong>Camp Swing Outdoor</strong><br/>
+  <span class="small">스윙 댄스 · 캠핑 · 음악이 함께하는 1박 2일 야외 페스티벌</span>
+</div>
+
+</body>
+</html>
