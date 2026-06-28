@@ -1,7 +1,7 @@
 package com.campswing.api.dto;
 
+import com.campswing.domain.application.DanceRole;
 import com.campswing.domain.application.PassType;
-import com.campswing.domain.application.TshirtSize;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -13,7 +13,11 @@ public record PartyPassApplicationRequest(
 
         @NotBlank
         @Size(min = 2, max = 30)
-        String applicantName,
+        String realName,
+
+        @NotBlank
+        @Size(min = 1, max = 30)
+        String nickname,
 
         @NotBlank
         @Pattern(regexp = "^010-?\\d{4}-?\\d{4}$", message = "연락처 형식이 올바르지 않습니다.")
@@ -25,8 +29,16 @@ public record PartyPassApplicationRequest(
         @NotNull
         PassType passType,
 
+        @Size(max = 50)
+        String club,
+
         @NotNull
-        TshirtSize tshirtSize,
+        DanceRole role,
+
+        Boolean useVehicle,
+
+        @Size(max = 20)
+        String vehicleNumber,
 
         @Size(max = 200)
         String dietaryNote,

@@ -6,6 +6,7 @@ import com.campswing.domain.settings.ConceptCopy;
 import com.campswing.domain.settings.EventInfo;
 import com.campswing.domain.settings.IndexHighlight;
 import com.campswing.domain.settings.LocationGuide;
+import com.campswing.domain.settings.NoticeLine;
 import com.campswing.domain.settings.PageMeta;
 import com.campswing.domain.settings.PartyPassBenefit;
 import com.campswing.domain.settings.PickupBusTrip;
@@ -40,6 +41,8 @@ public class SheetsSettingsRepository {
     private static final String SHEET_LOCATION_GUIDE = "LocationGuide";
     private static final String SHEET_CONCEPT_COPY = "ConceptCopy";
     private static final String SHEET_COMING_SOON = "ComingSoon";
+    private static final String SHEET_CAMPSITE_NOTICE = "CampsiteNotice";
+    private static final String SHEET_DORMITORY_NOTICE = "DormitoryNotice";
 
     // batchGet에 사용할 range — 순서 중요 (parseSnapshot의 인덱스와 일치해야 함)
     private static final String RANGE_EVENT = SHEET_EVENT + "!A2:B";
@@ -134,6 +137,19 @@ public class SheetsSettingsRepository {
         return parseComingSoon(client.readRange(client.settingsSpreadsheetId(), SHEET_COMING_SOON, "A2:C"));
     }
 
+    /**
+     * 캠핑/도미토리 안내 문구는 메인 batchGet 밖에서 개별 read.
+     * 신규 탭(CampsiteNotice/DormitoryNotice)이 아직 없어도 메인 Settings batch가 깨지지 않도록 격리.
+     * 탭 미존재 시 SheetsApiException → SettingsService.refresh()가 per-read try/catch로 폴백 유지.
+     */
+    public List<NoticeLine> readCampsiteNotice() {
+        return parseNotices(client.readRange(client.settingsSpreadsheetId(), SHEET_CAMPSITE_NOTICE, "A2:B"));
+    }
+
+    public List<NoticeLine> readDormitoryNotice() {
+        return parseNotices(client.readRange(client.settingsSpreadsheetId(), SHEET_DORMITORY_NOTICE, "A2:B"));
+    }
+
     // ===== Parse helpers =====
 
     private static EventInfo parseEvent(List<List<Object>> rows) {
@@ -188,6 +204,19 @@ public class SheetsSettingsRepository {
             result.add(new PartyPassBenefit(parseDisplayOrder(asString(r, 0), i), text));
         }
         result.sort(Comparator.comparingInt(PartyPassBenefit::displayOrder));
+        return result;
+    }
+
+    private static List<NoticeLine> parseNotices(List<List<Object>> rows) {
+        List<NoticeLine> result = new ArrayList<>();
+        for (int i = 0; i < rows.size(); i++) {
+            List<Object> r = rows.get(i);
+            if (isHeaderRow(r) || r.size() < 2) continue;
+            String text = asString(r, 1);
+            if (text.isEmpty()) continue;
+            result.add(new NoticeLine(parseDisplayOrder(asString(r, 0), i), text));
+        }
+        result.sort(Comparator.comparingInt(NoticeLine::displayOrder));
         return result;
     }
 

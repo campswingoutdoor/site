@@ -7,6 +7,7 @@ import com.campswing.domain.settings.ConceptCopy;
 import com.campswing.domain.settings.EventInfo;
 import com.campswing.domain.settings.IndexHighlight;
 import com.campswing.domain.settings.LocationGuide;
+import com.campswing.domain.settings.NoticeLine;
 import com.campswing.domain.settings.PageMeta;
 import com.campswing.domain.settings.PartyPassBenefit;
 import com.campswing.domain.settings.PickupBusTrip;
@@ -52,6 +53,8 @@ public class SettingsService {
     private final AtomicReference<LocationGuide> locationGuideCache = new AtomicReference<>();
     private final AtomicReference<ConceptCopy> conceptCopyCache = new AtomicReference<>();
     private final AtomicReference<Map<String, ComingSoonItem>> comingSoonCache = new AtomicReference<>(Map.of());
+    private final AtomicReference<List<NoticeLine>> campsiteNoticeCache = new AtomicReference<>(List.of());
+    private final AtomicReference<List<NoticeLine>> dormitoryNoticeCache = new AtomicReference<>(List.of());
 
     public SettingsService(SheetsSettingsRepository repo, EventProperties fallback) {
         this.repo = repo;
@@ -69,6 +72,8 @@ public class SettingsService {
         locationGuideCache.set(SettingsFallbacks.locationGuide());
         conceptCopyCache.set(SettingsFallbacks.conceptCopy());
         comingSoonCache.set(SettingsFallbacks.comingSoon());
+        campsiteNoticeCache.set(SettingsFallbacks.campsiteNotice());
+        dormitoryNoticeCache.set(SettingsFallbacks.dormitoryNotice());
         refresh();
     }
 
@@ -102,6 +107,21 @@ public class SettingsService {
             conceptCopyCache.set(snap.conceptCopy());
         }
         if (!snap.comingSoon().isEmpty())       comingSoonCache.set(snap.comingSoon());
+
+        // 숙박 안내 문구는 메인 batch 밖에서 개별 갱신 — 신규 탭 미존재가 다른 설정 갱신을 막지 않도록 격리.
+        // 각 read 실패 시 기존 캐시(코드 폴백) 유지.
+        try {
+            List<NoticeLine> campsite = repo.readCampsiteNotice();
+            if (!campsite.isEmpty()) campsiteNoticeCache.set(campsite);
+        } catch (Exception e) {
+            log.debug("CampsiteNotice refresh skipped (kept cache): {}", e.getMessage());
+        }
+        try {
+            List<NoticeLine> dormitory = repo.readDormitoryNotice();
+            if (!dormitory.isEmpty()) dormitoryNoticeCache.set(dormitory);
+        } catch (Exception e) {
+            log.debug("DormitoryNotice refresh skipped (kept cache): {}", e.getMessage());
+        }
     }
 
     private static boolean isAllEmpty(LocationGuide g) {
@@ -130,6 +150,8 @@ public class SettingsService {
     public LocationGuide locationGuide()              { return locationGuideCache.get(); }
     public ConceptCopy conceptCopy()                  { return conceptCopyCache.get(); }
     public Map<String, ComingSoonItem> comingSoon()   { return comingSoonCache.get(); }
+    public List<NoticeLine> campsiteNotice()          { return campsiteNoticeCache.get(); }
+    public List<NoticeLine> dormitoryNotice()         { return dormitoryNoticeCache.get(); }
 
     public PageMeta pageMeta(String key) {
         Map<String, PageMeta> map = pageMetaCache.get();

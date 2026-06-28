@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 public record DormitoryApplication(
         String id,
         LocalDateTime submittedAt,
-        String applicantName,
+        String realName,
+        String nickname,
         String phone,
         String email,
         Gender gender,
         Nights nights,
-        boolean usePickupBus,
-        String roommatePreference,
+        int totalPrice,
         String memo,
         boolean agreedToTerms
 ) {

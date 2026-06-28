@@ -7,9 +7,13 @@ package com.campswing.domain.application;
 public record PartyPassListItem(
         int seq,
         String submittedAt,
-        String applicantName,
+        String realName,
+        String nickname,
         String passType,
-        String tshirtSize,
+        String club,
+        String role,
+        String useVehicle,
+        String vehicleNumber,
         String dietaryNote,
         String memo
 ) {

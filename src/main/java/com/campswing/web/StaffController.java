@@ -20,6 +20,16 @@ public class StaffController {
         this.pageMeta = pageMeta;
     }
 
+    @GetMapping("/invited-dancers")
+    public String invitedDancers(Model model) {
+        pageMeta.apply(model, "staff.invited-dancers");
+        model.addAttribute("legacyDancers", service.getLegacyDancers());
+        model.addAttribute("specialGuestDancers", service.getSpecialGuestDancers());
+        model.addAttribute("legacyComingSoon", settings.comingSoonFor("legacyDancers"));
+        model.addAttribute("specialComingSoon", settings.comingSoonFor("specialGuestDancers"));
+        return "staff/invited-dancers";
+    }
+
     @GetMapping("/dj")
     public String djs(Model model) {
         pageMeta.apply(model, "staff.dj");

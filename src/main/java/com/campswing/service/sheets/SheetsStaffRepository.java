@@ -18,6 +18,8 @@ public class SheetsStaffRepository {
     private static final String SHEET_DJ = "Dj";
     private static final String SHEET_INSTRUCTORS = "Instructors";
     private static final String SHEET_STAFF = "Staff";
+    private static final String SHEET_LEGACY_DANCERS = "LegacyDancers";
+    private static final String SHEET_SPECIAL_GUEST_DANCERS = "SpecialGuestDancers";
 
     private final GoogleSheetsClient client;
 
@@ -52,6 +54,14 @@ public class SheetsStaffRepository {
 
     public List<Person> findAllStaff() {
         return findPersons(SHEET_STAFF);
+    }
+
+    public List<Person> findAllLegacyDancers() {
+        return findPersons(SHEET_LEGACY_DANCERS);
+    }
+
+    public List<Person> findAllSpecialGuestDancers() {
+        return findPersons(SHEET_SPECIAL_GUEST_DANCERS);
     }
 
     private List<Person> findPersons(String sheetName) {

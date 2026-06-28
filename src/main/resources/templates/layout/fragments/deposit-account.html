@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!--
+  입금계좌 안내 박스 — 신청 폼 페이지(파티패스/캠핑사이트/도미토리)에서 th:replace 로 삽입.
+  계좌 정보는 Event 시트(event.bankName/bankAccount/accountHolder)에서 읽음 — 운영자가 코드 배포 없이 수정 가능.
+-->
+<div th:fragment="deposit" x-data="{ copied: false }"
+     class="rounded-xl border-2 border-gold/60 bg-gold/10 p-6 mb-10 text-center shadow-card">
+    <p class="font-display tracking-[0.3em] text-gold text-xs mb-3">DEPOSIT ACCOUNT · 입금 계좌</p>
+
+    <p class="font-heading text-2xl md:text-3xl text-gold-light leading-snug">
+        <span th:text="${event.bankName}">카카오뱅크</span>
+        <span x-ref="acct" class="text-gold select-all" th:text="${event.bankAccount}">3333-34-5645832</span>
+    </p>
+
+    <p class="text-text-muted text-base mt-2">
+        예금주: <span class="text-text" th:text="${event.accountHolder}">장국찬</span>
+    </p>
+
+    <div class="mt-4">
+        <button type="button"
+                class="btn-outline-gold px-6 py-1.5 text-sm"
+                @click="navigator.clipboard.writeText($refs.acct.innerText.trim()); copied = true; setTimeout(() => copied = false, 1500)">
+            <span x-show="!copied">계좌번호 복사</span>
+            <span x-show="copied" x-cloak>복사되었습니다 ✓</span>
+        </button>
+    </div>
+
+    <p class="text-text-muted text-xs mt-4">신청 후 위 계좌로 입금해 주세요. 입금자명은 신청자 본인 이름으로 부탁드립니다.</p>
+</div>
+</body>
+</html>

@@ -5,10 +5,12 @@ import com.campswing.api.dto.CampsiteApplicationRequest;
 import com.campswing.api.dto.DormitoryApplicationRequest;
 import com.campswing.api.dto.PartyPassApplicationRequest;
 import com.campswing.common.util.KstClock;
+import com.campswing.domain.application.ArrivalTime;
 import com.campswing.domain.application.CampsiteApplication;
 import com.campswing.domain.application.CampsiteListItem;
 import com.campswing.domain.application.DormitoryApplication;
 import com.campswing.domain.application.DormitoryListItem;
+import com.campswing.domain.application.Nights;
 import com.campswing.domain.application.PartyPassApplication;
 import com.campswing.domain.application.PartyPassListItem;
 import com.campswing.service.sheets.SheetsApplicationRepository;
@@ -20,6 +22,14 @@ import java.util.UUID;
 
 @Service
 public class ApplicationService {
+
+    // ===== 요금 정책 (단위: 원). 템플릿의 자동 계산 표시와 값이 일치해야 함 =====
+    /** 캠핑사이트 기본 이용료 (1사이트). */
+    public static final int CAMPSITE_SITE_FEE = 35_000;
+    /** 캠핑사이트 금요일 19:00 이후 선입실 추가요금. */
+    public static final int CAMPSITE_EARLY_CHECKIN_FEE = 10_000;
+    /** 도미토리 1박당 이용료. */
+    public static final int DORMITORY_PER_NIGHT_FEE = 10_000;
 
     private final SheetsApplicationRepository repository;
     private final KstClock clock;
@@ -34,11 +44,15 @@ public class ApplicationService {
         PartyPassApplication app = new PartyPassApplication(
                 UUID.randomUUID().toString(),
                 submittedAt,
-                req.applicantName(),
+                req.realName(),
+                req.nickname(),
                 req.phone(),
                 req.email(),
                 req.passType(),
-                req.tshirtSize(),
+                req.club(),
+                req.role(),
+                Boolean.TRUE.equals(req.useVehicle()),
+                req.vehicleNumber(),
                 req.dietaryNote(),
                 req.memo(),
                 Boolean.TRUE.equals(req.agreedToTerms())
@@ -52,13 +66,14 @@ public class ApplicationService {
         CampsiteApplication app = new CampsiteApplication(
                 UUID.randomUUID().toString(),
                 submittedAt,
-                req.applicantName(),
+                req.realName(),
+                req.nickname(),
                 req.phone(),
                 req.email(),
                 req.partySize(),
-                req.tentSize(),
                 req.arrivalTime(),
                 Boolean.TRUE.equals(req.usePickupBus()),
+                campsiteTotalPrice(req.arrivalTime()),
                 req.memo(),
                 Boolean.TRUE.equals(req.agreedToTerms())
         );
@@ -71,13 +86,13 @@ public class ApplicationService {
         DormitoryApplication app = new DormitoryApplication(
                 UUID.randomUUID().toString(),
                 submittedAt,
-                req.applicantName(),
+                req.realName(),
+                req.nickname(),
                 req.phone(),
                 req.email(),
                 req.gender(),
                 req.nights(),
-                Boolean.TRUE.equals(req.usePickupBus()),
-                req.roommatePreference(),
+                dormitoryTotalPrice(req.nights()),
                 req.memo(),
                 Boolean.TRUE.equals(req.agreedToTerms())
         );
@@ -95,5 +110,20 @@ public class ApplicationService {
 
     public List<DormitoryListItem> listDormitory() {
         return repository.findAllDormitory();
+    }
+
+    /** 캠핑사이트 총액 = 사이트 이용료 + (금요일 선입실 시 추가요금). 픽업버스 비용은 미포함. */
+    public static int campsiteTotalPrice(ArrivalTime arrivalTime) {
+        int total = CAMPSITE_SITE_FEE;
+        if (arrivalTime == ArrivalTime.FRI_EVENING) {
+            total += CAMPSITE_EARLY_CHECKIN_FEE;
+        }
+        return total;
+    }
+
+    /** 도미토리 총액 = 1박당 이용료 × 박수 (2박만 2배, 1박류는 1배). */
+    public static int dormitoryTotalPrice(Nights nights) {
+        int multiplier = (nights == Nights.TWO_NIGHTS) ? 2 : 1;
+        return DORMITORY_PER_NIGHT_FEE * multiplier;
     }
 }

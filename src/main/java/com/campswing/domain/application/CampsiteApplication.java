@@ -5,13 +5,14 @@ import java.time.LocalDateTime;
 public record CampsiteApplication(
         String id,
         LocalDateTime submittedAt,
-        String applicantName,
+        String realName,
+        String nickname,
         String phone,
         String email,
         int partySize,
-        TentSize tentSize,
         ArrivalTime arrivalTime,
         boolean usePickupBus,
+        int totalPrice,
         String memo,
         boolean agreedToTerms
 ) {

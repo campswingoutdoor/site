@@ -10,10 +10,9 @@ import com.campswing.domain.application.CampsiteApplication;
 import com.campswing.domain.application.DormitoryApplication;
 import com.campswing.domain.application.Gender;
 import com.campswing.domain.application.Nights;
+import com.campswing.domain.application.DanceRole;
 import com.campswing.domain.application.PartyPassApplication;
 import com.campswing.domain.application.PassType;
-import com.campswing.domain.application.TentSize;
-import com.campswing.domain.application.TshirtSize;
 import com.campswing.service.sheets.SheetsApplicationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,9 +54,9 @@ class ApplicationServiceTest {
     @Test
     void submitPartyPass_assignsUuidAndKstTimestamp() {
         PartyPassApplicationRequest req = new PartyPassApplicationRequest(
-                "홍길동", "010-1234-5678", "hong@example.com",
-                PassType.FULL, TshirtSize.M,
-                null, null, true);
+                "홍길동", "길동", "010-1234-5678", "hong@example.com",
+                PassType.FULL, "스윙홀릭", DanceRole.LEADER,
+                true, "12가 3456", null, null, true);
 
         ApplicationCreatedResponse response = service.submitPartyPass(req);
 
@@ -67,8 +66,13 @@ class ApplicationServiceTest {
 
         assertThat(saved.id()).isNotNull().hasSize(36);
         assertThat(saved.submittedAt()).isEqualTo(expectedNow);
-        assertThat(saved.applicantName()).isEqualTo("홍길동");
+        assertThat(saved.realName()).isEqualTo("홍길동");
+        assertThat(saved.nickname()).isEqualTo("길동");
         assertThat(saved.passType()).isEqualTo(PassType.FULL);
+        assertThat(saved.club()).isEqualTo("스윙홀릭");
+        assertThat(saved.role()).isEqualTo(DanceRole.LEADER);
+        assertThat(saved.useVehicle()).isTrue();
+        assertThat(saved.vehicleNumber()).isEqualTo("12가 3456");
         assertThat(saved.agreedToTerms()).isTrue();
 
         assertThat(response.applicationId()).isEqualTo(saved.id());
@@ -79,8 +83,8 @@ class ApplicationServiceTest {
     @Test
     void submitCampsite_persistsViaRepository() {
         CampsiteApplicationRequest req = new CampsiteApplicationRequest(
-                "김캠퍼", "010-2222-3333", "kim@example.com",
-                3, TentSize.MEDIUM, ArrivalTime.SAT_MORNING,
+                "김캠퍼", "캠퍼", "010-2222-3333", "kim@example.com",
+                3, ArrivalTime.FRI_EVENING,
                 true, null, true);
 
         ApplicationCreatedResponse response = service.submitCampsite(req);
@@ -91,17 +95,21 @@ class ApplicationServiceTest {
 
         assertThat(saved.id()).isNotNull().hasSize(36);
         assertThat(saved.submittedAt()).isEqualTo(expectedNow);
-        assertThat(saved.tentSize()).isEqualTo(TentSize.MEDIUM);
+        assertThat(saved.realName()).isEqualTo("김캠퍼");
+        assertThat(saved.nickname()).isEqualTo("캠퍼");
+        assertThat(saved.arrivalTime()).isEqualTo(ArrivalTime.FRI_EVENING);
         assertThat(saved.usePickupBus()).isTrue();
+        // 금요일 선입실 → 35,000 + 10,000
+        assertThat(saved.totalPrice()).isEqualTo(45_000);
         assertThat(response.applicationId()).isEqualTo(saved.id());
     }
 
     @Test
     void submitDormitory_persistsViaRepository() {
         DormitoryApplicationRequest req = new DormitoryApplicationRequest(
-                "박도미", "010-9999-8888", "park@example.com",
-                Gender.FEMALE, Nights.ONE_NIGHT, false,
-                "조용한 룸메 선호", null, true);
+                "박도미", "도미", "010-9999-8888", "park@example.com",
+                Gender.FEMALE, Nights.TWO_NIGHTS,
+                null, true);
 
         ApplicationCreatedResponse response = service.submitDormitory(req);
 
@@ -111,9 +119,12 @@ class ApplicationServiceTest {
 
         assertThat(saved.id()).isNotNull().hasSize(36);
         assertThat(saved.submittedAt()).isEqualTo(expectedNow);
+        assertThat(saved.realName()).isEqualTo("박도미");
+        assertThat(saved.nickname()).isEqualTo("도미");
         assertThat(saved.gender()).isEqualTo(Gender.FEMALE);
-        assertThat(saved.nights()).isEqualTo(Nights.ONE_NIGHT);
-        assertThat(saved.usePickupBus()).isFalse();
+        assertThat(saved.nights()).isEqualTo(Nights.TWO_NIGHTS);
+        // 2박 → 10,000 × 2
+        assertThat(saved.totalPrice()).isEqualTo(20_000);
         assertThat(response.applicationId()).isEqualTo(saved.id());
     }
 }
