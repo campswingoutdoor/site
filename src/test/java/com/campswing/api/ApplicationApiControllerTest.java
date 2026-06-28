@@ -50,11 +50,12 @@ class ApplicationApiControllerTest {
                         OffsetDateTime.of(2026, 10, 30, 12, 0, 0, 0, ZoneOffset.ofHours(9))));
 
         Map<String, Object> body = Map.of(
-                "applicantName", "홍길동",
+                "realName", "홍길동",
+                "nickname", "길동",
                 "phone", "010-1234-5678",
                 "email", "hong@example.com",
                 "passType", "FULL",
-                "tshirtSize", "M",
+                "role", "LEADER",
                 "agreedToTerms", true
         );
 
@@ -69,11 +70,12 @@ class ApplicationApiControllerTest {
     @Test
     void partyPass_invalidEmail_returns400ValidationError() throws Exception {
         Map<String, Object> body = Map.of(
-                "applicantName", "홍길동",
+                "realName", "홍길동",
+                "nickname", "길동",
                 "phone", "010-1234-5678",
                 "email", "not-an-email",
                 "passType", "FULL",
-                "tshirtSize", "M",
+                "role", "LEADER",
                 "agreedToTerms", true
         );
 
@@ -89,11 +91,12 @@ class ApplicationApiControllerTest {
     @Test
     void partyPass_agreedToTermsFalse_returns400() throws Exception {
         Map<String, Object> body = Map.of(
-                "applicantName", "홍길동",
+                "realName", "홍길동",
+                "nickname", "길동",
                 "phone", "010-1234-5678",
                 "email", "hong@example.com",
                 "passType", "FULL",
-                "tshirtSize", "M",
+                "role", "LEADER",
                 "agreedToTerms", false
         );
 
@@ -111,11 +114,12 @@ class ApplicationApiControllerTest {
                 .willThrow(new SheetsApiException("sheets down"));
 
         Map<String, Object> body = Map.of(
-                "applicantName", "홍길동",
+                "realName", "홍길동",
+                "nickname", "길동",
                 "phone", "010-1234-5678",
                 "email", "hong@example.com",
                 "passType", "FULL",
-                "tshirtSize", "M",
+                "role", "LEADER",
                 "agreedToTerms", true
         );
 

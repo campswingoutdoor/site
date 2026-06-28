@@ -7,6 +7,7 @@ import com.campswing.domain.settings.ConceptCopy;
 import com.campswing.domain.settings.EventInfo;
 import com.campswing.domain.settings.IndexHighlight;
 import com.campswing.domain.settings.LocationGuide;
+import com.campswing.domain.settings.NoticeLine;
 import com.campswing.domain.settings.PageMeta;
 import com.campswing.domain.settings.VenueDetail;
 
@@ -34,9 +35,9 @@ final class SettingsFallbacks {
                 new EventInfo.Venue(pre.getName(), pre.getAddress()),
                 "contact@campswing.example",
                 "@campswingoutdoor",
-                "국민은행",
-                "000-000-000000",
-                "캠프스윙아웃도어",
+                "카카오뱅크",
+                "3333-34-5645832",
+                "장국찬",
                 "",
                 "Swing Dance · Camping · Music · Community",
                 "신청자 이름 로 입금해주세요",
@@ -57,6 +58,7 @@ final class SettingsFallbacks {
         m.put("lodging.dormitory.list", new PageMeta("lodging.dormitory.list", "도미토리 신청 확인",   "APPLICATION LIST", "도미토리 신청 확인",   "도미토리 신청자 명단을 확인합니다."));
         m.put("apply",              new PageMeta("apply",              "바로 신청하기",      "APPLY",              "바로 신청하기", ""));
         m.put("apply.success",      new PageMeta("apply.success",      "신청이 접수되었습니다", "APPLICATION COMPLETE", "신청 완료", ""));
+        m.put("staff.invited-dancers", new PageMeta("staff.invited-dancers", "Invited Dancers", "INVITED DANCERS", "Invited Dancers", "Camp Swing Outdoor 2026 초대 댄서 — Legacy Dancers & Special Guest Dancers 소개."));
         m.put("staff.dj",           new PageMeta("staff.dj",           "DJ 소개",            "DJ LINE-UP",         "DJ 소개", ""));
         m.put("staff.instructors",  new PageMeta("staff.instructors",  "강사 소개",          "INSTRUCTORS",        "강사 소개", ""));
         m.put("staff.staff",        new PageMeta("staff.staff",        "스태프 소개",        "STAFF",              "스태프 소개", ""));
@@ -117,6 +119,32 @@ final class SettingsFallbacks {
         m.put("dj",          new ComingSoonItem("dj",          "COMING SOON", "DJ 라인업이 곧 공개될 예정입니다."));
         m.put("instructors", new ComingSoonItem("instructors", "COMING SOON", "스윙 댄스 워크숍 강사 라인업이 곧 공개될 예정입니다."));
         m.put("staff",       new ComingSoonItem("staff",       "COMING SOON", "행사를 만드는 운영팀 소개가 곧 공개될 예정입니다."));
+        m.put("legacyDancers",       new ComingSoonItem("legacyDancers",       "COMING SOON", "초대 댄서 라인업이 곧 공개될 예정입니다."));
+        m.put("specialGuestDancers", new ComingSoonItem("specialGuestDancers", "COMING SOON", "스페셜 게스트 댄서가 곧 공개될 예정입니다."));
         return m;
+    }
+
+    static List<NoticeLine> campsiteNotice() {
+        return List.of(
+                new NoticeLine(1, "캠핑 사이트 크기 : 10m × 10m"),
+                new NoticeLine(2, "대부분의 텐트 설치가 가능하므로 텐트 크기 입력은 받지 않습니다."),
+                new NoticeLine(3, "캠핑 사이트 이용료 : 35,000원 / 1사이트"),
+                new NoticeLine(4, "1사이트 최대 이용 가능 인원 : 4명"),
+                new NoticeLine(5, "토요일 오전 8시부터 입실 가능합니다."),
+                new NoticeLine(6, "금요일 19:00 이후 선입실 시 추가요금 10,000원이 발생합니다."),
+                new NoticeLine(7, "차량 등록 및 주차 신청은 메인 참가 신청(파티패스) 페이지에서 진행됩니다.")
+        );
+    }
+
+    static List<NoticeLine> dormitoryNotice() {
+        return List.of(
+                new NoticeLine(1, "도미토리는 남녀 구분 배정으로 운영됩니다."),
+                new NoticeLine(2, "개인 침구류(이불, 베개, 매트 등)는 제공되지 않습니다."),
+                new NoticeLine(3, "반드시 개인 침구류를 준비해 주세요."),
+                new NoticeLine(4, "도미토리 이용료 : 1인 10,000원"),
+                new NoticeLine(5, "전야제 참가자도 안전한 귀가를 위해 도미토리 이용이 가능합니다."),
+                new NoticeLine(6, "차량 이용 시 주차비는 1일 5,000원입니다."),
+                new NoticeLine(7, "차량 등록은 메인 참가 신청 페이지에서 진행됩니다.")
+        );
     }
 }

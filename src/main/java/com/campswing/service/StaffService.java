@@ -27,4 +27,12 @@ public class StaffService {
     public List<Person> getAllStaff() {
         return repository.findAllStaff();
     }
+
+    public List<Person> getLegacyDancers() {
+        return repository.findAllLegacyDancers();
+    }
+
+    public List<Person> getSpecialGuestDancers() {
+        return repository.findAllSpecialGuestDancers();
+    }
 }

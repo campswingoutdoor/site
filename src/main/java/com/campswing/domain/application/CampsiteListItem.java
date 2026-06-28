@@ -7,11 +7,12 @@ package com.campswing.domain.application;
 public record CampsiteListItem(
         int seq,
         String submittedAt,
-        String applicantName,
+        String realName,
+        String nickname,
         String partySize,
-        String tentSize,
         String arrivalTime,
         String usePickupBus,
+        String totalPrice,
         String memo
 ) {
 }

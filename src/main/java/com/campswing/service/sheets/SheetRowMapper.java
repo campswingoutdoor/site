@@ -14,19 +14,20 @@ public final class SheetRowMapper {
     private static final DateTimeFormatter KST_FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public static final List<String> PARTY_PASS_HEADERS = List.of(
-            "id", "submittedAt", "applicantName", "phone", "email",
-            "passType", "tshirtSize", "dietaryNote", "memo", "agreedToTerms"
+            "id", "submittedAt", "realName", "nickname", "phone", "email",
+            "passType", "club", "role", "useVehicle", "vehicleNumber",
+            "dietaryNote", "memo", "agreedToTerms"
     );
 
     public static final List<String> CAMPSITE_HEADERS = List.of(
-            "id", "submittedAt", "applicantName", "phone", "email",
-            "partySize", "tentSize", "arrivalTime", "usePickupBus",
-            "memo", "agreedToTerms"
+            "id", "submittedAt", "realName", "nickname", "phone", "email",
+            "partySize", "arrivalTime", "usePickupBus",
+            "totalPrice", "memo", "agreedToTerms"
     );
 
     public static final List<String> DORMITORY_HEADERS = List.of(
-            "id", "submittedAt", "applicantName", "phone", "email",
-            "gender", "nights", "usePickupBus", "roommatePreference", "memo", "agreedToTerms"
+            "id", "submittedAt", "realName", "nickname", "phone", "email",
+            "gender", "nights", "totalPrice", "memo", "agreedToTerms"
     );
 
     private SheetRowMapper() {
@@ -36,11 +37,15 @@ public final class SheetRowMapper {
         return row(
                 a.id(),
                 a.submittedAt().atZone(KstClock.KST).format(KST_FMT),
-                a.applicantName(),
+                a.realName(),
+                a.nickname(),
                 a.phone(),
                 a.email(),
                 a.passType().name(),
-                a.tshirtSize().name(),
+                nullToEmpty(a.club()),
+                a.role().name(),
+                a.useVehicle(),
+                nullToEmpty(a.vehicleNumber()),
                 nullToEmpty(a.dietaryNote()),
                 nullToEmpty(a.memo()),
                 a.agreedToTerms()
@@ -51,13 +56,14 @@ public final class SheetRowMapper {
         return row(
                 a.id(),
                 a.submittedAt().atZone(KstClock.KST).format(KST_FMT),
-                a.applicantName(),
+                a.realName(),
+                a.nickname(),
                 a.phone(),
                 a.email(),
                 a.partySize(),
-                a.tentSize().name(),
                 a.arrivalTime().name(),
                 a.usePickupBus(),
+                a.totalPrice(),
                 nullToEmpty(a.memo()),
                 a.agreedToTerms()
         );
@@ -67,13 +73,13 @@ public final class SheetRowMapper {
         return row(
                 a.id(),
                 a.submittedAt().atZone(KstClock.KST).format(KST_FMT),
-                a.applicantName(),
+                a.realName(),
+                a.nickname(),
                 a.phone(),
                 a.email(),
                 a.gender().name(),
                 a.nights().name(),
-                a.usePickupBus(),
-                nullToEmpty(a.roommatePreference()),
+                a.totalPrice(),
                 nullToEmpty(a.memo()),
                 a.agreedToTerms()
         );

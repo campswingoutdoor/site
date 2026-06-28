@@ -36,10 +36,10 @@
                         <th class="px-4 py-3 whitespace-nowrap">순번</th>
                         <th class="px-4 py-3 whitespace-nowrap">신청일시</th>
                         <th class="px-4 py-3 whitespace-nowrap">이름</th>
+                        <th class="px-4 py-3 whitespace-nowrap">닉네임</th>
                         <th class="px-4 py-3 whitespace-nowrap">성별</th>
-                        <th class="px-4 py-3 whitespace-nowrap">박수</th>
-                        <th class="px-4 py-3 whitespace-nowrap">픽업버스</th>
-                        <th class="px-4 py-3">룸메이트 희망</th>
+                        <th class="px-4 py-3 whitespace-nowrap">숙박 기간</th>
+                        <th class="px-4 py-3 whitespace-nowrap">결제금액</th>
                         <th class="px-4 py-3">메모</th>
                     </tr>
                     </thead>
@@ -48,13 +48,16 @@
                         class="border-b border-gold/10 hover:bg-gold/5 transition">
                         <td class="px-4 py-3 text-text-muted whitespace-nowrap" th:text="${row.seq}">1</td>
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.submittedAt}">2026-05-14 12:34:56</td>
-                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.applicantName}">홍길동</td>
-                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.gender}">FEMALE</td>
-                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.nights}">ONE_NIGHT</td>
+                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.realName}">홍길동</td>
+                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.nickname}">길동</td>
                         <td class="px-4 py-3 whitespace-nowrap"
-                            th:text="${#strings.equalsIgnoreCase(row.usePickupBus, 'TRUE') ? '이용'
-                                       : (#strings.equalsIgnoreCase(row.usePickupBus, 'FALSE') ? '미이용' : row.usePickupBus)}">미이용</td>
-                        <td class="px-4 py-3 text-text-muted" th:text="${row.roommatePreference}"></td>
+                            th:text="${#strings.equalsIgnoreCase(row.gender, 'MALE') ? '남성'
+                                       : (#strings.equalsIgnoreCase(row.gender, 'FEMALE') ? '여성' : row.gender)}">여성</td>
+                        <td class="px-4 py-3 whitespace-nowrap"
+                            th:text="${row.nights == 'ONE_NIGHT_PREPARTY' ? '1박 (전야제)'
+                                       : (row.nights == 'ONE_NIGHT_MAIN' ? '1박 (본파티)'
+                                       : (row.nights == 'TWO_NIGHTS' ? '2박' : row.nights))}">1박</td>
+                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.totalPrice == '' ? '' : row.totalPrice + '원'}">10000원</td>
                         <td class="px-4 py-3 text-text-muted" th:text="${row.memo}"></td>
                     </tr>
                     </tbody>
