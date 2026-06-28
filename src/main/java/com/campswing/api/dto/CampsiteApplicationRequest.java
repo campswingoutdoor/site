@@ -1,7 +1,6 @@
 package com.campswing.api.dto;
 
 import com.campswing.domain.application.ArrivalTime;
-import com.campswing.domain.application.TentSize;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -15,7 +14,11 @@ public record CampsiteApplicationRequest(
 
         @NotBlank
         @Size(min = 2, max = 30)
-        String applicantName,
+        String realName,
+
+        @NotBlank
+        @Size(min = 1, max = 30)
+        String nickname,
 
         @NotBlank
         @Pattern(regexp = "^010-?\\d{4}-?\\d{4}$", message = "연락처 형식이 올바르지 않습니다.")
@@ -26,11 +29,8 @@ public record CampsiteApplicationRequest(
 
         @NotNull
         @Min(1)
-        @Max(6)
+        @Max(4)
         Integer partySize,
-
-        @NotNull
-        TentSize tentSize,
 
         @NotNull
         ArrivalTime arrivalTime,

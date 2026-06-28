@@ -35,11 +35,12 @@
                     <tr class="text-gold font-heading text-left">
                         <th class="px-4 py-3 whitespace-nowrap">순번</th>
                         <th class="px-4 py-3 whitespace-nowrap">신청일시</th>
+                        <th class="px-4 py-3 whitespace-nowrap">이름</th>
                         <th class="px-4 py-3 whitespace-nowrap">닉네임</th>
                         <th class="px-4 py-3 whitespace-nowrap">인원</th>
-                        <th class="px-4 py-3 whitespace-nowrap">텐트 크기</th>
-                        <th class="px-4 py-3 whitespace-nowrap">도착 시간</th>
+                        <th class="px-4 py-3 whitespace-nowrap">입실 시간</th>
                         <th class="px-4 py-3 whitespace-nowrap">픽업버스</th>
+                        <th class="px-4 py-3 whitespace-nowrap">결제금액</th>
                         <th class="px-4 py-3">메모</th>
                     </tr>
                     </thead>
@@ -48,13 +49,16 @@
                         class="border-b border-gold/10 hover:bg-gold/5 transition">
                         <td class="px-4 py-3 text-text-muted whitespace-nowrap" th:text="${row.seq}">1</td>
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.submittedAt}">2026-05-14 12:34:56</td>
-                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.applicantName}">홍길동</td>
+                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.realName}">홍길동</td>
+                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.nickname}">길동</td>
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.partySize}">2</td>
-                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.tentSize}">MEDIUM</td>
-                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.arrivalTime}">FRI_EVENING</td>
+                        <td class="px-4 py-3 whitespace-nowrap"
+                            th:text="${#strings.equalsIgnoreCase(row.arrivalTime, 'FRI_EVENING') ? '금요일 19:00 이후'
+                                       : (#strings.equalsIgnoreCase(row.arrivalTime, 'SAT_MORNING') ? '토요일 오전' : row.arrivalTime)}">토요일 오전</td>
                         <td class="px-4 py-3 whitespace-nowrap"
                             th:text="${#strings.equalsIgnoreCase(row.usePickupBus, 'TRUE') ? '이용'
                                        : (#strings.equalsIgnoreCase(row.usePickupBus, 'FALSE') ? '미이용' : row.usePickupBus)}">미이용</td>
+                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.totalPrice == '' ? '' : row.totalPrice + '원'}">35000원</td>
                         <td class="px-4 py-3 text-text-muted" th:text="${row.memo}"></td>
                     </tr>
                     </tbody>

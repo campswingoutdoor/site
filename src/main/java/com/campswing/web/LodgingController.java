@@ -6,8 +6,8 @@ import com.campswing.api.dto.DormitoryApplicationRequest;
 import com.campswing.domain.application.ArrivalTime;
 import com.campswing.domain.application.Gender;
 import com.campswing.domain.application.Nights;
-import com.campswing.domain.application.TentSize;
 import com.campswing.service.ApplicationService;
+import com.campswing.service.SettingsService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +23,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LodgingController {
 
     private final ApplicationService service;
+    private final SettingsService settings;
     private final GlobalModelAttributes.PageMetaHelper pageMeta;
 
-    public LodgingController(ApplicationService service, GlobalModelAttributes.PageMetaHelper pageMeta) {
+    public LodgingController(ApplicationService service, SettingsService settings,
+                            GlobalModelAttributes.PageMetaHelper pageMeta) {
         this.service = service;
+        this.settings = settings;
         this.pageMeta = pageMeta;
     }
 
@@ -71,8 +74,10 @@ public class LodgingController {
 
     private void addCampsiteOptions(Model model) {
         pageMeta.apply(model, "lodging");
-        model.addAttribute("tentSizes", TentSize.values());
         model.addAttribute("arrivalTimes", ArrivalTime.values());
+        model.addAttribute("notices", settings.campsiteNotice());
+        model.addAttribute("siteFee", ApplicationService.CAMPSITE_SITE_FEE);
+        model.addAttribute("earlyCheckinFee", ApplicationService.CAMPSITE_EARLY_CHECKIN_FEE);
         model.addAttribute("pageTitle", "캠핑사이트 신청");
     }
 
@@ -113,16 +118,20 @@ public class LodgingController {
         pageMeta.apply(model, "lodging");
         model.addAttribute("genders", Gender.values());
         model.addAttribute("nightsOptions", Nights.values());
+        model.addAttribute("notices", settings.dormitoryNotice());
+        model.addAttribute("perNightFee", ApplicationService.DORMITORY_PER_NIGHT_FEE);
         model.addAttribute("pageTitle", "도미토리 신청");
     }
 
     // ===== Empty form factories =====
 
     private static CampsiteApplicationRequest emptyCampsiteForm() {
+        // realName, nickname, phone, email, partySize, arrivalTime, usePickupBus, memo, agreedToTerms
         return new CampsiteApplicationRequest(null, null, null, null, null, null, null, null, null);
     }
 
     private static DormitoryApplicationRequest emptyDormitoryForm() {
-        return new DormitoryApplicationRequest(null, null, null, null, null, null, null, null, null);
+        // realName, nickname, phone, email, gender, nights, memo, agreedToTerms
+        return new DormitoryApplicationRequest(null, null, null, null, null, null, null, null);
     }
 }

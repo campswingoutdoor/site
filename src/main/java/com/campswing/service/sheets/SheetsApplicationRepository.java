@@ -43,11 +43,11 @@ public class SheetsApplicationRepository {
 
     /**
      * PartyPass 시트의 모든 신청 행을 읽어 리스트 뷰모델로 반환.
-     * 컬럼 순서: id, submittedAt, applicantName, phone, email, passType, tshirtSize,
-     *           dietaryNote, memo, agreedToTerms (A2:J)
+     * 컬럼 순서: id, submittedAt, realName, nickname, phone, email, passType,
+     *           club, role, useVehicle, vehicleNumber, dietaryNote, memo, agreedToTerms (A2:N)
      */
     public List<PartyPassListItem> findAllPartyPass() {
-        List<List<Object>> rows = client.readRange(SHEET_PARTY_PASS, "A2:J");
+        List<List<Object>> rows = client.readRange(SHEET_PARTY_PASS, "A2:N");
         List<PartyPassListItem> result = new ArrayList<>(rows.size());
         int seq = 0;
         for (List<Object> r : rows) {
@@ -57,12 +57,16 @@ public class SheetsApplicationRepository {
             seq++;
             result.add(new PartyPassListItem(
                     seq,
-                    cell(r, 1),  // submittedAt
-                    cell(r, 2),  // applicantName
-                    cell(r, 5),  // passType
-                    cell(r, 6),  // tshirtSize
-                    cell(r, 7),  // dietaryNote
-                    cell(r, 8)   // memo
+                    cell(r, 1),   // submittedAt
+                    cell(r, 2),   // realName
+                    cell(r, 3),   // nickname
+                    cell(r, 6),   // passType
+                    cell(r, 7),   // club
+                    cell(r, 8),   // role
+                    cell(r, 9),   // useVehicle
+                    cell(r, 10),  // vehicleNumber
+                    cell(r, 11),  // dietaryNote
+                    cell(r, 12)   // memo
             ));
         }
         return result;
@@ -70,11 +74,11 @@ public class SheetsApplicationRepository {
 
     /**
      * Campsite 시트의 모든 신청 행을 읽어 리스트 뷰모델로 반환.
-     * 컬럼 순서: id, submittedAt, applicantName, phone, email, partySize, tentSize,
-     *           arrivalTime, usePickupBus, memo, agreedToTerms (A2:K)
+     * 컬럼 순서: id, submittedAt, realName, nickname, phone, email, partySize,
+     *           arrivalTime, usePickupBus, totalPrice, memo, agreedToTerms (A2:L)
      */
     public List<CampsiteListItem> findAllCampsite() {
-        List<List<Object>> rows = client.readRange(SHEET_CAMPSITE, "A2:K");
+        List<List<Object>> rows = client.readRange(SHEET_CAMPSITE, "A2:L");
         List<CampsiteListItem> result = new ArrayList<>(rows.size());
         int seq = 0;
         for (List<Object> r : rows) {
@@ -85,12 +89,13 @@ public class SheetsApplicationRepository {
             result.add(new CampsiteListItem(
                     seq,
                     cell(r, 1),  // submittedAt
-                    cell(r, 2),  // applicantName
-                    cell(r, 5),  // partySize
-                    cell(r, 6),  // tentSize
+                    cell(r, 2),  // realName
+                    cell(r, 3),  // nickname
+                    cell(r, 6),  // partySize
                     cell(r, 7),  // arrivalTime
                     cell(r, 8),  // usePickupBus
-                    cell(r, 9)   // memo
+                    cell(r, 9),  // totalPrice
+                    cell(r, 10)  // memo
             ));
         }
         return result;
@@ -98,8 +103,8 @@ public class SheetsApplicationRepository {
 
     /**
      * Dormitory 시트의 모든 신청 행을 읽어 리스트 뷰모델로 반환.
-     * 컬럼 순서: id, submittedAt, applicantName, phone, email, gender, nights,
-     *           usePickupBus, roommatePreference, memo, agreedToTerms (A2:K)
+     * 컬럼 순서: id, submittedAt, realName, nickname, phone, email, gender, nights,
+     *           totalPrice, memo, agreedToTerms (A2:K)
      */
     public List<DormitoryListItem> findAllDormitory() {
         List<List<Object>> rows = client.readRange(SHEET_DORMITORY, "A2:K");
@@ -113,11 +118,11 @@ public class SheetsApplicationRepository {
             result.add(new DormitoryListItem(
                     seq,
                     cell(r, 1),  // submittedAt
-                    cell(r, 2),  // applicantName
-                    cell(r, 5),  // gender
-                    cell(r, 6),  // nights
-                    cell(r, 7),  // usePickupBus
-                    cell(r, 8),  // roommatePreference
+                    cell(r, 2),  // realName
+                    cell(r, 3),  // nickname
+                    cell(r, 6),  // gender
+                    cell(r, 7),  // nights
+                    cell(r, 8),  // totalPrice
                     cell(r, 9)   // memo
             ));
         }

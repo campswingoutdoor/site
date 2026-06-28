@@ -7,11 +7,11 @@ package com.campswing.domain.application;
 public record DormitoryListItem(
         int seq,
         String submittedAt,
-        String applicantName,
+        String realName,
+        String nickname,
         String gender,
         String nights,
-        String usePickupBus,
-        String roommatePreference,
+        String totalPrice,
         String memo
 ) {
 }

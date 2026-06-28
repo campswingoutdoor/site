@@ -225,40 +225,45 @@
   </tbody>
 </table>
 
-<h2>PartyPass 탭 — 열 구성 (10개)</h2>
+<h2>PartyPass 탭 — 열 구성 (14개)</h2>
 
 <table>
   <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
   <tbody>
     <tr><td>A</td><td>신청번호 (자동 생성)</td></tr>
     <tr><td>B</td><td>신청 일시</td></tr>
-    <tr><td>C</td><td>이름(닉네임)</td></tr>
-    <tr><td>D</td><td>연락처</td></tr>
-    <tr><td>E</td><td>이메일 <em>(신청자가 비울 수 있음)</em></td></tr>
-    <tr><td>F</td><td>패스 종류 — <code>FULL</code> / <code>PRE_PARTY_ONLY</code> / <code>MAIN_ONLY</code></td></tr>
-    <tr><td>G</td><td>티셔츠 사이즈</td></tr>
-    <tr><td>H</td><td>식이 제한 · 알레르기</td></tr>
-    <tr><td>I</td><td>메모</td></tr>
-    <tr><td>J</td><td>개인정보 동의 (TRUE/FALSE)</td></tr>
+    <tr><td>C</td><td>이름(실명)</td></tr>
+    <tr><td>D</td><td>닉네임</td></tr>
+    <tr><td>E</td><td>연락처</td></tr>
+    <tr><td>F</td><td>이메일 <em>(신청자가 비울 수 있음)</em></td></tr>
+    <tr><td>G</td><td>패스 종류 — <code>FULL</code> / <code>PRE_PARTY_ONLY</code> / <code>MAIN_ONLY</code></td></tr>
+    <tr><td>H</td><td>소속 동호회</td></tr>
+    <tr><td>I</td><td>역할 — <code>LEADER</code> / <code>FOLLOWER</code></td></tr>
+    <tr><td>J</td><td>차량 이용 여부 (TRUE/FALSE)</td></tr>
+    <tr><td>K</td><td>차량번호 <em>(차량 이용 시에만 입력됨)</em></td></tr>
+    <tr><td>L</td><td>식이 제한 · 알레르기</td></tr>
+    <tr><td>M</td><td>메모</td></tr>
+    <tr><td>N</td><td>개인정보 동의 (TRUE/FALSE)</td></tr>
   </tbody>
 </table>
 
-<h2>Campsite 탭 — 열 구성 (11개)</h2>
+<h2>Campsite 탭 — 열 구성 (12개)</h2>
 
 <table>
   <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
   <tbody>
     <tr><td>A</td><td>신청번호</td></tr>
     <tr><td>B</td><td>신청 일시</td></tr>
-    <tr><td>C</td><td>이름(닉네임)</td></tr>
-    <tr><td>D</td><td>연락처</td></tr>
-    <tr><td>E</td><td>이메일 <em>(신청자가 비울 수 있음)</em></td></tr>
-    <tr><td>F</td><td>텐트 사용 인원</td></tr>
-    <tr><td>G</td><td>텐트 크기 — <code>SMALL</code> / <code>MEDIUM</code> / <code>LARGE</code></td></tr>
-    <tr><td>H</td><td>도착 시간대 — <code>FRI_EVENING</code> / <code>SAT_MORNING</code> / <code>SAT_AFTERNOON</code></td></tr>
+    <tr><td>C</td><td>이름(실명)</td></tr>
+    <tr><td>D</td><td>닉네임</td></tr>
+    <tr><td>E</td><td>연락처</td></tr>
+    <tr><td>F</td><td>이메일 <em>(신청자가 비울 수 있음)</em></td></tr>
+    <tr><td>G</td><td>캠핑 사이트 이용 인원 (1~4)</td></tr>
+    <tr><td>H</td><td>입실 예정 시간 — <code>SAT_MORNING</code>(토 오전 8시 이후) / <code>FRI_EVENING</code>(금 19:00 이후, +10,000원)</td></tr>
     <tr><td>I</td><td>픽업버스 이용 (TRUE/FALSE)</td></tr>
-    <tr><td>J</td><td>메모</td></tr>
-    <tr><td>K</td><td>개인정보 동의</td></tr>
+    <tr><td>J</td><td>총 결제금액 <em>(자동 계산: 35,000 + 선입실 시 10,000)</em></td></tr>
+    <tr><td>K</td><td>메모</td></tr>
+    <tr><td>L</td><td>개인정보 동의</td></tr>
   </tbody>
 </table>
 
@@ -269,13 +274,13 @@
   <tbody>
     <tr><td>A</td><td>신청번호</td></tr>
     <tr><td>B</td><td>신청 일시</td></tr>
-    <tr><td>C</td><td>이름(닉네임)</td></tr>
-    <tr><td>D</td><td>연락처</td></tr>
-    <tr><td>E</td><td>이메일 <em>(신청자가 비울 수 있음)</em></td></tr>
-    <tr><td>F</td><td>성별 — <code>MALE</code> / <code>FEMALE</code> / <code>PREFER_NOT_TO_SAY</code></td></tr>
-    <tr><td>G</td><td>박수 — <code>ONE_NIGHT</code> / <code>TWO_NIGHTS</code></td></tr>
-    <tr><td>H</td><td>픽업버스 이용 (TRUE/FALSE)</td></tr>
-    <tr><td>I</td><td>같은 방 희망 친구</td></tr>
+    <tr><td>C</td><td>이름(실명)</td></tr>
+    <tr><td>D</td><td>닉네임</td></tr>
+    <tr><td>E</td><td>연락처</td></tr>
+    <tr><td>F</td><td>이메일 <em>(신청자가 비울 수 있음)</em></td></tr>
+    <tr><td>G</td><td>성별 — <code>MALE</code> / <code>FEMALE</code></td></tr>
+    <tr><td>H</td><td>숙박 기간 — <code>ONE_NIGHT_PREPARTY</code>(1박 전야제) / <code>ONE_NIGHT_MAIN</code>(1박 본파티) / <code>TWO_NIGHTS</code>(2박)</td></tr>
+    <tr><td>I</td><td>총 결제금액 <em>(자동 계산: 1박 10,000 · 2박 20,000)</em></td></tr>
     <tr><td>J</td><td>메모</td></tr>
     <tr><td>K</td><td>개인정보 동의</td></tr>
   </tbody>
@@ -329,18 +334,25 @@
   </tbody>
 </table>
 
-<h2>선택 탭 (3개)</h2>
+<h2>선택 탭 (7개)</h2>
 
-<p>없어도 사이트는 정상 동작합니다. 필요할 때 만들어 채우세요.</p>
+<p>없어도 사이트는 정상 동작합니다. 필요할 때 만들어 채우세요. 이 탭들은 위 11개 필수 탭과 달리 <strong>각각 따로 읽기</strong> 때문에, 하나가 없어도 다른 탭에 영향을 주지 않습니다.</p>
 
 <table>
   <thead><tr><th style="width:28%">탭 이름</th><th>관리하는 내용</th><th>없을 때</th></tr></thead>
   <tbody>
-    <tr><td><span class="badge-tab">Dj</span></td><td>DJ 라인업</td><td>기본 DJ 명단 표시</td></tr>
+    <tr><td><span class="badge-tab">Dj</span></td><td>DJ 라인업</td><td>"COMING SOON" 안내</td></tr>
     <tr><td><span class="badge-tab">Instructors</span></td><td>강사 명단</td><td>"COMING SOON" 안내</td></tr>
     <tr><td><span class="badge-tab">Staff</span></td><td>스태프 명단</td><td>"COMING SOON" 안내</td></tr>
+    <tr><td><span class="badge-tab">LegacyDancers</span></td><td>Invited Dancers 페이지의 Legacy Dancers 섹션</td><td>"COMING SOON" 안내</td></tr>
+    <tr><td><span class="badge-tab">SpecialGuestDancers</span></td><td>Invited Dancers 페이지의 Special Guest Dancers 섹션</td><td>"COMING SOON" 안내</td></tr>
+    <tr><td><span class="badge-tab">CampsiteNotice</span></td><td>캠핑사이트 신청 페이지의 안내 문구 (줄 단위)</td><td>코드 기본 안내문 표시</td></tr>
+    <tr><td><span class="badge-tab">DormitoryNotice</span></td><td>도미토리 신청 페이지의 안내 문구 (줄 단위)</td><td>코드 기본 안내문 표시</td></tr>
   </tbody>
 </table>
+
+<p><strong>LegacyDancers / SpecialGuestDancers</strong> 탭은 <code>Instructors</code> 탭과 동일한 6개 열 구성입니다: A=id, B=이름, C=역할, D=프로필 이미지 경로, E=소개, F=표시 순서.</p>
+<p><strong>CampsiteNotice / DormitoryNotice</strong> 탭은 <code>PartyPassBenefit</code> 탭과 동일한 2개 열 구성입니다: A=표시 순서, B=안내 문구 한 줄.</p>
 
 <h2>시트 입력의 공통 규칙</h2>
 

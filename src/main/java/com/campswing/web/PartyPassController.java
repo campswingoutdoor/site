@@ -2,8 +2,8 @@ package com.campswing.web;
 
 import com.campswing.api.dto.ApplicationCreatedResponse;
 import com.campswing.api.dto.PartyPassApplicationRequest;
+import com.campswing.domain.application.DanceRole;
 import com.campswing.domain.application.PassType;
-import com.campswing.domain.application.TshirtSize;
 import com.campswing.service.ApplicationService;
 import com.campswing.service.SettingsService;
 import jakarta.validation.Valid;
@@ -63,11 +63,12 @@ public class PartyPassController {
     private void addFormOptions(Model model) {
         pageMeta.apply(model, "party-pass");
         model.addAttribute("passTypes", PassType.values());
-        model.addAttribute("tshirtSizes", TshirtSize.values());
+        model.addAttribute("roles", DanceRole.values());
         model.addAttribute("benefits", settings.partyPassBenefits());
     }
 
     private static PartyPassApplicationRequest emptyForm() {
-        return new PartyPassApplicationRequest(null, null, null, null, null, null, null, null);
+        return new PartyPassApplicationRequest(
+                null, null, null, null, null, null, null, false, null, null, null, null);
     }
 }
