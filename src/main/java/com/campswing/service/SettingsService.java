@@ -10,6 +10,7 @@ import com.campswing.domain.settings.LocationGuide;
 import com.campswing.domain.settings.NoticeLine;
 import com.campswing.domain.settings.PageMeta;
 import com.campswing.domain.settings.PartyPassBenefit;
+import com.campswing.domain.settings.PartyPassPrice;
 import com.campswing.domain.settings.PickupBusTrip;
 import com.campswing.domain.settings.ScheduleItem;
 import com.campswing.domain.settings.SettingsSnapshot;
@@ -55,6 +56,7 @@ public class SettingsService {
     private final AtomicReference<Map<String, ComingSoonItem>> comingSoonCache = new AtomicReference<>(Map.of());
     private final AtomicReference<List<NoticeLine>> campsiteNoticeCache = new AtomicReference<>(List.of());
     private final AtomicReference<List<NoticeLine>> dormitoryNoticeCache = new AtomicReference<>(List.of());
+    private final AtomicReference<List<PartyPassPrice>> partyPassPriceCache = new AtomicReference<>(List.of());
 
     public SettingsService(SheetsSettingsRepository repo, EventProperties fallback) {
         this.repo = repo;
@@ -74,6 +76,7 @@ public class SettingsService {
         comingSoonCache.set(SettingsFallbacks.comingSoon());
         campsiteNoticeCache.set(SettingsFallbacks.campsiteNotice());
         dormitoryNoticeCache.set(SettingsFallbacks.dormitoryNotice());
+        partyPassPriceCache.set(SettingsFallbacks.partyPassPrices());
         refresh();
     }
 
@@ -122,6 +125,12 @@ public class SettingsService {
         } catch (Exception e) {
             log.debug("DormitoryNotice refresh skipped (kept cache): {}", e.getMessage());
         }
+        try {
+            List<PartyPassPrice> prices = repo.readPartyPassPrices();
+            if (!prices.isEmpty()) partyPassPriceCache.set(prices);
+        } catch (Exception e) {
+            log.debug("PartyPassPrice refresh skipped (kept cache): {}", e.getMessage());
+        }
     }
 
     private static boolean isAllEmpty(LocationGuide g) {
@@ -152,6 +161,40 @@ public class SettingsService {
     public Map<String, ComingSoonItem> comingSoon()   { return comingSoonCache.get(); }
     public List<NoticeLine> campsiteNotice()          { return campsiteNoticeCache.get(); }
     public List<NoticeLine> dormitoryNotice()         { return dormitoryNoticeCache.get(); }
+    public List<PartyPassPrice> partyPassPrices()     { return partyPassPriceCache.get(); }
+
+    /**
+     * 자동 계산에 적용할 가격 등급 — Event 시트 partyPassPriceTier (EARLYBIRD/STANDARD/ONSITE).
+     * 미설정·오타 시 STANDARD.
+     */
+    public String partyPassPriceTier() {
+        EventInfo e = eventCache.get();
+        String tier = (e == null) ? null : e.partyPassPriceTier();
+        if (tier == null) return "STANDARD";
+        String t = tier.trim().toUpperCase();
+        return switch (t) {
+            case "EARLYBIRD", "STANDARD", "ONSITE" -> t;
+            default -> "STANDARD";
+        };
+    }
+
+    /**
+     * 파티패스 가격표에서 key(PRE_PARTY_ONLY/MAIN_ONLY/FULL/WORKSHOP)의 가격을
+     * 현재 적용 등급(partyPassPriceTier)에 맞춰 조회. 없으면 0.
+     */
+    public int partyPassCalcPrice(String key) {
+        if (key == null) return 0;
+        String tier = partyPassPriceTier();
+        return partyPassPriceCache.get().stream()
+                .filter(p -> key.equalsIgnoreCase(p.key()))
+                .map(p -> switch (tier) {
+                    case "EARLYBIRD" -> p.earlyBird();
+                    case "ONSITE" -> p.onsite();
+                    default -> p.standard();
+                })
+                .findFirst()
+                .orElse(0);
+    }
 
     public PageMeta pageMeta(String key) {
         Map<String, PageMeta> map = pageMetaCache.get();

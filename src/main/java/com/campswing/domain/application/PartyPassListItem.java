@@ -12,8 +12,10 @@ public record PartyPassListItem(
         String passType,
         String club,
         String role,
-        String useVehicle,
+        String applyWorkshop,
+        String vehicleUsage,
         String vehicleNumber,
+        String totalPrice,
         String dietaryNote,
         String memo
 ) {

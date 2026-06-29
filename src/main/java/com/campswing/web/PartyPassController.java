@@ -4,6 +4,7 @@ import com.campswing.api.dto.ApplicationCreatedResponse;
 import com.campswing.api.dto.PartyPassApplicationRequest;
 import com.campswing.domain.application.DanceRole;
 import com.campswing.domain.application.PassType;
+import com.campswing.domain.application.VehicleUsage;
 import com.campswing.service.ApplicationService;
 import com.campswing.service.SettingsService;
 import jakarta.validation.Valid;
@@ -64,11 +65,23 @@ public class PartyPassController {
         pageMeta.apply(model, "party-pass");
         model.addAttribute("passTypes", PassType.values());
         model.addAttribute("roles", DanceRole.values());
+        model.addAttribute("vehicleUsages", VehicleUsage.values());
         model.addAttribute("benefits", settings.partyPassBenefits());
+        // 가격표 (PARTY PASS PRICE) — Settings 시트 연동
+        model.addAttribute("partyPassPrices", settings.partyPassPrices());
+        model.addAttribute("priceTier", settings.partyPassPriceTier());  // EARLYBIRD/STANDARD/ONSITE
+        // 자동 계산용 일반가 (단위: 원) — 가격표와 동일 출처(Settings 시트)에서 파생, Alpine 으로 전달
+        model.addAttribute("prePartyPrice", service.partyPassBasePrice(PassType.PRE_PARTY_ONLY));
+        model.addAttribute("mainPrice", service.partyPassBasePrice(PassType.MAIN_ONLY));
+        model.addAttribute("fullPrice", service.partyPassBasePrice(PassType.FULL));
+        model.addAttribute("workshopFee", service.partyPassWorkshopFee());
+        model.addAttribute("vehicleGeneralFee", ApplicationService.PARTY_PASS_VEHICLE_GENERAL_FEE);
     }
 
     private static PartyPassApplicationRequest emptyForm() {
+        // realName, nickname, phone, email, passType, club, role,
+        // applyWorkshop, vehicleUsage, vehicleNumber, dietaryNote, memo, agreedToTerms
         return new PartyPassApplicationRequest(
-                null, null, null, null, null, null, null, false, null, null, null, null);
+                null, null, null, null, null, null, null, false, VehicleUsage.NONE, null, null, null, null);
     }
 }

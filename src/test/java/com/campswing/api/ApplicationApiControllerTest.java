@@ -56,6 +56,7 @@ class ApplicationApiControllerTest {
                 "email", "hong@example.com",
                 "passType", "FULL",
                 "role", "LEADER",
+                "vehicleUsage", "NONE",
                 "agreedToTerms", true
         );
 
@@ -76,6 +77,7 @@ class ApplicationApiControllerTest {
                 "email", "not-an-email",
                 "passType", "FULL",
                 "role", "LEADER",
+                "vehicleUsage", "NONE",
                 "agreedToTerms", true
         );
 
@@ -97,6 +99,7 @@ class ApplicationApiControllerTest {
                 "email", "hong@example.com",
                 "passType", "FULL",
                 "role", "LEADER",
+                "vehicleUsage", "NONE",
                 "agreedToTerms", false
         );
 
@@ -120,6 +123,7 @@ class ApplicationApiControllerTest {
                 "email", "hong@example.com",
                 "passType", "FULL",
                 "role", "LEADER",
+                "vehicleUsage", "NONE",
                 "agreedToTerms", true
         );
 

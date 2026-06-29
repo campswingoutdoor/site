@@ -119,7 +119,8 @@ public class LodgingController {
         model.addAttribute("genders", Gender.values());
         model.addAttribute("nightsOptions", Nights.values());
         model.addAttribute("notices", settings.dormitoryNotice());
-        model.addAttribute("perNightFee", ApplicationService.DORMITORY_PER_NIGHT_FEE);
+        model.addAttribute("oneNightFee", ApplicationService.DORMITORY_ONE_NIGHT_FEE);
+        model.addAttribute("twoNightsFee", ApplicationService.DORMITORY_TWO_NIGHTS_FEE);
         model.addAttribute("pageTitle", "도미토리 신청");
     }
 

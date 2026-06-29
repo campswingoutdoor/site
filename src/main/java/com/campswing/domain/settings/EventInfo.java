@@ -17,7 +17,8 @@ public record EventInfo(
         String kakaoMapUrl,
         String heroSubtitle,
         String successDepositNotice,
-        String successDeadlineNotice
+        String successDeadlineNotice,
+        String partyPassPriceTier
 ) {
     public record Venue(String name, String address) {
     }

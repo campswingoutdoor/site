@@ -15,8 +15,8 @@ public final class SheetRowMapper {
 
     public static final List<String> PARTY_PASS_HEADERS = List.of(
             "id", "submittedAt", "realName", "nickname", "phone", "email",
-            "passType", "club", "role", "useVehicle", "vehicleNumber",
-            "dietaryNote", "memo", "agreedToTerms"
+            "passType", "club", "role", "applyWorkshop", "vehicleUsage", "vehicleNumber",
+            "totalPrice", "dietaryNote", "memo", "agreedToTerms"
     );
 
     public static final List<String> CAMPSITE_HEADERS = List.of(
@@ -44,8 +44,10 @@ public final class SheetRowMapper {
                 a.passType().name(),
                 nullToEmpty(a.club()),
                 a.role().name(),
-                a.useVehicle(),
+                a.applyWorkshop(),
+                a.vehicleUsage().name(),
                 nullToEmpty(a.vehicleNumber()),
+                a.totalPrice(),
                 nullToEmpty(a.dietaryNote()),
                 nullToEmpty(a.memo()),
                 a.agreedToTerms()
