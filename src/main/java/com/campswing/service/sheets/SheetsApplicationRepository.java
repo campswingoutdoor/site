@@ -44,10 +44,11 @@ public class SheetsApplicationRepository {
     /**
      * PartyPass 시트의 모든 신청 행을 읽어 리스트 뷰모델로 반환.
      * 컬럼 순서: id, submittedAt, realName, nickname, phone, email, passType,
-     *           club, role, useVehicle, vehicleNumber, dietaryNote, memo, agreedToTerms (A2:N)
+     *           club, role, applyWorkshop, vehicleUsage, vehicleNumber, totalPrice,
+     *           dietaryNote, memo, agreedToTerms (A2:P)
      */
     public List<PartyPassListItem> findAllPartyPass() {
-        List<List<Object>> rows = client.readRange(SHEET_PARTY_PASS, "A2:N");
+        List<List<Object>> rows = client.readRange(SHEET_PARTY_PASS, "A2:P");
         List<PartyPassListItem> result = new ArrayList<>(rows.size());
         int seq = 0;
         for (List<Object> r : rows) {
@@ -63,10 +64,12 @@ public class SheetsApplicationRepository {
                     cell(r, 6),   // passType
                     cell(r, 7),   // club
                     cell(r, 8),   // role
-                    cell(r, 9),   // useVehicle
-                    cell(r, 10),  // vehicleNumber
-                    cell(r, 11),  // dietaryNote
-                    cell(r, 12)   // memo
+                    cell(r, 9),   // applyWorkshop
+                    cell(r, 10),  // vehicleUsage
+                    cell(r, 11),  // vehicleNumber
+                    cell(r, 12),  // totalPrice
+                    cell(r, 13),  // dietaryNote
+                    cell(r, 14)   // memo
             ));
         }
         return result;
