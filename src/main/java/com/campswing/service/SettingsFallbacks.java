@@ -147,6 +147,13 @@ final class SettingsFallbacks {
         );
     }
 
+    static List<NoticeLine> partyPassPriceNotes() {
+        return List.of(
+                new NoticeLine(1, "얼리버드는 선착순 50명 한정입니다. (단위: 원)"),
+                new NoticeLine(2, "신청 폼의 자동 결제금액은 일반가 기준으로 계산됩니다.")
+        );
+    }
+
     static List<NoticeLine> dormitoryNotice() {
         return List.of(
                 new NoticeLine(1, "도미토리는 남녀 구분 배정으로 운영됩니다."),
