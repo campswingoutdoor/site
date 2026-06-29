@@ -53,11 +53,9 @@
                         </tbody>
                     </table>
                 </div>
-                <p class="text-text-muted text-xs mt-4">※ 얼리버드는 선착순 50명 한정입니다. (단위: 원)</p>
-                <p class="text-text-muted text-xs mt-1">※ 신청 폼의 자동 결제금액은
-                    <span class="text-gold-light"
-                          th:text="${priceTier == 'EARLYBIRD' ? '얼리버드가' : (priceTier == 'ONSITE' ? '현장가' : '일반가')}">일반가</span>
-                    기준으로 계산됩니다.</p>
+                <div class="mt-4 space-y-1" th:if="${!#lists.isEmpty(priceNotes)}">
+                    <p class="text-text-muted text-xs" th:each="n : ${priceNotes}" th:text="'※ ' + ${n.text}">※ 안내 문구</p>
+                </div>
             </div>
 
             <!-- 폼 -->

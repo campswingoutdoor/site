@@ -336,7 +336,7 @@
   </tbody>
 </table>
 
-<h2>선택 탭 (8개)</h2>
+<h2>선택 탭 (9개)</h2>
 
 <p>없어도 사이트는 정상 동작합니다. 필요할 때 만들어 채우세요. 이 탭들은 위 11개 필수 탭과 달리 <strong>각각 따로 읽기</strong> 때문에, 하나가 없어도 다른 탭에 영향을 주지 않습니다.</p>
 
@@ -351,11 +351,12 @@
     <tr><td><span class="badge-tab">CampsiteNotice</span></td><td>캠핑사이트 신청 페이지의 안내 문구 (줄 단위)</td><td>코드 기본 안내문 표시</td></tr>
     <tr><td><span class="badge-tab">DormitoryNotice</span></td><td>도미토리 신청 페이지의 안내 문구 (줄 단위)</td><td>코드 기본 안내문 표시</td></tr>
     <tr><td><span class="badge-tab">PartyPassPrice</span></td><td>파티패스 가격표 + 자동 결제금액 계산 기준가</td><td>코드 기본 가격표 표시</td></tr>
+    <tr><td><span class="badge-tab">PartyPassPriceNote</span></td><td>파티패스 가격표 하단 안내 문구 (줄 단위)</td><td>코드 기본 안내문 표시</td></tr>
   </tbody>
 </table>
 
 <p><strong>LegacyDancers / SpecialGuestDancers</strong> 탭은 <code>Instructors</code> 탭과 동일한 6개 열 구성입니다: A=id, B=이름, C=역할, D=프로필 이미지 경로, E=소개, F=표시 순서.</p>
-<p><strong>CampsiteNotice / DormitoryNotice</strong> 탭은 <code>PartyPassBenefit</code> 탭과 동일한 2개 열 구성입니다: A=표시 순서, B=안내 문구 한 줄.</p>
+<p><strong>CampsiteNotice / DormitoryNotice / PartyPassPriceNote</strong> 탭은 <code>PartyPassBenefit</code> 탭과 동일한 2개 열 구성입니다: A=표시 순서, B=안내 문구 한 줄. (문구 앞 ※ 표시는 자동으로 붙으므로 본문만 입력하세요.)</p>
 <p><strong>PartyPassPrice</strong> 탭은 6개 열 구성입니다: A=표시 순서, B=key(<code>PRE_PARTY_ONLY</code>/<code>MAIN_ONLY</code>/<code>FULL</code>/<code>WORKSHOP</code>), C=표시명, D=얼리버드가, E=일반가, F=현장가. <strong>일반가(E열)</strong>가 신청 폼의 자동 결제금액 계산 기준입니다. key 값은 정확히 위 4가지를 사용하세요(자동 계산 매핑용).</p>
 
 <h2>시트 입력의 공통 규칙</h2>

@@ -69,6 +69,7 @@ public class PartyPassController {
         model.addAttribute("benefits", settings.partyPassBenefits());
         // 가격표 (PARTY PASS PRICE) — Settings 시트 연동
         model.addAttribute("partyPassPrices", settings.partyPassPrices());
+        model.addAttribute("priceNotes", settings.partyPassPriceNotes());
         model.addAttribute("priceTier", settings.partyPassPriceTier());  // EARLYBIRD/STANDARD/ONSITE
         // 자동 계산용 일반가 (단위: 원) — 가격표와 동일 출처(Settings 시트)에서 파생, Alpine 으로 전달
         model.addAttribute("prePartyPrice", service.partyPassBasePrice(PassType.PRE_PARTY_ONLY));

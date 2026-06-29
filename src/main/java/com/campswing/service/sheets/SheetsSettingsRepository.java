@@ -45,6 +45,7 @@ public class SheetsSettingsRepository {
     private static final String SHEET_CAMPSITE_NOTICE = "CampsiteNotice";
     private static final String SHEET_DORMITORY_NOTICE = "DormitoryNotice";
     private static final String SHEET_PARTY_PASS_PRICE = "PartyPassPrice";
+    private static final String SHEET_PARTY_PASS_PRICE_NOTE = "PartyPassPriceNote";
 
     // batchGet에 사용할 range — 순서 중요 (parseSnapshot의 인덱스와 일치해야 함)
     private static final String RANGE_EVENT = SHEET_EVENT + "!A2:B";
@@ -154,6 +155,10 @@ public class SheetsSettingsRepository {
 
     public List<PartyPassPrice> readPartyPassPrices() {
         return parsePartyPassPrices(client.readRange(client.settingsSpreadsheetId(), SHEET_PARTY_PASS_PRICE, "A2:F"));
+    }
+
+    public List<NoticeLine> readPartyPassPriceNotes() {
+        return parseNotices(client.readRange(client.settingsSpreadsheetId(), SHEET_PARTY_PASS_PRICE_NOTE, "A2:B"));
     }
 
     // ===== Parse helpers =====

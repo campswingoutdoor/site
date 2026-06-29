@@ -57,6 +57,7 @@ public class SettingsService {
     private final AtomicReference<List<NoticeLine>> campsiteNoticeCache = new AtomicReference<>(List.of());
     private final AtomicReference<List<NoticeLine>> dormitoryNoticeCache = new AtomicReference<>(List.of());
     private final AtomicReference<List<PartyPassPrice>> partyPassPriceCache = new AtomicReference<>(List.of());
+    private final AtomicReference<List<NoticeLine>> partyPassPriceNoteCache = new AtomicReference<>(List.of());
 
     public SettingsService(SheetsSettingsRepository repo, EventProperties fallback) {
         this.repo = repo;
@@ -77,6 +78,7 @@ public class SettingsService {
         campsiteNoticeCache.set(SettingsFallbacks.campsiteNotice());
         dormitoryNoticeCache.set(SettingsFallbacks.dormitoryNotice());
         partyPassPriceCache.set(SettingsFallbacks.partyPassPrices());
+        partyPassPriceNoteCache.set(SettingsFallbacks.partyPassPriceNotes());
         refresh();
     }
 
@@ -131,6 +133,12 @@ public class SettingsService {
         } catch (Exception e) {
             log.debug("PartyPassPrice refresh skipped (kept cache): {}", e.getMessage());
         }
+        try {
+            List<NoticeLine> priceNotes = repo.readPartyPassPriceNotes();
+            if (!priceNotes.isEmpty()) partyPassPriceNoteCache.set(priceNotes);
+        } catch (Exception e) {
+            log.debug("PartyPassPriceNote refresh skipped (kept cache): {}", e.getMessage());
+        }
     }
 
     private static boolean isAllEmpty(LocationGuide g) {
@@ -162,6 +170,7 @@ public class SettingsService {
     public List<NoticeLine> campsiteNotice()          { return campsiteNoticeCache.get(); }
     public List<NoticeLine> dormitoryNotice()         { return dormitoryNoticeCache.get(); }
     public List<PartyPassPrice> partyPassPrices()     { return partyPassPriceCache.get(); }
+    public List<NoticeLine> partyPassPriceNotes()     { return partyPassPriceNoteCache.get(); }
 
     /**
      * 자동 계산에 적용할 가격 등급 — Event 시트 partyPassPriceTier (EARLYBIRD/STANDARD/ONSITE).
