@@ -9,6 +9,7 @@ import com.campswing.domain.settings.LocationGuide;
 import com.campswing.domain.settings.NoticeLine;
 import com.campswing.domain.settings.PageMeta;
 import com.campswing.domain.settings.PartyPassBenefit;
+import com.campswing.domain.settings.PartyPassPrice;
 import com.campswing.domain.settings.PickupBusTrip;
 import com.campswing.domain.settings.ScheduleItem;
 import com.campswing.domain.settings.SettingsSnapshot;
@@ -43,6 +44,7 @@ public class SheetsSettingsRepository {
     private static final String SHEET_COMING_SOON = "ComingSoon";
     private static final String SHEET_CAMPSITE_NOTICE = "CampsiteNotice";
     private static final String SHEET_DORMITORY_NOTICE = "DormitoryNotice";
+    private static final String SHEET_PARTY_PASS_PRICE = "PartyPassPrice";
 
     // batchGet에 사용할 range — 순서 중요 (parseSnapshot의 인덱스와 일치해야 함)
     private static final String RANGE_EVENT = SHEET_EVENT + "!A2:B";
@@ -150,6 +152,10 @@ public class SheetsSettingsRepository {
         return parseNotices(client.readRange(client.settingsSpreadsheetId(), SHEET_DORMITORY_NOTICE, "A2:B"));
     }
 
+    public List<PartyPassPrice> readPartyPassPrices() {
+        return parsePartyPassPrices(client.readRange(client.settingsSpreadsheetId(), SHEET_PARTY_PASS_PRICE, "A2:F"));
+    }
+
     // ===== Parse helpers =====
 
     private static EventInfo parseEvent(List<List<Object>> rows) {
@@ -169,7 +175,8 @@ public class SheetsSettingsRepository {
                 kv.getOrDefault("kakaoMapUrl", ""),
                 kv.getOrDefault("heroSubtitle", ""),
                 kv.getOrDefault("successDepositNotice", ""),
-                kv.getOrDefault("successDeadlineNotice", "")
+                kv.getOrDefault("successDeadlineNotice", ""),
+                kv.getOrDefault("partyPassPriceTier", "STANDARD")
         );
     }
 
@@ -204,6 +211,26 @@ public class SheetsSettingsRepository {
             result.add(new PartyPassBenefit(parseDisplayOrder(asString(r, 0), i), text));
         }
         result.sort(Comparator.comparingInt(PartyPassBenefit::displayOrder));
+        return result;
+    }
+
+    private static List<PartyPassPrice> parsePartyPassPrices(List<List<Object>> rows) {
+        List<PartyPassPrice> result = new ArrayList<>();
+        for (int i = 0; i < rows.size(); i++) {
+            List<Object> r = rows.get(i);
+            if (isHeaderRow(r) || r.size() < 3) continue;
+            String key = asString(r, 1);
+            if (key.isEmpty()) continue;
+            result.add(new PartyPassPrice(
+                    parseDisplayOrder(asString(r, 0), i),
+                    key,
+                    asString(r, 2),
+                    r.size() >= 4 ? parseInt(asString(r, 3)) : 0,
+                    r.size() >= 5 ? parseInt(asString(r, 4)) : 0,
+                    r.size() >= 6 ? parseInt(asString(r, 5)) : 0
+            ));
+        }
+        result.sort(Comparator.comparingInt(PartyPassPrice::displayOrder));
         return result;
     }
 

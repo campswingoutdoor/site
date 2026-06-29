@@ -12,8 +12,10 @@ public record PartyPassApplication(
         PassType passType,
         String club,
         DanceRole role,
-        boolean useVehicle,
+        boolean applyWorkshop,
+        VehicleUsage vehicleUsage,
         String vehicleNumber,
+        int totalPrice,
         String dietaryNote,
         String memo,
         boolean agreedToTerms

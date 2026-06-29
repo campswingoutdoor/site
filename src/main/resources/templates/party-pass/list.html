@@ -42,7 +42,9 @@
                         <th class="px-4 py-3 whitespace-nowrap">패스종류</th>
                         <th class="px-4 py-3 whitespace-nowrap">소속 동호회</th>
                         <th class="px-4 py-3 whitespace-nowrap">역할</th>
+                        <th class="px-4 py-3 whitespace-nowrap">워크숍</th>
                         <th class="px-4 py-3 whitespace-nowrap">차량</th>
+                        <th class="px-4 py-3 whitespace-nowrap">결제금액</th>
                         <th class="px-4 py-3">식단메모</th>
                         <th class="px-4 py-3">메모</th>
                     </tr>
@@ -58,7 +60,13 @@
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.club}"></td>
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.role}">LEADER</td>
                         <td class="px-4 py-3 whitespace-nowrap"
-                            th:text="${#strings.equalsIgnoreCase(row.useVehicle, 'TRUE') ? (row.vehicleNumber == '' ? '이용' : row.vehicleNumber) : '미이용'}">미이용</td>
+                            th:text="${#strings.equalsIgnoreCase(row.applyWorkshop, 'TRUE') ? '신청' : '미신청'}">미신청</td>
+                        <td class="px-4 py-3 whitespace-nowrap"
+                            th:text="${#strings.equalsIgnoreCase(row.vehicleUsage, 'NONE') or row.vehicleUsage == '' ? '미이용'
+                                       : (row.vehicleNumber == ''
+                                          ? (#strings.equalsIgnoreCase(row.vehicleUsage, 'CAMPSITE') ? '캠핑(무료)' : '일반')
+                                          : row.vehicleNumber)}">미이용</td>
+                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.totalPrice == '' ? '' : row.totalPrice + '원'}">0원</td>
                         <td class="px-4 py-3 text-text-muted" th:text="${row.dietaryNote}"></td>
                         <td class="px-4 py-3 text-text-muted" th:text="${row.memo}"></td>
                     </tr>

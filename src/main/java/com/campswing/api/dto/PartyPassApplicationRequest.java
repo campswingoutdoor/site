@@ -2,6 +2,7 @@ package com.campswing.api.dto;
 
 import com.campswing.domain.application.DanceRole;
 import com.campswing.domain.application.PassType;
+import com.campswing.domain.application.VehicleUsage;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -35,7 +36,10 @@ public record PartyPassApplicationRequest(
         @NotNull
         DanceRole role,
 
-        Boolean useVehicle,
+        Boolean applyWorkshop,
+
+        @NotNull
+        VehicleUsage vehicleUsage,
 
         @Size(max = 20)
         String vehicleNumber,
@@ -49,4 +53,12 @@ public record PartyPassApplicationRequest(
         @AssertTrue(message = "개인정보 수집·이용에 동의해주세요.")
         Boolean agreedToTerms
 ) {
+        /** 차량 이용(일반/캠핑사이트) 선택 시 차량번호 필수. */
+        @AssertTrue(message = "차량 이용 시 차량번호를 입력해주세요.")
+        public boolean isVehicleNumberValid() {
+                if (vehicleUsage != null && vehicleUsage != VehicleUsage.NONE) {
+                        return vehicleNumber != null && !vehicleNumber.isBlank();
+                }
+                return true;
+        }
 }

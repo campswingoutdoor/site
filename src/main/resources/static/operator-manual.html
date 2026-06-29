@@ -225,7 +225,7 @@
   </tbody>
 </table>
 
-<h2>PartyPass 탭 — 열 구성 (14개)</h2>
+<h2>PartyPass 탭 — 열 구성 (16개)</h2>
 
 <table>
   <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
@@ -236,14 +236,16 @@
     <tr><td>D</td><td>닉네임</td></tr>
     <tr><td>E</td><td>연락처</td></tr>
     <tr><td>F</td><td>이메일 <em>(신청자가 비울 수 있음)</em></td></tr>
-    <tr><td>G</td><td>패스 종류 — <code>FULL</code> / <code>PRE_PARTY_ONLY</code> / <code>MAIN_ONLY</code></td></tr>
+    <tr><td>G</td><td>패스 종류 — <code>FULL</code>(올패스) / <code>PRE_PARTY_ONLY</code>(전야제) / <code>MAIN_ONLY</code>(본파티)</td></tr>
     <tr><td>H</td><td>소속 동호회</td></tr>
     <tr><td>I</td><td>역할 — <code>LEADER</code> / <code>FOLLOWER</code></td></tr>
-    <tr><td>J</td><td>차량 이용 여부 (TRUE/FALSE)</td></tr>
-    <tr><td>K</td><td>차량번호 <em>(차량 이용 시에만 입력됨)</em></td></tr>
-    <tr><td>L</td><td>식이 제한 · 알레르기</td></tr>
-    <tr><td>M</td><td>메모</td></tr>
-    <tr><td>N</td><td>개인정보 동의 (TRUE/FALSE)</td></tr>
+    <tr><td>J</td><td>워크숍 신청 여부 (TRUE/FALSE)</td></tr>
+    <tr><td>K</td><td>차량 이용 — <code>NONE</code>(안 함) / <code>GENERAL</code>(일반, +5,000) / <code>CAMPSITE</code>(캠핑사이트, +0)</td></tr>
+    <tr><td>L</td><td>차량번호 <em>(차량 이용 시에만 입력됨)</em></td></tr>
+    <tr><td>M</td><td>총 결제금액 <em>(자동 계산: 패스 일반가 + 워크숍 + 일반차량 주차비)</em></td></tr>
+    <tr><td>N</td><td>식이 제한 · 알레르기</td></tr>
+    <tr><td>O</td><td>메모</td></tr>
+    <tr><td>P</td><td>개인정보 동의 (TRUE/FALSE)</td></tr>
   </tbody>
 </table>
 
@@ -280,7 +282,7 @@
     <tr><td>F</td><td>이메일 <em>(신청자가 비울 수 있음)</em></td></tr>
     <tr><td>G</td><td>성별 — <code>MALE</code> / <code>FEMALE</code></td></tr>
     <tr><td>H</td><td>숙박 기간 — <code>ONE_NIGHT_PREPARTY</code>(1박 전야제) / <code>ONE_NIGHT_MAIN</code>(1박 본파티) / <code>TWO_NIGHTS</code>(2박)</td></tr>
-    <tr><td>I</td><td>총 결제금액 <em>(자동 계산: 1박 10,000 · 2박 20,000)</em></td></tr>
+    <tr><td>I</td><td>총 결제금액 <em>(자동 계산: 1박 10,000 · 2박 15,000)</em></td></tr>
     <tr><td>J</td><td>메모</td></tr>
     <tr><td>K</td><td>개인정보 동의</td></tr>
   </tbody>
@@ -334,7 +336,7 @@
   </tbody>
 </table>
 
-<h2>선택 탭 (7개)</h2>
+<h2>선택 탭 (8개)</h2>
 
 <p>없어도 사이트는 정상 동작합니다. 필요할 때 만들어 채우세요. 이 탭들은 위 11개 필수 탭과 달리 <strong>각각 따로 읽기</strong> 때문에, 하나가 없어도 다른 탭에 영향을 주지 않습니다.</p>
 
@@ -348,11 +350,13 @@
     <tr><td><span class="badge-tab">SpecialGuestDancers</span></td><td>Invited Dancers 페이지의 Special Guest Dancers 섹션</td><td>"COMING SOON" 안내</td></tr>
     <tr><td><span class="badge-tab">CampsiteNotice</span></td><td>캠핑사이트 신청 페이지의 안내 문구 (줄 단위)</td><td>코드 기본 안내문 표시</td></tr>
     <tr><td><span class="badge-tab">DormitoryNotice</span></td><td>도미토리 신청 페이지의 안내 문구 (줄 단위)</td><td>코드 기본 안내문 표시</td></tr>
+    <tr><td><span class="badge-tab">PartyPassPrice</span></td><td>파티패스 가격표 + 자동 결제금액 계산 기준가</td><td>코드 기본 가격표 표시</td></tr>
   </tbody>
 </table>
 
 <p><strong>LegacyDancers / SpecialGuestDancers</strong> 탭은 <code>Instructors</code> 탭과 동일한 6개 열 구성입니다: A=id, B=이름, C=역할, D=프로필 이미지 경로, E=소개, F=표시 순서.</p>
 <p><strong>CampsiteNotice / DormitoryNotice</strong> 탭은 <code>PartyPassBenefit</code> 탭과 동일한 2개 열 구성입니다: A=표시 순서, B=안내 문구 한 줄.</p>
+<p><strong>PartyPassPrice</strong> 탭은 6개 열 구성입니다: A=표시 순서, B=key(<code>PRE_PARTY_ONLY</code>/<code>MAIN_ONLY</code>/<code>FULL</code>/<code>WORKSHOP</code>), C=표시명, D=얼리버드가, E=일반가, F=현장가. <strong>일반가(E열)</strong>가 신청 폼의 자동 결제금액 계산 기준입니다. key 값은 정확히 위 4가지를 사용하세요(자동 계산 매핑용).</p>
 
 <h2>시트 입력의 공통 규칙</h2>
 
@@ -389,8 +393,16 @@
     <tr><td><span class="key">heroSubtitle</span></td><td>홈 메인 부제목</td><td>홈 메인 영역</td></tr>
     <tr><td><span class="key">successDepositNotice</span></td><td>입금자명 안내문</td><td>신청 완료 페이지</td></tr>
     <tr><td><span class="key">successDeadlineNotice</span></td><td>입금 마감 안내문</td><td>신청 완료 페이지</td></tr>
+    <tr><td><span class="key">partyPassPriceTier</span></td><td>파티패스 자동 결제금액 기준 등급 — <code>EARLYBIRD</code> / <code>STANDARD</code> / <code>ONSITE</code> (미설정 시 STANDARD)</td><td>파티패스 신청 폼 가격표·자동계산</td></tr>
   </tbody>
 </table>
+
+<div class="warn">
+  <div class="title">💡 얼리버드 → 일반가 전환 방법</div>
+  파티패스 신청 폼의 자동 결제금액은 기본적으로 <strong>일반가(STANDARD)</strong> 기준입니다.
+  얼리버드 기간에는 <span class="key">partyPassPriceTier</span> 값을 <code>EARLYBIRD</code>로 바꾸면 가격표에서 얼리버드 열이 강조되고 자동 계산도 얼리버드가로 동작합니다.
+  선착순 50명이 마감되면 다시 <code>STANDARD</code>로 바꾸면 됩니다. <strong>코드 배포 없이 시트 값만 변경</strong>하면 적용됩니다.
+</div>
 
 <h2>4-2. Schedule 탭 — 행사 일정</h2>
 

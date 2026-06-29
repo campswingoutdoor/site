@@ -24,11 +24,8 @@
                 </ul>
             </div>
 
-            <!-- 입금 계좌 -->
-            <div th:replace="~{layout/fragments/deposit-account :: deposit}"></div>
-
             <form th:action="@{/lodging/dormitory}" th:object="${form}" method="post" class="space-y-6 card p-6 md:p-8"
-                  th:attr="x-data=|{ nights: '${form.nights != null ? form.nights : ''}', perNight: ${perNightFee} }|">
+                  th:attr="x-data=|{ nights: '${form.nights != null ? form.nights : ''}', oneNightFee: ${oneNightFee}, twoNightsFee: ${twoNightsFee} }|">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
                 <!-- 1. 이름(실명) / 2. 닉네임 -->
@@ -101,12 +98,12 @@
                 <!-- 총 결제금액 자동 계산 -->
                 <div class="rounded-md border border-gold/40 bg-gold/5 p-5">
                     <div class="flex items-center justify-between text-sm text-text-muted">
-                        <span>도미토리 이용료 (1박당)</span>
-                        <span x-text="perNight.toLocaleString() + '원'">10,000원</span>
+                        <span>요금 안내</span>
+                        <span x-text="'1박 ' + oneNightFee.toLocaleString() + '원 · 2박 ' + twoNightsFee.toLocaleString() + '원'">1박 10,000원 · 2박 15,000원</span>
                     </div>
                     <div class="flex items-center justify-between font-heading text-lg text-gold mt-3 pt-3 border-t border-gold/20">
                         <span>총 결제금액</span>
-                        <span x-text="(nights === 'TWO_NIGHTS' ? perNight * 2 : perNight).toLocaleString() + '원'">10,000원</span>
+                        <span x-text="(nights === 'TWO_NIGHTS' ? twoNightsFee : oneNightFee).toLocaleString() + '원'">10,000원</span>
                     </div>
                 </div>
 
@@ -125,6 +122,11 @@
                     <a th:href="@{/lodging/dormitory/list}" class="btn-outline-gold w-full md:w-auto md:px-16 text-center">신청확인</a>
                 </div>
             </form>
+
+            <!-- 입금 계좌 (신청 버튼 바로 아래) -->
+            <div class="mt-8">
+                <div th:replace="~{layout/fragments/deposit-account :: deposit}"></div>
+            </div>
         </div>
     </section>
 </main>

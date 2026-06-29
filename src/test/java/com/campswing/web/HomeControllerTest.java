@@ -88,7 +88,8 @@ class HomeControllerTest {
                 "",
                 "Swing Dance · Camping · Music · Community",
                 "신청자 이름 로 입금해주세요",
-                "행사 2주 전 (운영팀 공지에 따름)"
+                "행사 2주 전 (운영팀 공지에 따름)",
+                "STANDARD"
         );
     }
 }

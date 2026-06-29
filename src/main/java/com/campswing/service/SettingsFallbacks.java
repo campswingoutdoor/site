@@ -9,6 +9,7 @@ import com.campswing.domain.settings.IndexHighlight;
 import com.campswing.domain.settings.LocationGuide;
 import com.campswing.domain.settings.NoticeLine;
 import com.campswing.domain.settings.PageMeta;
+import com.campswing.domain.settings.PartyPassPrice;
 import com.campswing.domain.settings.VenueDetail;
 
 import java.util.LinkedHashMap;
@@ -41,7 +42,8 @@ final class SettingsFallbacks {
                 "",
                 "Swing Dance · Camping · Music · Community",
                 "신청자 이름 로 입금해주세요",
-                "행사 2주 전 (운영팀 공지에 따름)"
+                "행사 2주 전 (운영팀 공지에 따름)",
+                "STANDARD"
         );
     }
 
@@ -133,6 +135,15 @@ final class SettingsFallbacks {
                 new NoticeLine(5, "토요일 오전 8시부터 입실 가능합니다."),
                 new NoticeLine(6, "금요일 19:00 이후 선입실 시 추가요금 10,000원이 발생합니다."),
                 new NoticeLine(7, "차량 등록 및 주차 신청은 메인 참가 신청(파티패스) 페이지에서 진행됩니다.")
+        );
+    }
+
+    static List<PartyPassPrice> partyPassPrices() {
+        return List.of(
+                new PartyPassPrice(1, "PRE_PARTY_ONLY", "전야제 (뒤풀이 포함)",        30_000,  35_000,  40_000),
+                new PartyPassPrice(2, "MAIN_ONLY",      "본파티 (뒤풀이 포함)",        95_000, 100_000, 110_000),
+                new PartyPassPrice(3, "FULL",           "올패스 (전야제 + 본파티)",   120_000, 125_000, 135_000),
+                new PartyPassPrice(4, "WORKSHOP",       "워크숍 (선택)",               35_000,  40_000,  45_000)
         );
     }
 
