@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>접근이 거부되었습니다 | Camp Swing Outdoor</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <link rel="icon" th:href="@{/favicon.ico}" />
+</head>
+<body class="bg-bg-primary text-text font-body min-h-screen flex items-center justify-center">
+    <div class="container-page text-center">
+        <p class="font-display text-gold tracking-[0.4em] mb-6">403 — FORBIDDEN</p>
+        <h1 class="font-heading text-4xl md:text-5xl text-gold mb-6">접근이 거부되었습니다</h1>
+        <p class="text-text-muted mb-2" th:text="${message} ?: '요청을 처리할 수 없습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.'">요청을 처리할 수 없습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.</p>
+        <p class="text-text-muted text-sm mb-10">신청 폼을 오래 열어두면 보안 토큰이 만료될 수 있습니다. 새로고침 후 다시 제출해주세요.</p>
+        <a th:href="@{/}" class="btn-outline-gold">홈으로 돌아가기</a>
+    </div>
+</body>
+</html>
