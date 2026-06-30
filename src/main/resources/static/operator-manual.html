@@ -610,6 +610,41 @@
   </tbody>
 </table>
 
+<h2>4-14. 프로필 이미지 적용 방법 (DJ / 강사 / 스태프 / Invited Dancers 공통)</h2>
+
+<p>각 라인업 탭의 <strong>프로필 이미지 경로</strong> 칸(Dj=E열, 나머지=D열)에 이미지 주소를 넣으면 카드에 사진이 표시됩니다. 두 가지 방법이 있습니다.</p>
+
+<h3>방법 ① 사이트에 직접 올린 이미지 (권장 · 안정적)</h3>
+<ul>
+  <li>이미지 파일을 프로젝트의 <code>src/main/resources/static/img/</code> 폴더에 넣어 배포합니다. (개발/운영 담당자에게 요청)</li>
+  <li>시트에는 <code>/img/파일명.jpg</code> 형태의 경로를 입력합니다. 예: <code>/img/dancers/joje.jpg</code></li>
+  <li>외부 사이트에 의존하지 않아 가장 안정적입니다.</li>
+</ul>
+
+<h3>방법 ② 외부 이미지 호스팅 (imgbb 등) — 직접 링크 사용</h3>
+<div class="warn">
+  <div class="title">⚠️ "공유 페이지 주소"가 아니라 "직접 이미지 링크"를 넣어야 합니다</div>
+  imgbb에서 복사되는 <code>https://ibb.co/XXXX</code> 는 <strong>이미지를 보여주는 웹페이지</strong> 주소라 이미지로 표시되지 않습니다.
+  실제 이미지 파일 주소는 <strong><code>i.</code> 로 시작</strong>하고 <strong><code>.jpg</code> / <code>.png</code> 등으로 끝</strong>납니다.
+</div>
+
+<table>
+  <thead><tr><th>구분</th><th>예시</th><th>사용</th></tr></thead>
+  <tbody>
+    <tr><td>공유 페이지 (뷰어)</td><td><code>https://ibb.co/9mHVZH9Y</code></td><td>❌ 표시 안 됨</td></tr>
+    <tr><td>직접 이미지 링크</td><td><code>https://i.ibb.co/HLTxhTDg/photo.jpg</code></td><td>✅ 이것을 입력</td></tr>
+  </tbody>
+</table>
+
+<p><strong>직접 링크 찾는 법</strong></p>
+<ul>
+  <li>imgbb 업로드 후 링크 칸의 <strong>드롭다운을 "Direct links"</strong> 로 바꾸면 <code>i.ibb.co/....jpg</code> 형태가 바로 나옵니다.</li>
+  <li>또는 imgbb가 제공하는 <strong>HTML / BBCode</strong> 코드 안에서 <code>&lt;img src="..."&gt;</code> 의 <code>src</code> 값(= <code>[img]</code> 안쪽 주소)을 복사합니다.</li>
+  <li>또는 미리보기 이미지에서 <strong>마우스 우클릭 → "이미지 주소 복사"</strong>.</li>
+</ul>
+
+<p>구분 기준: 주소에 <code>i.</code> 가 붙어 있고(<code>i.ibb.co</code> ✅ / <code>ibb.co</code> ❌), 끝이 <code>.jpg</code>·<code>.png</code>·<code>.webp</code> 같은 이미지 확장자인지 확인하세요.</p>
+
 <!-- 5. 절대 하면 안 되는 일 -->
 <h1>5. 꼭 지켜야 할 5가지 원칙</h1>
 
