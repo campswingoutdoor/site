@@ -8,7 +8,17 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 
 /**
  * Camp Swing Outdoor는 로그인/회원/인증 기능이 없는 공개 사이트입니다.
@@ -40,6 +50,10 @@ public class SecurityConfig {
                         .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
                         .ignoringRequestMatchers("/api/v1/**")
                 )
+                // CSRF 토큰을 필터 체인에서 미리 materialize → XSRF-TOKEN 쿠키가 응답 커밋 전에 기록됨.
+                // 큰 폼 페이지(파티패스 등)에서 응답이 chunked 로 먼저 커밋되며 Set-Cookie 가 누락되어
+                // 제출 시 403(CSRF) → whitelabel 이 발생하던 문제 해결.
+                .addFilterAfter(new CsrfCookieFilter(), CsrfFilter.class)
                 .headers(headers -> headers
                         .frameOptions(frame -> frame.sameOrigin())
                         .contentSecurityPolicy(csp -> csp.policyDirectives(
@@ -56,5 +70,22 @@ public class SecurityConfig {
                 .logout(AbstractHttpConfigurer::disable)
                 .anonymous(Customizer.withDefaults());
         return http.build();
+    }
+
+    /**
+     * CsrfFilter 직후 실행되어 지연 로딩된 CSRF 토큰을 강제로 materialize 한다.
+     * getToken() 호출 시점에 CookieCsrfTokenRepository 가 XSRF-TOKEN 쿠키를 응답 헤더에 기록하므로,
+     * 큰 폼 페이지에서 응답 body 가 커밋되기 전에 Set-Cookie 가 확실히 전송된다.
+     */
+    static final class CsrfCookieFilter extends OncePerRequestFilter {
+        @Override
+        protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                        FilterChain filterChain) throws ServletException, IOException {
+            CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+            if (csrfToken != null) {
+                csrfToken.getToken(); // 토큰 값 접근 → 쿠키 기록 트리거
+            }
+            filterChain.doFilter(request, response);
+        }
     }
 }
