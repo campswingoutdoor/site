@@ -44,7 +44,7 @@ public class SecurityConfig {
                         .frameOptions(frame -> frame.sameOrigin())
                         .contentSecurityPolicy(csp -> csp.policyDirectives(
                                 "default-src 'self'; " +
-                                        "img-src 'self' data:; " +
+                                        "img-src 'self' data: https: https://i.ibb.co; " +
                                         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
                                         "font-src 'self' data: https://fonts.gstatic.com; " +
                                         "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
