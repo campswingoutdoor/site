@@ -75,9 +75,9 @@ public class ApplicationService {
                 vehicleUsage,
                 vehicleUsage == VehicleUsage.NONE ? null : req.vehicleNumber(),
                 partyPassTotalPrice(req.passType(), applyWorkshop, vehicleUsage),  // 일반가 기준 (Settings 시트 연동)
-                req.dietaryNote(),
                 req.memo(),
-                Boolean.TRUE.equals(req.agreedToTerms())
+                Boolean.TRUE.equals(req.agreedToTerms()),
+                settings.partyPassPriceTier()  // 신청 시점의 적용 등급(EARLYBIRD/STANDARD/ONSITE) 기록
         );
         repository.savePartyPass(app);
         return new ApplicationCreatedResponse(app.id(), app.submittedAt().atOffset(KstClock.KST_OFFSET));

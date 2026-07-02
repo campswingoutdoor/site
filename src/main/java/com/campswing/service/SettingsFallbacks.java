@@ -7,6 +7,7 @@ import com.campswing.domain.settings.ConceptCopy;
 import com.campswing.domain.settings.EventInfo;
 import com.campswing.domain.settings.IndexHighlight;
 import com.campswing.domain.settings.LocationGuide;
+import com.campswing.domain.settings.LodgingInfo;
 import com.campswing.domain.settings.NoticeLine;
 import com.campswing.domain.settings.PageMeta;
 import com.campswing.domain.settings.PartyPassPrice;
@@ -134,7 +135,7 @@ final class SettingsFallbacks {
                 new NoticeLine(4, "1사이트 최대 이용 가능 인원 : 4명"),
                 new NoticeLine(5, "토요일 오전 8시부터 입실 가능합니다."),
                 new NoticeLine(6, "금요일 19:00 이후 선입실 시 추가요금 10,000원이 발생합니다."),
-                new NoticeLine(7, "차량 등록 및 주차 신청은 메인 참가 신청(파티패스) 페이지에서 진행됩니다.")
+                new NoticeLine(7, "차량(주차) 등록 및 주차 신청은 메인 참가 신청(파티패스) 페이지에서 진행됩니다.")
         );
     }
 
@@ -161,8 +162,26 @@ final class SettingsFallbacks {
                 new NoticeLine(3, "반드시 개인 침구류를 준비해 주세요."),
                 new NoticeLine(4, "도미토리 이용료 : 1인 10,000원"),
                 new NoticeLine(5, "전야제 참가자도 안전한 귀가를 위해 도미토리 이용이 가능합니다."),
-                new NoticeLine(6, "차량 이용 시 주차비는 1일 5,000원입니다."),
-                new NoticeLine(7, "차량 등록은 메인 참가 신청 페이지에서 진행됩니다.")
+                new NoticeLine(6, "차량(주차) 이용 시 주차비는 1일 5,000원입니다."),
+                new NoticeLine(7, "차량(주차) 등록은 메인 참가 신청 페이지에서 진행됩니다.")
+        );
+    }
+
+    static LodgingInfo lodgingInfo() {
+        return new LodgingInfo(
+                "토요일 메인 행사가 끝나면 캠핑장에서 별빛 아래 1박. 두 가지 숙박 옵션 중 선택해주세요.",
+                "캠핑사이트",
+                "본인 캠핑 장비(텐트·침낭 등)를 지참하는 옵션. 자유롭게 사이트를 꾸미고 모닥불·별빛과 함께 야영하는 정통 캠핑 경험.",
+                "",
+                "캠핑 사이트 10m × 10m · 1사이트 최대 4명",
+                "입실 시간 선택 (토 오전 8시 이후 / 금 19:00 이후 +10,000원)",
+                "이용료 35,000원 / 1사이트 · 픽업버스 이용 가능",
+                "도미토리",
+                "장비가 없거나 편안한 공용 숙소를 원하는 분을 위한 옵션. 운영팀이 마련한 도미토리에서 같은 행사를 즐긴 친구들과 1박.",
+                "",
+                "성별 구분 배정 · 개인 침구류 지참",
+                "1박(전야제/본파티) 또는 2박 선택",
+                "이용료 1인 10,000원 (1박당)"
         );
     }
 }

@@ -26,12 +26,12 @@
             </div>
 
             <div th:unless="${#lists.isEmpty(djs)}"
-                 class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 <article th:each="dj : ${djs}" class="card overflow-hidden">
                     <img th:src="@{${dj.profileImagePath}}"
                          th:alt="${dj.stageName}"
                          class="w-full aspect-[3/4] object-cover" />
-                    <div class="p-6 md:p-8 text-center">
+                    <div class="p-6 text-center">
                         <p class="font-display text-2xl md:text-3xl text-gold mb-2"
                            style="text-shadow: 0 0 14px rgba(201,163,91,0.35);"
                            th:text="${dj.stageName}">DJ CHORI</p>

@@ -32,7 +32,7 @@
             <!-- 테이블 -->
             <div th:unless="${#lists.isEmpty(items)}"
                  class="card overflow-x-auto">
-                <table class="w-full text-sm">
+                <table class="w-full min-w-[1200px] text-sm">
                     <thead class="border-b border-gold/40 bg-gold/5">
                     <tr class="text-gold font-heading text-left">
                         <th class="px-4 py-3 whitespace-nowrap">순번</th>
@@ -43,17 +43,18 @@
                         <th class="px-4 py-3 whitespace-nowrap">소속 동호회</th>
                         <th class="px-4 py-3 whitespace-nowrap">역할</th>
                         <th class="px-4 py-3 whitespace-nowrap">워크숍</th>
-                        <th class="px-4 py-3 whitespace-nowrap">차량</th>
+                        <th class="px-4 py-3 whitespace-nowrap">차량(주차)</th>
+                        <th class="px-4 py-3 whitespace-nowrap">등급</th>
                         <th class="px-4 py-3 whitespace-nowrap">결제금액</th>
-                        <th class="px-4 py-3">식단메모</th>
-                        <th class="px-4 py-3">메모</th>
+                        <th class="px-4 py-3 w-64 min-w-[12rem] whitespace-nowrap">메모</th>
+                        <th class="px-4 py-3 whitespace-nowrap">상태</th>
                     </tr>
                     </thead>
-                    <tbody class="text-text">
+                    <tbody class="text-text [&_td]:align-top">
                     <tr th:each="row : ${items}"
                         class="border-b border-gold/10 hover:bg-gold/5 transition">
                         <td class="px-4 py-3 text-text-muted whitespace-nowrap" th:text="${row.seq}">1</td>
-                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.submittedAt}">2026-05-14 12:34:56</td>
+                        <td class="px-4 py-3 whitespace-nowrap" th:text="${row.submittedAt}">2026-05-14 12:34</td>
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.realName}">홍길동</td>
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.nickname}">길동</td>
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.passType}">FULL</td>
@@ -66,9 +67,32 @@
                                        : (row.vehicleNumber == ''
                                           ? (#strings.equalsIgnoreCase(row.vehicleUsage, 'CAMPSITE') ? '캠핑(무료)' : '일반')
                                           : row.vehicleNumber)}">미이용</td>
+                        <td class="px-4 py-3 whitespace-nowrap">
+                            <span th:if="${row.priceTier != null and !row.priceTier.isEmpty()}"
+                                  class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold"
+                                  th:classappend="${#strings.equalsIgnoreCase(row.priceTier, 'EARLYBIRD') ? 'bg-green-500 text-bg-primary'
+                                                : (#strings.equalsIgnoreCase(row.priceTier, 'ONSITE') ? 'bg-gold text-bg-primary'
+                                                : (#strings.equalsIgnoreCase(row.priceTier, 'STANDARD') ? 'bg-gray-400 text-bg-primary' : 'bg-gray-600 text-white'))}"
+                                  th:text="${#strings.equalsIgnoreCase(row.priceTier, 'EARLYBIRD') ? '얼리버드'
+                                             : (#strings.equalsIgnoreCase(row.priceTier, 'ONSITE') ? '현장'
+                                             : (#strings.equalsIgnoreCase(row.priceTier, 'STANDARD') ? '일반' : row.priceTier))}">얼리버드</span>
+                            <span th:unless="${row.priceTier != null and !row.priceTier.isEmpty()}" class="text-text-muted">-</span>
+                        </td>
                         <td class="px-4 py-3 whitespace-nowrap" th:text="${row.totalPrice == '' ? '' : row.totalPrice + '원'}">0원</td>
-                        <td class="px-4 py-3 text-text-muted" th:text="${row.dietaryNote}"></td>
-                        <td class="px-4 py-3 text-text-muted" th:text="${row.memo}"></td>
+                        <td class="px-4 py-3 text-text-muted w-64 min-w-[12rem] max-w-xs whitespace-normal break-words" th:text="${row.memo}"></td>
+                        <td class="px-4 py-3 whitespace-nowrap">
+                            <span th:if="${row.status != null and !row.status.isEmpty()}"
+                                  class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold"
+                                  th:classappend="${(#strings.contains(row.status, '대기') or #strings.contains(row.status, '미입금')) ? 'bg-amber-500 text-bg-primary'
+                                                : (#strings.contains(row.status, '입금') ? 'bg-green-500 text-bg-primary'
+                                                : (#strings.contains(row.status, '취소') ? 'bg-pink-500 text-white'
+                                                : (#strings.contains(row.status, '환불') ? 'bg-purple-500 text-white'
+                                                : ((#strings.contains(row.status, '스태프') or #strings.contains(row.status, '스테프')) ? 'bg-blue-500 text-white'
+                                                : (#strings.contains(row.status, '초대') ? 'bg-red-500 text-white'
+                                                : (#strings.contains(row.status, '완료') ? 'bg-gray-400 text-bg-primary' : 'bg-gray-600 text-white'))))))}"
+                                  th:text="${row.status}">상태</span>
+                            <span th:unless="${row.status != null and !row.status.isEmpty()}" class="text-text-muted">-</span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

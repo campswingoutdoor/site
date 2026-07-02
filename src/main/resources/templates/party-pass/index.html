@@ -101,9 +101,9 @@
                                    @change="passType = $event.target.value" />
                             <span class="inline-block px-4 py-2 rounded-md border border-gold/40 text-text-muted peer-checked:bg-gold peer-checked:text-bg-primary peer-checked:border-gold transition"
                                   th:switch="${t.name()}">
-                                <span th:case="'FULL'">올패스 (전야제 + 본파티)</span>
-                                <span th:case="'PRE_PARTY_ONLY'">전야제</span>
+                                <span th:case="'FULL'">풀패스 (전야제 + 본파티)</span>
                                 <span th:case="'MAIN_ONLY'">본파티</span>
+                                <span th:case="'PRE_PARTY_ONLY'">전야제</span>
                             </span>
                         </label>
                     </div>
@@ -157,7 +157,7 @@
                             <span class="inline-block px-5 py-2 rounded-md border border-gold/40 text-text-muted peer-checked:bg-gold peer-checked:text-bg-primary peer-checked:border-gold transition"
                                   th:switch="${v.name()}">
                                 <span th:case="'NONE'">차량 이용 안 함</span>
-                                <span th:case="'GENERAL'">일반 차량 이용 (+5,000원)</span>
+                                <span th:case="'GENERAL'">일반 차량 이용 (주차비 +5,000원)</span>
                                 <span th:case="'CAMPSITE'">캠핑사이트 이용 차량 (+0원)</span>
                             </span>
                         </label>
@@ -179,14 +179,7 @@
                     <p class="field-error" th:if="${#fields.hasErrors('vehicleNumberValid')}" th:errors="*{vehicleNumberValid}"></p>
                 </div>
 
-                <!-- 11. 식이 제한 · 알레르기 -->
-                <div>
-                    <label class="field-label" for="dietaryNote">식이 제한 · 알레르기</label>
-                    <input id="dietaryNote" type="text" class="input-field" th:field="*{dietaryNote}" />
-                    <p class="field-error" th:if="${#fields.hasErrors('dietaryNote')}" th:errors="*{dietaryNote}"></p>
-                </div>
-
-                <!-- 12. 추가 요청 -->
+                <!-- 11. 추가 요청 -->
                 <div>
                     <label class="field-label" for="memo">추가 요청</label>
                     <textarea id="memo" rows="3" class="input-field" th:field="*{memo}"></textarea>

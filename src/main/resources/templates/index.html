@@ -11,10 +11,24 @@
 
     <!-- Hero -->
     <section class="relative overflow-hidden">
-        <video class="absolute inset-0 w-full h-full object-cover md:hidden"
-               autoplay muted loop playsinline preload="auto"
+        <video id="heroVideo" class="absolute inset-0 w-full h-full object-cover md:hidden"
+               autoplay muted loop playsinline webkit-playsinline preload="auto"
                th:poster="@{/img/hero-main.jpeg}"
                th:src="@{/img/camp-swing-outdoor-2025.mp4}"></video>
+        <script>
+            // 모바일 실기기 자동재생 보강: muted 강제 + play() 재시도(첫 터치/재포커스 시 재시도).
+            // iOS/안드로이드는 muted+playsinline 이어도 첫 로드시 play()가 거부될 수 있어 방어적으로 재시도.
+            (function () {
+                var v = document.getElementById('heroVideo');
+                if (!v) return;
+                v.muted = true;
+                v.setAttribute('muted', '');
+                var tryPlay = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
+                tryPlay();
+                document.addEventListener('touchstart', tryPlay, { once: true });
+                document.addEventListener('visibilitychange', function () { if (!document.hidden) tryPlay(); });
+            })();
+        </script>
         <div class="absolute inset-0 bg-gradient-to-b from-bg-primary/70 via-bg-primary/40 to-bg-primary/80 md:hidden"></div>
         <div class="container-page relative text-center pt-[28rem] md:pt-96 pb-24 md:bg-hero-main md:bg-cover md:bg-center">
             <p class="hidden md:block font-display tracking-[0.4em] text-gold text-xs md:text-sm mb-4"

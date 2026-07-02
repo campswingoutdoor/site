@@ -225,7 +225,7 @@
   </tbody>
 </table>
 
-<h2>PartyPass 탭 — 열 구성 (16개)</h2>
+<h2>PartyPass 탭 — 열 구성 (17개)</h2>
 
 <table>
   <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
@@ -240,14 +240,19 @@
     <tr><td>H</td><td>소속 동호회</td></tr>
     <tr><td>I</td><td>역할 — <code>LEADER</code> / <code>FOLLOWER</code></td></tr>
     <tr><td>J</td><td>워크숍 신청 여부 (TRUE/FALSE)</td></tr>
-    <tr><td>K</td><td>차량 이용 — <code>NONE</code>(안 함) / <code>GENERAL</code>(일반, +5,000) / <code>CAMPSITE</code>(캠핑사이트, +0)</td></tr>
+    <tr><td>K</td><td>차량(주차) 이용 — <code>NONE</code>(안 함) / <code>GENERAL</code>(일반, +5,000) / <code>CAMPSITE</code>(캠핑사이트, +0)</td></tr>
     <tr><td>L</td><td>차량번호 <em>(차량 이용 시에만 입력됨)</em></td></tr>
     <tr><td>M</td><td>총 결제금액 <em>(자동 계산: 패스 일반가 + 워크숍 + 일반차량 주차비)</em></td></tr>
-    <tr><td>N</td><td>식이 제한 · 알레르기</td></tr>
-    <tr><td>O</td><td>메모</td></tr>
-    <tr><td>P</td><td>개인정보 동의 (TRUE/FALSE)</td></tr>
+    <tr><td>N</td><td>메모</td></tr>
+    <tr><td>O</td><td>개인정보 동의 (TRUE/FALSE)</td></tr>
+    <tr><td>P</td><td>결제 등급 — <code>EARLYBIRD</code> / <code>STANDARD</code> / <code>ONSITE</code> <em>(신청 시점 등급 자동 기록)</em></td></tr>
+    <tr><td>Q</td><td>상태 <em>(운영자 직접 입력용 — 시스템은 이 칸을 비워두며 절대 덮어쓰지 않음. 예: 입금대기 / 입금완료 / 취소)</em></td></tr>
   </tbody>
 </table>
+
+<div class="callout">
+  💡 <strong>Q열(상태)</strong>은 운영자 전용입니다. 새 신청이 들어와도 이 칸은 빈 값으로 남으니, 입금 확인 등 진행 상태를 직접 적어 관리하세요. 신청 확인 페이지 목록에도 이 값이 그대로 표시됩니다.
+</div>
 
 <h2>Campsite 탭 — 열 구성 (12개)</h2>
 
@@ -336,7 +341,7 @@
   </tbody>
 </table>
 
-<h2>선택 탭 (9개)</h2>
+<h2>선택 탭 (10개)</h2>
 
 <p>없어도 사이트는 정상 동작합니다. 필요할 때 만들어 채우세요. 이 탭들은 위 11개 필수 탭과 달리 <strong>각각 따로 읽기</strong> 때문에, 하나가 없어도 다른 탭에 영향을 주지 않습니다.</p>
 
@@ -352,11 +357,63 @@
     <tr><td><span class="badge-tab">DormitoryNotice</span></td><td>도미토리 신청 페이지의 안내 문구 (줄 단위)</td><td>코드 기본 안내문 표시</td></tr>
     <tr><td><span class="badge-tab">PartyPassPrice</span></td><td>파티패스 가격표 + 자동 결제금액 계산 기준가</td><td>코드 기본 가격표 표시</td></tr>
     <tr><td><span class="badge-tab">PartyPassPriceNote</span></td><td>파티패스 가격표 하단 안내 문구 (줄 단위)</td><td>코드 기본 안내문 표시</td></tr>
+    <tr><td><span class="badge-tab">LodgingInfo</span></td><td>숙박 안내(/lodging) 페이지의 카피·썸네일 이미지</td><td>코드 기본 카피 표시</td></tr>
   </tbody>
 </table>
 
 <p><strong>LegacyDancers / SpecialGuestDancers</strong> 탭은 <code>Instructors</code> 탭과 동일한 6개 열 구성입니다: A=id, B=이름, C=역할, D=프로필 이미지 경로, E=소개, F=표시 순서.</p>
 <p><strong>CampsiteNotice / DormitoryNotice / PartyPassPriceNote</strong> 탭은 <code>PartyPassBenefit</code> 탭과 동일한 2개 열 구성입니다: A=표시 순서, B=안내 문구 한 줄. (문구 앞 ※ 표시는 자동으로 붙으므로 본문만 입력하세요.)</p>
+
+<h3>LodgingInfo 탭 — 숙박 안내 페이지 카피·썸네일 (키-값)</h3>
+<p><code>Event</code> 탭과 같은 <strong>키-값(2열)</strong> 방식입니다. <strong>A열에 키, B열에 값</strong>을 한 행씩 입력합니다. 1행은 라벨용으로 자유롭게 써도 되고(예: A1=키, B1=값) 시스템은 2행부터 읽습니다. 없는 키는 코드 기본값이 표시됩니다.</p>
+
+<p><strong>① 아래 키를 순서대로 입력하세요 (각 항목이 화면 어디에 보이는지)</strong></p>
+<table>
+  <thead><tr><th style="width:6%">순서</th><th style="width:28%">키 (A열)</th><th>화면에서 어디에</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><span class="key">intro</span></td><td>페이지 상단 소개 한 문장 (제목 아래 가운데 회색 문장)</td></tr>
+    <tr><td>2</td><td><span class="key">campsiteTitle</span></td><td>왼쪽 카드 제목 (금색)</td></tr>
+    <tr><td>3</td><td><span class="key">campsiteDescription</span></td><td>왼쪽 카드 설명 본문</td></tr>
+    <tr><td>4</td><td><span class="key">campsiteImage</span></td><td>왼쪽 카드 상단 썸네일 이미지</td></tr>
+    <tr><td>5</td><td><span class="key">campsiteBullet1</span></td><td>왼쪽 카드 요점 목록 1번째 줄 (· 표시 자동)</td></tr>
+    <tr><td>6</td><td><span class="key">campsiteBullet2</span></td><td>왼쪽 카드 요점 2번째 줄</td></tr>
+    <tr><td>7</td><td><span class="key">campsiteBullet3</span></td><td>왼쪽 카드 요점 3번째 줄</td></tr>
+    <tr><td>8</td><td><span class="key">dormitoryTitle</span></td><td>오른쪽 카드 제목</td></tr>
+    <tr><td>9</td><td><span class="key">dormitoryDescription</span></td><td>오른쪽 카드 설명 본문</td></tr>
+    <tr><td>10</td><td><span class="key">dormitoryImage</span></td><td>오른쪽 카드 상단 썸네일 이미지</td></tr>
+    <tr><td>11</td><td><span class="key">dormitoryBullet1</span></td><td>오른쪽 카드 요점 1번째 줄</td></tr>
+    <tr><td>12</td><td><span class="key">dormitoryBullet2</span></td><td>오른쪽 카드 요점 2번째 줄</td></tr>
+    <tr><td>13</td><td><span class="key">dormitoryBullet3</span></td><td>오른쪽 카드 요점 3번째 줄</td></tr>
+  </tbody>
+</table>
+
+<p><strong>② 입력 예시 (그대로 복사 후 값만 수정)</strong></p>
+<table>
+  <thead><tr><th style="width:28%">A열 (키)</th><th>B열 (값)</th></tr></thead>
+  <tbody>
+    <tr><td>intro</td><td>토요일 메인 행사가 끝나면 캠핑장에서 별빛 아래 1박. 두 가지 숙박 옵션 중 선택해주세요.</td></tr>
+    <tr><td>campsiteTitle</td><td>캠핑사이트</td></tr>
+    <tr><td>campsiteDescription</td><td>본인 캠핑 장비(텐트·침낭 등)를 지참하는 옵션. 자유롭게 사이트를 꾸미고 모닥불·별빛과 함께 야영하는 정통 캠핑 경험.</td></tr>
+    <tr><td>campsiteImage</td><td><code>https://i.ibb.co/xxxxxxx/campsite.jpg</code></td></tr>
+    <tr><td>campsiteBullet1</td><td>캠핑 사이트 10m × 10m · 1사이트 최대 4명</td></tr>
+    <tr><td>campsiteBullet2</td><td>입실 시간 선택 (토 오전 8시 이후 / 금 19:00 이후 +10,000원)</td></tr>
+    <tr><td>campsiteBullet3</td><td>이용료 35,000원 / 1사이트 · 픽업버스 이용 가능</td></tr>
+    <tr><td>dormitoryTitle</td><td>도미토리</td></tr>
+    <tr><td>dormitoryDescription</td><td>장비가 없거나 편안한 공용 숙소를 원하는 분을 위한 옵션. 운영팀이 마련한 도미토리에서 같은 행사를 즐긴 친구들과 1박.</td></tr>
+    <tr><td>dormitoryImage</td><td><code>https://i.ibb.co/yyyyyyy/dormitory.jpg</code></td></tr>
+    <tr><td>dormitoryBullet1</td><td>성별 구분 배정 · 개인 침구류 지참</td></tr>
+    <tr><td>dormitoryBullet2</td><td>1박(전야제/본파티) 또는 2박 선택</td></tr>
+    <tr><td>dormitoryBullet3</td><td>이용료 1인 10,000원 (1박당)</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>알아두면 좋은 규칙</strong><br/>
+  · <strong>썸네일(<span class="key">campsiteImage</span>/<span class="key">dormitoryImage</span>)</strong>: <code>/img/파일명.jpg</code>(사이트 업로드) 또는 <code>https://i.ibb.co/….jpg</code>(외부 직접 링크). ⚠️ <code>ibb.co/XXXX</code>(공유 페이지)가 아니라 <strong><code>i.ibb.co/….jpg</code>(직접 링크)</strong>. 비우면 이미지 없이 카드만 표시.<br/>
+  · <strong>요점(<span class="key">Bullet1~3</span>)</strong>: 비워둔 줄은 화면에서 자동 생략됩니다. 요점이 2개면 3번은 비워도 됩니다.<br/>
+  · <strong>일부 키만</strong> 넣어도 됩니다. 안 넣은 키는 코드 기본값 표시. 단 시스템이 "탭이 채워졌다"고 인식하려면 최소 <span class="key">campsiteTitle</span>은 채워주세요(빈 탭이 기본값을 덮어쓰지 않게 하는 안전장치).<br/>
+  · 버튼(신청/신청확인)은 고정이라 시트로 바꾸지 않습니다.
+</div>
 <p><strong>PartyPassPrice</strong> 탭은 6개 열 구성입니다: A=표시 순서, B=key(<code>PRE_PARTY_ONLY</code>/<code>MAIN_ONLY</code>/<code>FULL</code>/<code>WORKSHOP</code>), C=표시명, D=얼리버드가, E=일반가, F=현장가. <strong>일반가(E열)</strong>가 신청 폼의 자동 결제금액 계산 기준입니다. key 값은 정확히 위 4가지를 사용하세요(자동 계산 매핑용).</p>
 
 <h2>시트 입력의 공통 규칙</h2>

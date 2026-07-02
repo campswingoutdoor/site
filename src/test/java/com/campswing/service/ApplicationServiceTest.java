@@ -61,11 +61,12 @@ class ApplicationServiceTest {
         // 가격은 Settings 시트(파티패스 가격표) 연동 — 일반가/워크숍가 stub
         given(settings.partyPassCalcPrice("FULL")).willReturn(125_000);
         given(settings.partyPassCalcPrice("WORKSHOP")).willReturn(40_000);
+        given(settings.partyPassPriceTier()).willReturn("STANDARD");
 
         PartyPassApplicationRequest req = new PartyPassApplicationRequest(
                 "홍길동", "길동", "010-1234-5678", "hong@example.com",
                 PassType.FULL, "스윙홀릭", DanceRole.LEADER,
-                true, VehicleUsage.GENERAL, "12가 3456", null, null, true);
+                true, VehicleUsage.GENERAL, "12가 3456", null, true);
 
         ApplicationCreatedResponse response = service.submitPartyPass(req);
 
@@ -85,6 +86,7 @@ class ApplicationServiceTest {
         assertThat(saved.vehicleNumber()).isEqualTo("12가 3456");
         // 올패스(125,000) + 워크숍(40,000) + 일반차량(5,000)
         assertThat(saved.totalPrice()).isEqualTo(170_000);
+        assertThat(saved.priceTier()).isEqualTo("STANDARD");
         assertThat(saved.agreedToTerms()).isTrue();
 
         assertThat(response.applicationId()).isEqualTo(saved.id());

@@ -6,6 +6,7 @@ import com.campswing.domain.settings.ConceptCopy;
 import com.campswing.domain.settings.EventInfo;
 import com.campswing.domain.settings.IndexHighlight;
 import com.campswing.domain.settings.LocationGuide;
+import com.campswing.domain.settings.LodgingInfo;
 import com.campswing.domain.settings.NoticeLine;
 import com.campswing.domain.settings.PageMeta;
 import com.campswing.domain.settings.PartyPassBenefit;
@@ -46,6 +47,7 @@ public class SheetsSettingsRepository {
     private static final String SHEET_DORMITORY_NOTICE = "DormitoryNotice";
     private static final String SHEET_PARTY_PASS_PRICE = "PartyPassPrice";
     private static final String SHEET_PARTY_PASS_PRICE_NOTE = "PartyPassPriceNote";
+    private static final String SHEET_LODGING_INFO = "LodgingInfo";
 
     // batchGet에 사용할 range — 순서 중요 (parseSnapshot의 인덱스와 일치해야 함)
     private static final String RANGE_EVENT = SHEET_EVENT + "!A2:B";
@@ -159,6 +161,10 @@ public class SheetsSettingsRepository {
 
     public List<NoticeLine> readPartyPassPriceNotes() {
         return parseNotices(client.readRange(client.settingsSpreadsheetId(), SHEET_PARTY_PASS_PRICE_NOTE, "A2:B"));
+    }
+
+    public LodgingInfo readLodgingInfo() {
+        return parseLodgingInfo(toKv(client.readRange(client.settingsSpreadsheetId(), SHEET_LODGING_INFO, "A2:B")));
     }
 
     // ===== Parse helpers =====
@@ -350,6 +356,24 @@ public class SheetsSettingsRepository {
         }
         result.sort(Comparator.comparingInt(ApplyCard::displayOrder));
         return result;
+    }
+
+    private static LodgingInfo parseLodgingInfo(Map<String, String> kv) {
+        return new LodgingInfo(
+                kv.getOrDefault("intro", ""),
+                kv.getOrDefault("campsiteTitle", ""),
+                kv.getOrDefault("campsiteDescription", ""),
+                kv.getOrDefault("campsiteImage", ""),
+                kv.getOrDefault("campsiteBullet1", ""),
+                kv.getOrDefault("campsiteBullet2", ""),
+                kv.getOrDefault("campsiteBullet3", ""),
+                kv.getOrDefault("dormitoryTitle", ""),
+                kv.getOrDefault("dormitoryDescription", ""),
+                kv.getOrDefault("dormitoryImage", ""),
+                kv.getOrDefault("dormitoryBullet1", ""),
+                kv.getOrDefault("dormitoryBullet2", ""),
+                kv.getOrDefault("dormitoryBullet3", "")
+        );
     }
 
     private static LocationGuide parseLocationGuide(Map<String, String> kv) {

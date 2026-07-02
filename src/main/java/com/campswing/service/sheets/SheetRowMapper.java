@@ -13,10 +13,12 @@ public final class SheetRowMapper {
 
     private static final DateTimeFormatter KST_FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+    // 주의: status(운영자 기록용)는 항상 마지막 열이며 toRow에 포함하지 않는다.
+    // 신청 append 시 status 셀을 건드리지 않아 빈 값으로 덮어쓰지 않도록 하기 위함.
     public static final List<String> PARTY_PASS_HEADERS = List.of(
             "id", "submittedAt", "realName", "nickname", "phone", "email",
             "passType", "club", "role", "applyWorkshop", "vehicleUsage", "vehicleNumber",
-            "totalPrice", "dietaryNote", "memo", "agreedToTerms"
+            "totalPrice", "memo", "agreedToTerms", "priceTier", "status"
     );
 
     public static final List<String> CAMPSITE_HEADERS = List.of(
@@ -48,9 +50,10 @@ public final class SheetRowMapper {
                 a.vehicleUsage().name(),
                 nullToEmpty(a.vehicleNumber()),
                 a.totalPrice(),
-                nullToEmpty(a.dietaryNote()),
                 nullToEmpty(a.memo()),
-                a.agreedToTerms()
+                a.agreedToTerms(),
+                nullToEmpty(a.priceTier())
+                // status 는 의도적으로 기록하지 않음 (운영자가 시트에서 직접 관리, append 시 빈 값 덮어쓰기 방지)
         );
     }
 
