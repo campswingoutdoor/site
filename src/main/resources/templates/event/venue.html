@@ -16,12 +16,13 @@
             <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12"
                 th:text="${pageMeta?.h1}">행사장 소개</h1>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
 
-                <article th:each="v,iter : ${venueDetails}" class="card overflow-hidden">
-                    <div class="aspect-[4/5] bg-cover bg-center"
-                         th:style="${v.key == 'preParty'} ? 'background-image: url(/img/venue-preparty.jpeg);' : 'background-image: url(/img/hero-full.jpeg);'"></div>
-                    <div class="p-6 md:p-8">
+                <article th:each="v,iter : ${venueDetails}"
+                         class="card overflow-hidden basis-full sm:basis-[calc(50%-0.75rem)] lg:basis-[calc(33.333%-1rem)]">
+                    <div class="w-full aspect-[3/4] bg-cover bg-center"
+                         th:style="'background-image: url(' + (${v.imageUrl != null and !v.imageUrl.isEmpty()} ? ${v.imageUrl} : (${v.key == 'preParty'} ? '/img/venue-preparty.jpeg' : '/img/hero-full.jpeg')) + ');'"></div>
+                    <div class="p-6">
                         <p class="font-display text-gold tracking-[0.3em] text-xs mb-2" th:text="${v.badge}">FRIDAY PRE-PARTY</p>
                         <h2 class="font-heading text-2xl text-gold mb-3" th:text="${v.title}">금요일 전야제 행사장</h2>
                         <p class="text-text mb-4"

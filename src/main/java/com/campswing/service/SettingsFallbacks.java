@@ -80,10 +80,10 @@ final class SettingsFallbacks {
         return List.of(
                 new VenueDetail(1, "preParty", "FRIDAY PRE-PARTY",     "금요일 전야제 행사장", "느티나무 카페",
                         "Cozy Blues Night at the Cafe. 은은한 조명과 빈티지한 분위기의 카페에서 열리는 BLUES PARTY.",
-                        "10.30 · 19:00 ~"),
+                        "10.30 · 19:00 ~", "/img/venue-preparty.jpeg"),
                 new VenueDetail(2, "main",     "SATURDAY MAIN VENUE", "토요일 메인 행사장",   "상주우산오토캠핑장",
                         "낙동강을 끼고 펼쳐지는 아웃도어 오토캠핑장. 텐트·모닥불·DJ 부스를 갖춘 별빛 야외 스윙장으로 변신합니다.",
-                        "")
+                        "", "/img/hero-full.jpeg")
         );
     }
 

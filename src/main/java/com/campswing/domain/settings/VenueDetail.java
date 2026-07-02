@@ -7,6 +7,7 @@ public record VenueDetail(
         String title,
         String venueName,
         String description,
-        String period
+        String period,
+        String imageUrl
 ) {
 }
