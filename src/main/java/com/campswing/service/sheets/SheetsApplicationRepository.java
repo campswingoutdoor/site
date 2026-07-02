@@ -45,10 +45,10 @@ public class SheetsApplicationRepository {
      * PartyPass 시트의 모든 신청 행을 읽어 리스트 뷰모델로 반환.
      * 컬럼 순서: id, submittedAt, realName, nickname, phone, email, passType,
      *           club, role, applyWorkshop, vehicleUsage, vehicleNumber, totalPrice,
-     *           dietaryNote, memo, agreedToTerms (A2:P)
+     *           memo, agreedToTerms, priceTier, status (A2:Q)
      */
     public List<PartyPassListItem> findAllPartyPass() {
-        List<List<Object>> rows = client.readRange(SHEET_PARTY_PASS, "A2:P");
+        List<List<Object>> rows = client.readRange(SHEET_PARTY_PASS, "A2:Q");
         List<PartyPassListItem> result = new ArrayList<>(rows.size());
         int seq = 0;
         for (List<Object> r : rows) {
@@ -58,7 +58,7 @@ public class SheetsApplicationRepository {
             seq++;
             result.add(new PartyPassListItem(
                     seq,
-                    cell(r, 1),   // submittedAt
+                    shortTimestamp(cell(r, 1)),   // submittedAt (초 제거)
                     cell(r, 2),   // realName
                     cell(r, 3),   // nickname
                     cell(r, 6),   // passType
@@ -68,8 +68,9 @@ public class SheetsApplicationRepository {
                     cell(r, 10),  // vehicleUsage
                     cell(r, 11),  // vehicleNumber
                     cell(r, 12),  // totalPrice
-                    cell(r, 13),  // dietaryNote
-                    cell(r, 14)   // memo
+                    cell(r, 13),  // memo
+                    cell(r, 15),  // priceTier
+                    cell(r, 16)   // status
             ));
         }
         return result;
@@ -91,7 +92,7 @@ public class SheetsApplicationRepository {
             seq++;
             result.add(new CampsiteListItem(
                     seq,
-                    cell(r, 1),  // submittedAt
+                    shortTimestamp(cell(r, 1)),  // submittedAt (초 제거)
                     cell(r, 2),  // realName
                     cell(r, 3),  // nickname
                     cell(r, 6),  // partySize
@@ -120,7 +121,7 @@ public class SheetsApplicationRepository {
             seq++;
             result.add(new DormitoryListItem(
                     seq,
-                    cell(r, 1),  // submittedAt
+                    shortTimestamp(cell(r, 1)),  // submittedAt (초 제거)
                     cell(r, 2),  // realName
                     cell(r, 3),  // nickname
                     cell(r, 6),  // gender
@@ -136,6 +137,18 @@ public class SheetsApplicationRepository {
         if (idx >= r.size()) return "";
         Object v = r.get(idx);
         return v == null ? "" : v.toString().trim();
+    }
+
+    // 신청일시 "yyyy-MM-dd HH:mm:ss" (또는 시트 재포맷으로 공백/자릿수가 달라진 값)에서
+    // 날짜 + 시:분만 추출. 위치(substring) 기반은 공백 2칸 등에서 분이 잘리므로 정규식 사용.
+    private static final java.util.regex.Pattern TIMESTAMP =
+            java.util.regex.Pattern.compile("(\\d{4}-\\d{1,2}-\\d{1,2})\\D+(\\d{1,2}:\\d{2})");
+
+    /** 목록 표시용 신청일시 정규화 → "yyyy-MM-dd HH:mm" (초 제거). 매칭 실패 시 원본 그대로. */
+    private static String shortTimestamp(String s) {
+        if (s == null || s.isBlank()) return "";
+        java.util.regex.Matcher m = TIMESTAMP.matcher(s);
+        return m.find() ? m.group(1) + " " + m.group(2) : s.trim();
     }
 
     private void appendOrFail(String sheetName, List<Object> row, String applicationId) {

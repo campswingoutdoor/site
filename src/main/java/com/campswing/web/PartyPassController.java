@@ -81,8 +81,8 @@ public class PartyPassController {
 
     private static PartyPassApplicationRequest emptyForm() {
         // realName, nickname, phone, email, passType, club, role,
-        // applyWorkshop, vehicleUsage, vehicleNumber, dietaryNote, memo, agreedToTerms
+        // applyWorkshop, vehicleUsage, vehicleNumber, memo, agreedToTerms
         return new PartyPassApplicationRequest(
-                null, null, null, null, null, null, null, false, VehicleUsage.NONE, null, null, null, null);
+                null, null, null, null, null, null, null, false, VehicleUsage.NONE, null, null, null);
     }
 }

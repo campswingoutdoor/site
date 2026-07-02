@@ -16,7 +16,8 @@ public record PartyPassListItem(
         String vehicleUsage,
         String vehicleNumber,
         String totalPrice,
-        String dietaryNote,
-        String memo
+        String memo,
+        String priceTier,
+        String status
 ) {
 }

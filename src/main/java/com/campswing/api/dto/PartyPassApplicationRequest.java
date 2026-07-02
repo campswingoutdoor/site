@@ -44,9 +44,6 @@ public record PartyPassApplicationRequest(
         @Size(max = 20)
         String vehicleNumber,
 
-        @Size(max = 200)
-        String dietaryNote,
-
         @Size(max = 500)
         String memo,
 
@@ -54,7 +51,7 @@ public record PartyPassApplicationRequest(
         Boolean agreedToTerms
 ) {
         /** 차량 이용(일반/캠핑사이트) 선택 시 차량번호 필수. */
-        @AssertTrue(message = "차량 이용 시 차량번호를 입력해주세요.")
+        @AssertTrue(message = "차량(주차) 이용 시 차량번호를 입력해주세요.")
         public boolean isVehicleNumberValid() {
                 if (vehicleUsage != null && vehicleUsage != VehicleUsage.NONE) {
                         return vehicleNumber != null && !vehicleNumber.isBlank();

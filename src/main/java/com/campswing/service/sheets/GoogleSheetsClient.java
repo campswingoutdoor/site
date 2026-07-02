@@ -113,7 +113,10 @@ public class GoogleSheetsClient {
             return sheets.spreadsheets().values()
                     .append(spreadsheetId, sheetName + "!A:A", body)
                     .setValueInputOption("USER_ENTERED")
-                    .setInsertDataOption("INSERT_ROWS")
+                    // OVERWRITE: A열 기준 마지막 데이터 다음 행의 A~(전송 컬럼수)만 기록.
+                    // INSERT_ROWS는 새 행을 '삽입'해 기존 행(및 운영자가 미리 채운 status 등 뒷열)이
+                    // 아래로 밀리며 어긋나므로, 밀지 않는 OVERWRITE 사용. (전송하지 않는 뒷열은 건드리지 않음)
+                    .setInsertDataOption("OVERWRITE")
                     .execute();
         } catch (IOException e) {
             throw new SheetsApiException("Failed to append row to sheet '" + sheetName + "'", e);

@@ -14,27 +14,27 @@
                th:text="${pageMeta?.badge}">LODGING</p>
             <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-6"
                 th:text="${pageMeta?.h1}">숙박 안내</h1>
-            <p class="text-center text-text-muted mb-12">
+            <p class="text-center text-text-muted mb-12" th:text="${lodging.intro}">
                 토요일 메인 행사가 끝나면 캠핑장에서 별빛 아래 1박. 두 가지 숙박 옵션 중 선택해주세요.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 <article class="card overflow-hidden flex flex-col">
-                    <div class="aspect-[4/3] bg-cover bg-center">
-                         <!--style="background-image: linear-gradient(rgba(11,20,38,0.0) 50%, rgba(11,20,38,0.85)), url('/img/venue-intro.jpeg');">-->
-
-                    </div>
+                    <img th:if="${lodging.campsiteImage != null and !lodging.campsiteImage.isBlank()}"
+                         th:src="@{${lodging.campsiteImage}}" th:alt="${lodging.campsiteTitle}"
+                         class="w-full aspect-[4/3] object-cover" />
+                    <div th:unless="${lodging.campsiteImage != null and !lodging.campsiteImage.isBlank()}"
+                         class="aspect-[4/3] bg-cover bg-center bg-bg-card"></div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <h2 class="font-heading text-2xl text-gold mb-3">캠핑사이트</h2>
-                        <p class="text-text-muted text-sm leading-relaxed mb-4 flex-1">
-                            본인 캠핑 장비(텐트·침낭 등)를 지참하는 옵션. 자유롭게 사이트를 꾸미고
-                            모닥불·별빛과 함께 야영하는 정통 캠핑 경험.
+                        <h2 class="font-heading text-2xl text-gold mb-3" th:text="${lodging.campsiteTitle}">캠핑사이트</h2>
+                        <p class="text-text-muted text-sm leading-relaxed mb-4 flex-1" th:text="${lodging.campsiteDescription}">
+                            본인 캠핑 장비(텐트·침낭 등)를 지참하는 옵션.
                         </p>
                         <ul class="text-xs text-text-muted space-y-1 mb-4">
-                            <li>· 캠핑 사이트 10m × 10m · 1사이트 최대 4명</li>
-                            <li>· 입실 시간 선택 (토 오전 8시 이후 / 금 19:00 이후 +10,000원)</li>
-                            <li>· 이용료 35,000원 / 1사이트 · 픽업버스 이용 가능</li>
+                            <li th:if="${!#strings.isEmpty(lodging.campsiteBullet1)}" th:text="'· ' + ${lodging.campsiteBullet1}"></li>
+                            <li th:if="${!#strings.isEmpty(lodging.campsiteBullet2)}" th:text="'· ' + ${lodging.campsiteBullet2}"></li>
+                            <li th:if="${!#strings.isEmpty(lodging.campsiteBullet3)}" th:text="'· ' + ${lodging.campsiteBullet3}"></li>
                         </ul>
                         <div class="flex flex-col sm:flex-row gap-3">
                             <a th:href="@{/lodging/campsite}" class="btn-cta flex-1 justify-center">캠핑사이트 신청 →</a>
@@ -44,20 +44,20 @@
                 </article>
 
                 <article class="card overflow-hidden flex flex-col">
-                    <div class="aspect-[4/3] bg-cover bg-center">
-                         <!--style="background-image: linear-gradient(rgba(11,20,38,0.0) 50%, rgba(11,20,38,0.85)), url('/img/hero-full.jpeg');">-->
-
-                    </div>
+                    <img th:if="${lodging.dormitoryImage != null and !lodging.dormitoryImage.isBlank()}"
+                         th:src="@{${lodging.dormitoryImage}}" th:alt="${lodging.dormitoryTitle}"
+                         class="w-full aspect-[4/3] object-cover" />
+                    <div th:unless="${lodging.dormitoryImage != null and !lodging.dormitoryImage.isBlank()}"
+                         class="aspect-[4/3] bg-cover bg-center bg-bg-card"></div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <h2 class="font-heading text-2xl text-gold mb-3">도미토리</h2>
-                        <p class="text-text-muted text-sm leading-relaxed mb-4 flex-1">
-                            장비가 없거나 편안한 공용 숙소를 원하는 분을 위한 옵션. 운영팀이 마련한
-                            도미토리에서 같은 행사를 즐긴 친구들과 1박.
+                        <h2 class="font-heading text-2xl text-gold mb-3" th:text="${lodging.dormitoryTitle}">도미토리</h2>
+                        <p class="text-text-muted text-sm leading-relaxed mb-4 flex-1" th:text="${lodging.dormitoryDescription}">
+                            장비가 없거나 편안한 공용 숙소를 원하는 분을 위한 옵션.
                         </p>
                         <ul class="text-xs text-text-muted space-y-1 mb-4">
-                            <li>· 성별 구분 배정 · 개인 침구류 지참</li>
-                            <li>· 1박(전야제/본파티) 또는 2박 선택</li>
-                            <li>· 이용료 1인 10,000원 (1박당)</li>
+                            <li th:if="${!#strings.isEmpty(lodging.dormitoryBullet1)}" th:text="'· ' + ${lodging.dormitoryBullet1}"></li>
+                            <li th:if="${!#strings.isEmpty(lodging.dormitoryBullet2)}" th:text="'· ' + ${lodging.dormitoryBullet2}"></li>
+                            <li th:if="${!#strings.isEmpty(lodging.dormitoryBullet3)}" th:text="'· ' + ${lodging.dormitoryBullet3}"></li>
                         </ul>
                         <div class="flex flex-col sm:flex-row gap-3">
                             <a th:href="@{/lodging/dormitory}" class="btn-cta flex-1 justify-center">도미토리 신청 →</a>

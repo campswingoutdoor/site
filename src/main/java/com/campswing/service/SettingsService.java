@@ -7,6 +7,7 @@ import com.campswing.domain.settings.ConceptCopy;
 import com.campswing.domain.settings.EventInfo;
 import com.campswing.domain.settings.IndexHighlight;
 import com.campswing.domain.settings.LocationGuide;
+import com.campswing.domain.settings.LodgingInfo;
 import com.campswing.domain.settings.NoticeLine;
 import com.campswing.domain.settings.PageMeta;
 import com.campswing.domain.settings.PartyPassBenefit;
@@ -58,6 +59,7 @@ public class SettingsService {
     private final AtomicReference<List<NoticeLine>> dormitoryNoticeCache = new AtomicReference<>(List.of());
     private final AtomicReference<List<PartyPassPrice>> partyPassPriceCache = new AtomicReference<>(List.of());
     private final AtomicReference<List<NoticeLine>> partyPassPriceNoteCache = new AtomicReference<>(List.of());
+    private final AtomicReference<LodgingInfo> lodgingInfoCache = new AtomicReference<>();
 
     public SettingsService(SheetsSettingsRepository repo, EventProperties fallback) {
         this.repo = repo;
@@ -79,6 +81,7 @@ public class SettingsService {
         dormitoryNoticeCache.set(SettingsFallbacks.dormitoryNotice());
         partyPassPriceCache.set(SettingsFallbacks.partyPassPrices());
         partyPassPriceNoteCache.set(SettingsFallbacks.partyPassPriceNotes());
+        lodgingInfoCache.set(SettingsFallbacks.lodgingInfo());
         refresh();
     }
 
@@ -139,6 +142,15 @@ public class SettingsService {
         } catch (Exception e) {
             log.debug("PartyPassPriceNote refresh skipped (kept cache): {}", e.getMessage());
         }
+        try {
+            LodgingInfo lodging = repo.readLodgingInfo();
+            // 핵심 필드(캠핑 제목)가 채워진 경우에만 반영 — 빈 탭이 폴백 카피를 덮어쓰지 않도록
+            if (lodging != null && lodging.campsiteTitle() != null && !lodging.campsiteTitle().isBlank()) {
+                lodgingInfoCache.set(lodging);
+            }
+        } catch (Exception e) {
+            log.debug("LodgingInfo refresh skipped (kept cache): {}", e.getMessage());
+        }
     }
 
     private static boolean isAllEmpty(LocationGuide g) {
@@ -171,6 +183,7 @@ public class SettingsService {
     public List<NoticeLine> dormitoryNotice()         { return dormitoryNoticeCache.get(); }
     public List<PartyPassPrice> partyPassPrices()     { return partyPassPriceCache.get(); }
     public List<NoticeLine> partyPassPriceNotes()     { return partyPassPriceNoteCache.get(); }
+    public LodgingInfo lodgingInfo()                  { return lodgingInfoCache.get(); }
 
     /**
      * 자동 계산에 적용할 가격 등급 — Event 시트 partyPassPriceTier (EARLYBIRD/STANDARD/ONSITE).

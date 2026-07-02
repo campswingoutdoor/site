@@ -16,8 +16,8 @@ public record PartyPassApplication(
         VehicleUsage vehicleUsage,
         String vehicleNumber,
         int totalPrice,
-        String dietaryNote,
         String memo,
-        boolean agreedToTerms
+        boolean agreedToTerms,
+        String priceTier
 ) {
 }

@@ -36,6 +36,7 @@ public class LodgingController {
     @GetMapping
     public String index(Model model) {
         pageMeta.apply(model, "lodging");
+        model.addAttribute("lodging", settings.lodgingInfo());
         return "lodging/index";
     }
 

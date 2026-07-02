@@ -29,8 +29,9 @@
 
                 <!-- 데이터가 있을 때 -->
                 <div th:unless="${#lists.isEmpty(legacyDancers)}"
-                     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <article th:each="d : ${legacyDancers}" class="card overflow-hidden">
+                     class="flex flex-wrap justify-center gap-6">
+                    <article th:each="d : ${legacyDancers}"
+                             class="card overflow-hidden basis-full sm:basis-[calc(50%-0.75rem)] lg:basis-[calc(33.333%-1rem)]">
                         <img th:src="@{${d.profileImagePath}}"
                              th:alt="${d.name}"
                              class="w-full aspect-[3/4] object-cover" />
@@ -58,8 +59,9 @@
 
                 <!-- 데이터가 있을 때 -->
                 <div th:unless="${#lists.isEmpty(specialGuestDancers)}"
-                     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <article th:each="d : ${specialGuestDancers}" class="card overflow-hidden">
+                     class="flex flex-wrap justify-center gap-6">
+                    <article th:each="d : ${specialGuestDancers}"
+                             class="card overflow-hidden basis-full sm:basis-[calc(50%-0.75rem)] lg:basis-[calc(33.333%-1rem)]">
                         <img th:src="@{${d.profileImagePath}}"
                              th:alt="${d.name}"
                              class="w-full aspect-[3/4] object-cover" />

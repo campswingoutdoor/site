@@ -82,7 +82,6 @@ class PartyPassControllerTest {
                         .param("role", "LEADER")
                         .param("applyWorkshop", "false")
                         .param("vehicleUsage", "NONE")
-                        .param("dietaryNote", "")
                         .param("memo", "")
                         .param("agreedToTerms", "true"))
                 .andExpect(status().is3xxRedirection())
