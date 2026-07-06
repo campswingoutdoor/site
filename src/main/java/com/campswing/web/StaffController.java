@@ -53,4 +53,12 @@ public class StaffController {
         model.addAttribute("comingSoon", settings.comingSoonFor("staff"));
         return "staff/staff";
     }
+
+    @GetMapping("/flea-market")
+    public String fleaMarket(Model model) {
+        pageMeta.apply(model, "flea-market");
+        model.addAttribute("vendors", service.getAllFleaMarketVendors());
+        model.addAttribute("comingSoon", settings.comingSoonFor("fleaMarket"));
+        return "market/flea-market";
+    }
 }

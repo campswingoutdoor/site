@@ -101,8 +101,8 @@
                                    @change="passType = $event.target.value" />
                             <span class="inline-block px-4 py-2 rounded-md border border-gold/40 text-text-muted peer-checked:bg-gold peer-checked:text-bg-primary peer-checked:border-gold transition"
                                   th:switch="${t.name()}">
-                                <span th:case="'FULL'">풀패스 (전야제 + 본파티)</span>
-                                <span th:case="'MAIN_ONLY'">본파티</span>
+                                <span th:case="'FULL'">풀패스 (전야제 + 매인파티)</span>
+                                <span th:case="'MAIN_ONLY'">매인파티</span>
                                 <span th:case="'PRE_PARTY_ONLY'">전야제</span>
                             </span>
                         </label>

@@ -1,5 +1,6 @@
 package com.campswing.service.sheets;
 
+import com.campswing.domain.market.FleaMarketVendor;
 import com.campswing.domain.staff.Dj;
 import com.campswing.domain.staff.Person;
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ public class SheetsStaffRepository {
     private static final String SHEET_STAFF = "Staff";
     private static final String SHEET_LEGACY_DANCERS = "LegacyDancers";
     private static final String SHEET_SPECIAL_GUEST_DANCERS = "SpecialGuestDancers";
+    private static final String SHEET_FLEA_MARKET = "FleaMarket";
 
     private final GoogleSheetsClient client;
 
@@ -44,6 +46,27 @@ public class SheetsStaffRepository {
                     .toList();
         } catch (Exception e) {
             log.warn("Falling back to empty DJ list (sheet read failed): {}", e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+    public List<FleaMarketVendor> findAllFleaMarketVendors() {
+        if (!client.isEnabled()) {
+            return Collections.emptyList();
+        }
+        try {
+            // 플리마켓 셀러도 정적 콘텐츠 — Settings 스프레드시트에서 읽음
+            List<List<Object>> rows = client.readRange(client.settingsSpreadsheetId(), SHEET_FLEA_MARKET, "A2:G");
+            if (rows.isEmpty()) {
+                return Collections.emptyList();
+            }
+            return rows.stream()
+                    .filter(SheetsStaffRepository::isDataRow)
+                    .map(SheetsStaffRepository::mapVendor)
+                    .sorted(Comparator.comparingInt(FleaMarketVendor::displayOrder))
+                    .toList();
+        } catch (Exception e) {
+            log.warn("Falling back to empty flea market list (sheet read failed): {}", e.getMessage());
             return Collections.emptyList();
         }
     }
@@ -98,6 +121,18 @@ public class SheetsStaffRepository {
 
     private static Dj mapDj(List<Object> row) {
         return new Dj(
+                str(row, 0),
+                str(row, 1),
+                str(row, 2),
+                str(row, 3),
+                str(row, 4),
+                str(row, 5),
+                intOr(row, 6, 0)
+        );
+    }
+
+    private static FleaMarketVendor mapVendor(List<Object> row) {
+        return new FleaMarketVendor(
                 str(row, 0),
                 str(row, 1),
                 str(row, 2),
