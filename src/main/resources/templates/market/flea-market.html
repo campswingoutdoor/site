@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title th:text="${pageMeta?.title}">플리마켓</title>
+</head>
+<body>
+<main layout:fragment="content">
+
+    <section class="section-py">
+        <div class="container-page max-w-5xl">
+            <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3"
+               th:text="${pageMeta?.badge}">FLEA MARKET</p>
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12"
+                th:text="${pageMeta?.h1}">플리마켓</h1>
+
+            <!-- Coming Soon placeholder -->
+            <div th:if="${#lists.isEmpty(vendors)}" class="card p-12 text-center max-w-2xl mx-auto">
+                <p class="font-display tracking-[0.4em] text-text-muted text-sm mb-3" th:text="${comingSoon?.label}">COMING SOON</p>
+                <p class="text-text-muted" th:text="${comingSoon?.message}">플리마켓 셀러 라인업이 곧 공개될 예정입니다.</p>
+                <p class="text-text-muted text-xs mt-4">SNS <span th:text="${event.instagram}">@campswingoutdoor</span> 에서 가장 먼저 안내합니다.</p>
+            </div>
+
+            <!-- 셀러 카드 -->
+            <div th:unless="${#lists.isEmpty(vendors)}"
+                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <article th:each="v : ${vendors}" class="card overflow-hidden flex flex-col">
+                    <img th:if="${v.imageUrl != null and !v.imageUrl.isBlank()}"
+                         th:src="@{${v.imageUrl}}"
+                         th:alt="${v.shopName}"
+                         class="w-full aspect-[3/4] object-cover" />
+                    <div th:unless="${v.imageUrl != null and !v.imageUrl.isBlank()}"
+                         class="w-full aspect-[3/4] bg-bg-card flex items-center justify-center text-text-muted text-sm">
+                        이미지 준비중
+                    </div>
+                    <div class="p-6 text-center flex flex-col flex-1">
+                        <p class="font-heading text-xl text-gold mb-1" th:text="${v.shopName}">상호명</p>
+                        <p th:if="${v.tagline != null and !v.tagline.isBlank()}"
+                           class="text-gold-light text-sm mb-3" th:text="${v.tagline}">한 줄 소개</p>
+                        <p th:if="${v.productIntro != null and !v.productIntro.isBlank()}"
+                           class="text-text-muted text-sm leading-relaxed" th:text="${v.productIntro}">판매 제품 소개</p>
+                        <a th:if="${v.promoLink != null and !v.promoLink.isBlank()}"
+                           th:href="@{${v.promoLink}}" target="_blank" rel="noopener noreferrer"
+                           class="btn-outline-gold inline-flex items-center justify-center gap-1 self-center mt-4">
+                            보러가기 →
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

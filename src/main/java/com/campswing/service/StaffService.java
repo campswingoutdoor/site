@@ -1,5 +1,6 @@
 package com.campswing.service;
 
+import com.campswing.domain.market.FleaMarketVendor;
 import com.campswing.domain.staff.Dj;
 import com.campswing.domain.staff.Person;
 import com.campswing.service.sheets.SheetsStaffRepository;
@@ -34,5 +35,9 @@ public class StaffService {
 
     public List<Person> getSpecialGuestDancers() {
         return repository.findAllSpecialGuestDancers();
+    }
+
+    public List<FleaMarketVendor> getAllFleaMarketVendors() {
+        return repository.findAllFleaMarketVendors();
     }
 }

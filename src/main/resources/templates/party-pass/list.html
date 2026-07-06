@@ -48,6 +48,7 @@
                         <th class="px-4 py-3 whitespace-nowrap">결제금액</th>
                         <th class="px-4 py-3 w-64 min-w-[12rem] whitespace-nowrap">메모</th>
                         <th class="px-4 py-3 whitespace-nowrap">상태</th>
+                        <th class="px-4 py-3 whitespace-nowrap">비고</th>
                     </tr>
                     </thead>
                     <tbody class="text-text [&_td]:align-top">
@@ -92,6 +93,13 @@
                                                 : (#strings.contains(row.status, '완료') ? 'bg-gray-400 text-bg-primary' : 'bg-gray-600 text-white'))))))}"
                                   th:text="${row.status}">상태</span>
                             <span th:unless="${row.status != null and !row.status.isEmpty()}" class="text-text-muted">-</span>
+                        </td>
+                        <!-- 비고: 얼리버드는 5,000원 할인 (시트와 무관하게 priceTier 기반 서버 렌더) -->
+                        <td class="px-4 py-3 whitespace-nowrap">
+                            <span th:if="${#strings.equalsIgnoreCase(row.priceTier, 'EARLYBIRD')}"
+                                  class="text-gold-light">5,000원 할인</span>
+                            <span th:unless="${#strings.equalsIgnoreCase(row.priceTier, 'EARLYBIRD')}"
+                                  class="text-text-muted">-</span>
                         </td>
                     </tr>
                     </tbody>
