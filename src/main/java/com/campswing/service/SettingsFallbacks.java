@@ -66,6 +66,7 @@ final class SettingsFallbacks {
         m.put("staff.instructors",  new PageMeta("staff.instructors",  "강사 소개",          "INSTRUCTORS",        "강사 소개", ""));
         m.put("staff.staff",        new PageMeta("staff.staff",        "스태프 소개",        "STAFF",              "스태프 소개", ""));
         m.put("flea-market",        new PageMeta("flea-market",        "플리마켓",           "FLEA MARKET",        "플리마켓", "Camp Swing Outdoor 2026 플리마켓 — 춤추는 사람들을 위한 셀러들의 부스를 소개합니다."));
+        m.put("events",             new PageMeta("events",             "이벤트",             "EVENTS",             "이벤트", "Camp Swing Outdoor 2026 이벤트 — 행사 기간 중 진행되는 다양한 이벤트를 소개합니다."));
         return m;
     }
 
@@ -126,6 +127,7 @@ final class SettingsFallbacks {
         m.put("legacyDancers",       new ComingSoonItem("legacyDancers",       "COMING SOON", "초대 댄서 라인업이 곧 공개될 예정입니다."));
         m.put("specialGuestDancers", new ComingSoonItem("specialGuestDancers", "COMING SOON", "스페셜 게스트 댄서가 곧 공개될 예정입니다."));
         m.put("fleaMarket",  new ComingSoonItem("fleaMarket",  "COMING SOON", "플리마켓 셀러 라인업이 곧 공개될 예정입니다."));
+        m.put("events",      new ComingSoonItem("events",      "COMING SOON", "행사 기간 중 진행되는 이벤트가 곧 공개될 예정입니다."));
         return m;
     }
 
