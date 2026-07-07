@@ -24,6 +24,10 @@ module.exports = {
         cta: {
           DEFAULT: '#2F5D3A',
           hover: '#3C7A4A'
+        },
+        plum: {
+          DEFAULT: '#7B3B5E',
+          hover: '#96496F'
         }
       },
       fontFamily: {

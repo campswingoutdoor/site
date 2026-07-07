@@ -354,6 +354,7 @@
     <tr><td><span class="badge-tab">LegacyDancers</span></td><td>Invited Dancers 페이지의 Legacy Dancers 섹션</td><td>"COMING SOON" 안내</td></tr>
     <tr><td><span class="badge-tab">SpecialGuestDancers</span></td><td>Invited Dancers 페이지의 Special Guest Dancers 섹션</td><td>"COMING SOON" 안내</td></tr>
     <tr><td><span class="badge-tab">FleaMarket</span></td><td>플리마켓(/flea-market) 페이지의 셀러 카드</td><td>"COMING SOON" 안내</td></tr>
+    <tr><td><span class="badge-tab">Events</span></td><td>이벤트(/events) 페이지의 이벤트 카드 (KV형 Event 탭과 별개)</td><td>"COMING SOON" 안내</td></tr>
     <tr><td><span class="badge-tab">CampsiteNotice</span></td><td>캠핑사이트 신청 페이지의 안내 문구 (줄 단위)</td><td>코드 기본 안내문 표시</td></tr>
     <tr><td><span class="badge-tab">DormitoryNotice</span></td><td>도미토리 신청 페이지의 안내 문구 (줄 단위)</td><td>코드 기본 안내문 표시</td></tr>
     <tr><td><span class="badge-tab">PartyPassPrice</span></td><td>파티패스 가격표 + 자동 결제금액 계산 기준가</td><td>코드 기본 가격표 표시</td></tr>
@@ -689,6 +690,25 @@
 </table>
 
 <p>C열 이미지를 비우면 "이미지 준비중" 회색 박스가, F열을 비우면 "보러가기" 버튼이 표시되지 않습니다. 이미지 등록 방법은 아래 4-14 항목과 동일합니다.</p>
+
+<h2>4-13-2. Events 탭 — 이벤트 카드</h2>
+
+<p>상단 <strong>이벤트</strong> 메뉴(<code>/events</code>)에 플리마켓·DJ와 같은 카드 형식으로 표시됩니다. <strong>행을 추가하면 이벤트 카드가 하나 더 늘어납니다.</strong> 탭이 없거나 비어 있으면 "COMING SOON" 안내가 표시됩니다. <em>(이벤트 이름·계좌 등 핵심 정보가 담긴 KV형 <code>Event</code> 탭과는 별개의 탭입니다 — 반드시 복수형 <code>Events</code>로 만드세요.)</em></p>
+
+<table>
+  <thead><tr><th style="width:8%">열</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>고유 ID (아무 값이나 중복만 피하면 됨)</td></tr>
+    <tr><td>B</td><td>이벤트명</td></tr>
+    <tr><td>C</td><td>대표 이미지 URL (카드 사진) — <code>/img/...</code> 내부 경로 또는 <code>https://...</code> 외부 링크</td></tr>
+    <tr><td>D</td><td>설명 (이벤트 소개)</td></tr>
+    <tr><td>E</td><td>일시 / 장소 (예: 10.30 20:00 · 메인 무대)</td></tr>
+    <tr><td>F</td><td>상세 링크 URL — 카드의 "자세히 보기" 버튼에 연결 (비우면 버튼 숨김)</td></tr>
+    <tr><td>G</td><td>표시 순서 (작은 숫자가 먼저)</td></tr>
+  </tbody>
+</table>
+
+<p>C열 이미지를 비우면 "이미지 준비중" 회색 박스가, F열을 비우면 "자세히 보기" 버튼이 표시되지 않습니다.</p>
 
 <h2>4-14. 프로필 이미지 적용 방법 (DJ / 강사 / 스태프 / Invited Dancers 공통)</h2>
 

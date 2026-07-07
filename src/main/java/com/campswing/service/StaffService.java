@@ -1,5 +1,6 @@
 package com.campswing.service;
 
+import com.campswing.domain.event.EventCard;
 import com.campswing.domain.market.FleaMarketVendor;
 import com.campswing.domain.staff.Dj;
 import com.campswing.domain.staff.Person;
@@ -39,5 +40,9 @@ public class StaffService {
 
     public List<FleaMarketVendor> getAllFleaMarketVendors() {
         return repository.findAllFleaMarketVendors();
+    }
+
+    public List<EventCard> getAllEventCards() {
+        return repository.findAllEventCards();
     }
 }

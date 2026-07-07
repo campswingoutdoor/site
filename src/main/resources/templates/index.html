@@ -30,7 +30,7 @@
             })();
         </script>
         <div class="absolute inset-0 bg-gradient-to-b from-bg-primary/70 via-bg-primary/40 to-bg-primary/80 md:hidden"></div>
-        <div class="container-page relative text-center pt-[28rem] md:pt-96 pb-24 md:bg-hero-main md:bg-cover md:bg-center">
+        <div class="container-page relative text-center pt-[30rem] md:pt-[26rem] pb-4 md:pb-24 md:bg-hero-main md:bg-cover md:bg-center">
             <p class="hidden md:block font-display tracking-[0.4em] text-gold text-xs md:text-sm mb-4"
                th:text="${pageMeta?.badge}">CAMP SWING OUTDOOR</p>
             <h1 class="hidden md:block font-display text-5xl md:text-7xl text-gold mb-6"
@@ -43,11 +43,18 @@
             </p>
             <p class="hidden md:block font-display text-lg text-text-muted mb-2" th:text="${event.mainVenue.name}">상주우산오토캠핑장</p>
             <p class="hidden md:block font-display italic text-gold-light text-lg md:text-xl mb-10" th:text="${event.slogan}">Swing Out Under The Stars</p>
-            <p class="text-text-muted text-sm mb-10" th:text="${event.heroSubtitle}">Swing Dance · Camping · Music · Community</p>
+            <p class="hidden md:block text-text-muted text-sm mb-10" th:text="${event.heroSubtitle}">Swing Dance · Camping · Music · Community</p>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mt-16 md:mt-0">
                 <a th:href="@{/party-pass}" class="btn-cta">파티패스 신청</a>
                 <a th:href="@{/lodging}" class="btn-outline-gold">숙박 신청</a>
+            </div>
+
+            <!-- 신청 확인 바로가기 -->
+            <div class="flex flex-col sm:flex-row gap-3 justify-center mt-4">
+                <a th:href="@{/party-pass/list}" class="btn-plum">파티패스 신청확인</a>
+                <a th:href="@{/lodging/campsite/list}" class="btn-plum">캠핑 신청확인</a>
+                <a th:href="@{/lodging/dormitory/list}" class="btn-plum">도미 신청확인</a>
             </div>
 
             <a th:href="@{/event/overview}" class="inline-block mt-10 text-gold hover:text-gold-light transition">

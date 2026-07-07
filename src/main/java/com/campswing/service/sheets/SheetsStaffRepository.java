@@ -1,5 +1,6 @@
 package com.campswing.service.sheets;
 
+import com.campswing.domain.event.EventCard;
 import com.campswing.domain.market.FleaMarketVendor;
 import com.campswing.domain.staff.Dj;
 import com.campswing.domain.staff.Person;
@@ -22,6 +23,7 @@ public class SheetsStaffRepository {
     private static final String SHEET_LEGACY_DANCERS = "LegacyDancers";
     private static final String SHEET_SPECIAL_GUEST_DANCERS = "SpecialGuestDancers";
     private static final String SHEET_FLEA_MARKET = "FleaMarket";
+    private static final String SHEET_EVENTS = "Events";
 
     private final GoogleSheetsClient client;
 
@@ -67,6 +69,27 @@ public class SheetsStaffRepository {
                     .toList();
         } catch (Exception e) {
             log.warn("Falling back to empty flea market list (sheet read failed): {}", e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+    public List<EventCard> findAllEventCards() {
+        if (!client.isEnabled()) {
+            return Collections.emptyList();
+        }
+        try {
+            // 이벤트 카드도 정적 콘텐츠 — Settings 스프레드시트 Events 탭에서 읽음
+            List<List<Object>> rows = client.readRange(client.settingsSpreadsheetId(), SHEET_EVENTS, "A2:G");
+            if (rows.isEmpty()) {
+                return Collections.emptyList();
+            }
+            return rows.stream()
+                    .filter(SheetsStaffRepository::isDataRow)
+                    .map(SheetsStaffRepository::mapEventCard)
+                    .sorted(Comparator.comparingInt(EventCard::displayOrder))
+                    .toList();
+        } catch (Exception e) {
+            log.warn("Falling back to empty event list (sheet read failed): {}", e.getMessage());
             return Collections.emptyList();
         }
     }
@@ -133,6 +156,18 @@ public class SheetsStaffRepository {
 
     private static FleaMarketVendor mapVendor(List<Object> row) {
         return new FleaMarketVendor(
+                str(row, 0),
+                str(row, 1),
+                str(row, 2),
+                str(row, 3),
+                str(row, 4),
+                str(row, 5),
+                intOr(row, 6, 0)
+        );
+    }
+
+    private static EventCard mapEventCard(List<Object> row) {
+        return new EventCard(
                 str(row, 0),
                 str(row, 1),
                 str(row, 2),
