@@ -4,9 +4,9 @@ spring:
 
 settings:
   cache:
-    # 로컬: 5초마다 갱신 (batchGet 1회 호출 = 12 req/min, quota 60/min 대비 20%).
-    # 시트 수정 후 5초 내 반영. dev 흐름 최적화.
-    refresh-interval-ms: 5000
+    # 로컬: 10초마다 갱신. 갱신 1회당 약 6회 읽기 → 분당 약 36회 (quota 60/min 대비 여유).
+    # 시트 수정 후 최대 10초 내 반영. dev 흐름 최적화.
+    refresh-interval-ms: 10000
 
 logging:
   level:
