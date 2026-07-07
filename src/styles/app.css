@@ -21,9 +21,6 @@
   .btn-outline-gold {
     @apply inline-flex items-center justify-center px-6 py-3 rounded-md border border-gold text-gold hover:bg-gold/10 transition;
   }
-  .btn-plum {
-    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-md bg-plum hover:bg-plum-hover text-text text-sm font-semibold transition;
-  }
   .card {
     @apply bg-bg-card rounded-lg shadow-card border border-gold/30;
   }
