@@ -16,11 +16,16 @@
                 th:text="${pageMeta?.h1}">파티패스 신청 확인</h1>
             <p class="text-center text-text-muted mb-8">
                 현재까지 등록된 파티패스 신청 내역입니다.
-                <span class="text-gold-light"> 총 <span th:text="${#lists.size(items)}">0</span>건</span>
+                <span class="text-gold-light"> 총 <span class="text-white" th:text="${#lists.size(items)}">0</span>건</span>
             </p>
 
-            <div class="flex justify-end mb-4">
-                <a th:href="@{/party-pass}" class="btn-outline-gold">← 신청 폼으로 돌아가기</a>
+            <div class="flex flex-row items-center justify-between gap-2 mb-4">
+                <span class="btn-outline-gold cursor-default whitespace-nowrap text-xs px-3 py-2 sm:text-sm sm:px-6 sm:py-3">
+                    리더 <span class="ml-1 text-white font-semibold" th:text="${leaderCount}">0</span>
+                    <span class="mx-1.5 text-gold/40">·</span>
+                    팔로워 <span class="ml-1 text-white font-semibold" th:text="${followerCount}">0</span>
+                </span>
+                <a th:href="@{/party-pass}" class="btn-outline-gold whitespace-nowrap text-xs px-3 py-2 sm:text-sm sm:px-6 sm:py-3">← 신청 폼으로</a>
             </div>
 
             <!-- 신청자 없음 -->
