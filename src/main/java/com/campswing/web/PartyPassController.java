@@ -42,7 +42,12 @@ public class PartyPassController {
     @GetMapping("/party-pass/list")
     public String list(Model model) {
         pageMeta.apply(model, "party-pass.list");
-        model.addAttribute("items", service.listPartyPass());
+        var items = service.listPartyPass();
+        long leaderCount = items.stream().filter(i -> "LEADER".equalsIgnoreCase(i.role())).count();
+        long followerCount = items.stream().filter(i -> "FOLLOWER".equalsIgnoreCase(i.role())).count();
+        model.addAttribute("items", items);
+        model.addAttribute("leaderCount", leaderCount);
+        model.addAttribute("followerCount", followerCount);
         return "party-pass/list";
     }
 
