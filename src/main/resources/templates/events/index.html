@@ -10,11 +10,12 @@
 <main layout:fragment="content">
 
     <section class="section-py">
-        <div class="container-page max-w-5xl">
+        <div class="container-page max-w-3xl">
             <p class="text-center font-display tracking-[0.4em] text-gold text-xs mb-3"
                th:text="${pageMeta?.badge}">EVENTS</p>
-            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-12"
+            <h1 class="text-center font-heading text-4xl md:text-5xl text-gold mb-3"
                 th:text="${pageMeta?.h1}">이벤트</h1>
+            <p class="text-center text-text-muted mb-10">진행 중인 다양한 이벤트에 참여해 보세요!</p>
 
             <!-- Coming Soon placeholder -->
             <div th:if="${#lists.isEmpty(eventCards)}" class="card p-12 text-center max-w-2xl mx-auto">
@@ -23,31 +24,23 @@
                 <p class="text-text-muted text-xs mt-4">SNS <span th:text="${event.instagram}">@campswingoutdoor</span> 에서 가장 먼저 안내합니다.</p>
             </div>
 
-            <!-- 이벤트 카드 -->
-            <div th:unless="${#lists.isEmpty(eventCards)}"
-                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <article th:each="ev : ${eventCards}" class="card overflow-hidden flex flex-col">
-                    <img th:if="${ev.imageUrl != null and !ev.imageUrl.isBlank()}"
-                         th:src="@{${ev.imageUrl}}"
-                         th:alt="${ev.title}"
-                         class="w-full aspect-[3/4] object-cover" />
-                    <div th:unless="${ev.imageUrl != null and !ev.imageUrl.isBlank()}"
-                         class="w-full aspect-[3/4] bg-bg-card flex items-center justify-center text-text-muted text-sm">
-                        이미지 준비중
+            <!-- 이벤트 리스트 (Todo-list 스타일) -->
+            <div th:unless="${#lists.isEmpty(eventCards)}" class="space-y-4">
+                <a th:each="ev : ${eventCards}"
+                   th:href="@{/events/{id}(id=${ev.id})}"
+                   class="card block p-5 md:p-6 hover:border-gold/60 hover:bg-gold/5 transition group">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="inline-block px-2.5 py-1 rounded-full text-xs font-semibold shrink-0"
+                              th:classappend="${ev.isOngoing()} ? 'bg-green-500 text-bg-primary' : 'bg-gray-500 text-white'"
+                              th:text="${ev.status != null and !ev.status.isBlank()} ? ${ev.status} : '진행중'">진행중</span>
+                        <h2 class="font-heading text-lg md:text-xl text-gold-light group-hover:text-gold transition truncate"
+                            th:text="${ev.title}">이벤트명</h2>
                     </div>
-                    <div class="p-6 text-center flex flex-col flex-1">
-                        <p class="font-heading text-xl text-gold mb-1" th:text="${ev.title}">이벤트명</p>
-                        <p th:if="${ev.schedule != null and !ev.schedule.isBlank()}"
-                           class="text-gold-light text-sm mb-3" th:text="${ev.schedule}">일시 / 장소</p>
-                        <p th:if="${ev.description != null and !ev.description.isBlank()}"
-                           class="text-text-muted text-sm leading-relaxed" th:text="${ev.description}">이벤트 설명</p>
-                        <a th:if="${ev.link != null and !ev.link.isBlank()}"
-                           th:href="@{${ev.link}}" target="_blank" rel="noopener noreferrer"
-                           class="btn-outline-gold inline-flex items-center justify-center gap-1 self-center mt-4">
-                            자세히 보기 →
-                        </a>
-                    </div>
-                </article>
+                    <p th:if="${ev.summary != null and !ev.summary.isBlank()}"
+                       class="text-text-muted text-sm leading-relaxed mb-2" th:text="${ev.summary}">간단한 설명</p>
+                    <p th:if="${ev.period != null and !ev.period.isBlank()}"
+                       class="text-text-muted text-xs">기간: <span th:text="${ev.period}">2026.07.01 ~ 2026.07.31</span></p>
+                </a>
             </div>
         </div>
     </section>

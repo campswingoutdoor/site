@@ -45,4 +45,13 @@ public class StaffService {
     public List<EventCard> getAllEventCards() {
         return repository.findAllEventCards();
     }
+
+    /** id로 단일 이벤트 조회 (상세 페이지용). 없으면 null. */
+    public EventCard getEventCard(String id) {
+        if (id == null || id.isBlank()) return null;
+        return repository.findAllEventCards().stream()
+                .filter(e -> id.equals(e.id()))
+                .findFirst()
+                .orElse(null);
+    }
 }
