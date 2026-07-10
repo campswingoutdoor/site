@@ -79,7 +79,7 @@ public class SheetsStaffRepository {
         }
         try {
             // 이벤트 카드도 정적 콘텐츠 — Settings 스프레드시트 Events 탭에서 읽음
-            List<List<Object>> rows = client.readRange(client.settingsSpreadsheetId(), SHEET_EVENTS, "A2:G");
+            List<List<Object>> rows = client.readRange(client.settingsSpreadsheetId(), SHEET_EVENTS, "A2:K");
             if (rows.isEmpty()) {
                 return Collections.emptyList();
             }
@@ -168,13 +168,17 @@ public class SheetsStaffRepository {
 
     private static EventCard mapEventCard(List<Object> row) {
         return new EventCard(
-                str(row, 0),
-                str(row, 1),
-                str(row, 2),
-                str(row, 3),
-                str(row, 4),
-                str(row, 5),
-                intOr(row, 6, 0)
+                str(row, 0),   // id
+                str(row, 1),   // status
+                str(row, 2),   // title
+                str(row, 3),   // summary
+                str(row, 4),   // period
+                str(row, 5),   // imageUrl
+                str(row, 6),   // description
+                str(row, 7),   // howTo
+                str(row, 8),   // ctaLabel
+                str(row, 9),   // ctaLink
+                intOr(row, 10, 0)  // displayOrder
         );
     }
 

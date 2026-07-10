@@ -1,10 +1,12 @@
 package com.campswing.web;
 
+import com.campswing.domain.event.EventCard;
 import com.campswing.service.SettingsService;
 import com.campswing.service.StaffService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class StaffController {
@@ -68,5 +70,18 @@ public class StaffController {
         model.addAttribute("eventCards", service.getAllEventCards());
         model.addAttribute("comingSoon", settings.comingSoonFor("events"));
         return "events/index";
+    }
+
+    @GetMapping("/events/{id}")
+    public String eventDetail(@PathVariable String id, Model model) {
+        EventCard eventCard = service.getEventCard(id);
+        if (eventCard == null) {
+            return "redirect:/events";
+        }
+        pageMeta.apply(model, "events");
+        model.addAttribute("pageTitle", eventCard.title());
+        model.addAttribute("eventCard", eventCard);
+        model.addAttribute("comingSoon", settings.comingSoonFor("events"));
+        return "events/detail";
     }
 }
