@@ -33,6 +33,8 @@ public class ApplicationService {
     public static final int PARTY_PASS_MAIN_PRICE = 100_000;
     /** 올패스(FULL) 일반가. */
     public static final int PARTY_PASS_FULL_PRICE = 125_000;
+    /** 머글패스(MUGGLE) 정액 — 등급(얼리버드/일반/현장) 구분 없이 동일. */
+    public static final int PARTY_PASS_MUGGLE_PRICE = 40_000;
     /** 워크숍 추가 요금. */
     public static final int WORKSHOP_FEE = 40_000;
     /** 일반 차량 이용 주차비 (캠핑사이트 이용 차량은 무료). */
@@ -59,7 +61,8 @@ public class ApplicationService {
 
     public ApplicationCreatedResponse submitPartyPass(PartyPassApplicationRequest req) {
         LocalDateTime submittedAt = clock.now();
-        boolean applyWorkshop = Boolean.TRUE.equals(req.applyWorkshop());
+        // 머글패스는 댄스 미참여 패스이므로 워크숍 신청 불가 (폼에서도 숨김) — 서버에서 강제 false
+        boolean applyWorkshop = req.passType() != PassType.MUGGLE && Boolean.TRUE.equals(req.applyWorkshop());
         VehicleUsage vehicleUsage = req.vehicleUsage() != null ? req.vehicleUsage() : VehicleUsage.NONE;
         PartyPassApplication app = new PartyPassApplication(
                 UUID.randomUUID().toString(),
@@ -137,7 +140,7 @@ public class ApplicationService {
     /** 파티패스 총액 = 패스 일반가 + (워크숍 추가) + (일반 차량 주차비). 가격은 Settings 시트 연동. */
     public int partyPassTotalPrice(PassType passType, boolean applyWorkshop, VehicleUsage vehicleUsage) {
         int total = partyPassBasePrice(passType);
-        if (applyWorkshop) {
+        if (applyWorkshop && passType != PassType.MUGGLE) {
             total += partyPassWorkshopFee();
         }
         if (vehicleUsage == VehicleUsage.GENERAL) {
@@ -155,6 +158,7 @@ public class ApplicationService {
             case PRE_PARTY_ONLY -> PARTY_PASS_PRE_PARTY_PRICE;
             case MAIN_ONLY -> PARTY_PASS_MAIN_PRICE;
             case FULL -> PARTY_PASS_FULL_PRICE;
+            case MUGGLE -> PARTY_PASS_MUGGLE_PRICE;
         };
     }
 

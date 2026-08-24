@@ -57,6 +57,28 @@ class ApplicationServiceTest {
     }
 
     @Test
+    void submitPartyPass_mugglePassIsFlatPriceAndRejectsWorkshop() {
+        // 머글패스는 등급 구분 없는 정액(40,000) + 워크숍 신청 불가 (폼에서 숨김, 서버에서 강제 false)
+        given(settings.partyPassCalcPrice("MUGGLE")).willReturn(40_000);
+        given(settings.partyPassPriceTier()).willReturn("STANDARD");
+
+        PartyPassApplicationRequest req = new PartyPassApplicationRequest(
+                "김머글", "머글", "010-1234-5678", null,
+                PassType.MUGGLE, null, DanceRole.FOLLOWER,
+                true, VehicleUsage.NONE, null, null, true);
+
+        service.submitPartyPass(req);
+
+        ArgumentCaptor<PartyPassApplication> captor = ArgumentCaptor.forClass(PartyPassApplication.class);
+        then(repository).should().savePartyPass(captor.capture());
+        PartyPassApplication saved = captor.getValue();
+
+        assertThat(saved.passType()).isEqualTo(PassType.MUGGLE);
+        assertThat(saved.applyWorkshop()).isFalse();
+        assertThat(saved.totalPrice()).isEqualTo(40_000);
+    }
+
+    @Test
     void submitPartyPass_assignsUuidAndKstTimestamp() {
         // 가격은 Settings 시트(파티패스 가격표) 연동 — 일반가/워크숍가 stub
         given(settings.partyPassCalcPrice("FULL")).willReturn(125_000);
