@@ -236,7 +236,7 @@
     <tr><td>D</td><td>닉네임</td></tr>
     <tr><td>E</td><td>연락처</td></tr>
     <tr><td>F</td><td>이메일 <em>(신청자가 비울 수 있음)</em></td></tr>
-    <tr><td>G</td><td>패스 종류 — <code>FULL</code>(올패스) / <code>PRE_PARTY_ONLY</code>(전야제) / <code>MAIN_ONLY</code>(본파티)</td></tr>
+    <tr><td>G</td><td>패스 종류 — <code>FULL</code>(올패스) / <code>PRE_PARTY_ONLY</code>(전야제) / <code>MAIN_ONLY</code>(본파티) / <code>MUGGLE</code>(머글패스)</td></tr>
     <tr><td>H</td><td>소속 동호회</td></tr>
     <tr><td>I</td><td>역할 — <code>LEADER</code> / <code>FOLLOWER</code></td></tr>
     <tr><td>J</td><td>워크숍 신청 여부 (TRUE/FALSE)</td></tr>
@@ -416,7 +416,7 @@
   · <strong>일부 키만</strong> 넣어도 됩니다. 안 넣은 키는 코드 기본값 표시. 단 시스템이 "탭이 채워졌다"고 인식하려면 최소 <span class="key">campsiteTitle</span>은 채워주세요(빈 탭이 기본값을 덮어쓰지 않게 하는 안전장치).<br/>
   · 버튼(신청/신청확인)은 고정이라 시트로 바꾸지 않습니다.
 </div>
-<p><strong>PartyPassPrice</strong> 탭은 6개 열 구성입니다: A=표시 순서, B=key(<code>PRE_PARTY_ONLY</code>/<code>MAIN_ONLY</code>/<code>FULL</code>/<code>WORKSHOP</code>), C=표시명, D=얼리버드가, E=일반가, F=현장가. <strong>일반가(E열)</strong>가 신청 폼의 자동 결제금액 계산 기준입니다. key 값은 정확히 위 4가지를 사용하세요(자동 계산 매핑용).</p>
+<p><strong>PartyPassPrice</strong> 탭은 6개 열 구성입니다: A=표시 순서, B=key(<code>PRE_PARTY_ONLY</code>/<code>MAIN_ONLY</code>/<code>FULL</code>/<code>MUGGLE</code>/<code>WORKSHOP</code>), C=표시명, D=얼리버드가, E=일반가, F=현장가. <strong>일반가(E열)</strong>가 신청 폼의 자동 결제금액 계산 기준입니다. key 값은 정확히 위 5가지를 사용하세요(자동 계산 매핑용). <code>MUGGLE</code>(머글패스)은 등급 구분 없는 정액이므로 D·E·F 세 열에 같은 금액(기본 40,000)을 입력하세요. 머글패스 신청자에게는 워크숍 추가 신청이 노출되지 않습니다.</p>
 
 <h2>시트 입력의 공통 규칙</h2>
 

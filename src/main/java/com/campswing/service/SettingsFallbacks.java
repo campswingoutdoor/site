@@ -148,7 +148,8 @@ final class SettingsFallbacks {
                 new PartyPassPrice(1, "PRE_PARTY_ONLY", "전야제 (뒤풀이 포함)",        30_000,  35_000,  40_000),
                 new PartyPassPrice(2, "MAIN_ONLY",      "본파티 (뒤풀이 포함)",        95_000, 100_000, 110_000),
                 new PartyPassPrice(3, "FULL",           "올패스 (전야제 + 본파티)",   120_000, 125_000, 135_000),
-                new PartyPassPrice(4, "WORKSHOP",       "워크숍 (선택)",               35_000,  40_000,  45_000)
+                new PartyPassPrice(4, "MUGGLE",         "머글패스",                    40_000,  40_000,  40_000),
+                new PartyPassPrice(5, "WORKSHOP",       "워크숍 (선택)",               35_000,  40_000,  45_000)
         );
     }
 

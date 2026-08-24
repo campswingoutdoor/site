@@ -80,6 +80,7 @@ public class PartyPassController {
         model.addAttribute("prePartyPrice", service.partyPassBasePrice(PassType.PRE_PARTY_ONLY));
         model.addAttribute("mainPrice", service.partyPassBasePrice(PassType.MAIN_ONLY));
         model.addAttribute("fullPrice", service.partyPassBasePrice(PassType.FULL));
+        model.addAttribute("mugglePrice", service.partyPassBasePrice(PassType.MUGGLE));
         model.addAttribute("workshopFee", service.partyPassWorkshopFee());
         model.addAttribute("vehicleGeneralFee", ApplicationService.PARTY_PASS_VEHICLE_GENERAL_FEE);
     }
